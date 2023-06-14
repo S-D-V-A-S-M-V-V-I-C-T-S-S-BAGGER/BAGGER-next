@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --lucht-blauw: #62c6c0ff;
+  --tekst-schaduw-blauw: #018678ff;
+  --aarde-bruin: #6d461bff;
+  --aarde-bovenkant-bruin: #825a30ff;
+  --aarde-bovenkant-beige: #e39f61ff;
+  --blad-lichtgroen: #65b045ff;
+  --blad-donkergroen: #538f40ff;
+  --steeltje-donkergroen: #396732ff;
+  --aarde-bier: #ce8d4aff;
+  --tekst-zwart: #000000ff;
+  --foreground-text: var(--tekst-zwart);
+  --base-unit: 1vmin;
+}
+
+@font-face {
+  font-family: "Milasian Circa";
+  src: url("/MilasianCircaBold.ttf") format("truetype");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-text: #ffffffff;
+  }
+}
+
+body {
+  color: var(--foreground-text);
+  background: var(--aarde-bruin);
+  /* TODO fix black bar at bottom on mobile */
+}
+
+main {
+  /* height: 100%; */
+}
+
+.lucht {
+  background: var(--lucht-blauw);
+  height: calc(60 * var(--base-unit));
+}
+
+.aarde-bovenkant {
+  background: var(--aarde-bovenkant-bruin);
+  height: calc(5 * var(--base-unit));
+}
+
+.aarde-bovenkant-vruchtbaar {
+  background: var(--aarde-bovenkant-beige);
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  width: calc(7.5 * var(--base-unit));
+}
+
+.blaadjes {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: calc(20 * var(--base-unit));
+  width: calc(35 * var(--base-unit));
+  z-index: 10;
+}
+
+.blaadjes-afbeelding {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  position: relative;
+}
+
+.blaadjes-steeltje {
+  background: var(--blad-donkergroen);
+  width: calc(0.65 * var(--base-unit));
+  height: calc(1.74 * var(--base-unit));
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: calc(-1.28 * var(--base-unit));
+  border-radius: calc(0.32 * var(--base-unit));
+}
+
+.steel {
+  background: var(--steeltje-donkergroen);
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(2.48 * var(--base-unit));
+  position: relative;
+  top: calc(20 * var(--base-unit));
+  margin-top: calc(-1.74 * var(--base-unit));
+  height: calc(28 * var(--base-unit));
+  border-radius: calc(1.24 * var(--base-unit));
+  z-index: 9;
+}
+
+.steel-onder {
+  background: var(--blad-donkergroen);
+  width: 100%;
+  height: 55%;
+  position: relative;
+  top: 45%;
+  border-bottom-left-radius: calc(0.52 * var(--base-unit));
+  border-bottom-right-radius: calc(0.52 * var(--base-unit));
+}
+
+.bagger-tekst {
+  font-family: "Milasian Circa";
+  color: var(--tekst-zwart);
+  font-size: calc(30 * var(--base-unit));
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  top: calc(-22 * var(--base-unit));
+  z-index: 11;
+  text-shadow: calc(0.59 * var(--base-unit)) calc(0.59 * var(--base-unit))
+    var(--tekst-schaduw-blauw);
+}
+
+.bier-tunnel {
+  background: var(--aarde-bier);
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  width: calc(7.5 * var(--base-unit));
+}
+
+.content {
+  display: grid;
+  grid-template: "content-overlap";
+}
+
+.content-voor {
+  grid-area: content-overlap;
+}
+
+.content-achter {
+  grid-area: content-overlap;
+}
+
+.bier-tunnel-boven {
+  background: var(--aarde-bier);
+  height: calc(10 * var(--base-unit));
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(7.5 * var(--base-unit));
+}
+
+.bier-tunnel-onder {
+  background: var(--aarde-bier);
+  height: calc(15 * var(--base-unit));
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: calc(-5 * var(--base-unit));
+  width: calc(7.5 * var(--base-unit));
+}
+
+.bier-gat {
+  background: var(--aarde-bier);
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(27.64 * var(--base-unit));
+  height: calc(27.64 * var(--base-unit));
+  border-radius: calc(13.82 * var(--base-unit));
+}
+
+.biertje-afbeelding {
+  position: relative;
+  top: calc(3.49 * var(--base-unit));
+  left: calc(4.16 * var(--base-unit));
+  width: calc(18.82 * var(--base-unit));
+}
+
+.logo-onderkant {
+  margin-bottom: calc(5 * var(--base-unit));
+}
+
+.bubbel {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--aarde-bovenkant-bruin);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

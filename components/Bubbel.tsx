@@ -3,8 +3,8 @@
 import { CSSProperties, FC, PropsWithChildren } from "react";
 
 interface BubbelProps {
-  style: CSSProperties;
-  className: string;
+  style?: CSSProperties;
+  className?: string;
 }
 
 const Bubbel: FC<PropsWithChildren<BubbelProps>> = ({

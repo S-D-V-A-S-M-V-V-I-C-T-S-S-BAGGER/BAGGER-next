@@ -1,24 +1,34 @@
-import Bubbel from "@/components/Bubbel";
 import LogoBovenkant from '@/components/logo/LogoBovenkant';
 import LogoOnderkant from '@/components/logo/LogoOnderkant';
 import LogoMidden from '@/components/logo/LogoMidden';
+import Image from 'next/image';
+import TwoFriends from '@/public/romance-cropped.jpg';
 
 export default function Home() {
   return (
     <main>
       <LogoBovenkant/>
       <LogoMidden>
-          <Bubbel style={{ width: "min-content" }}>
-              <a href="https://quotes.dispuutbagger.nl">Quotes</a>
-          </Bubbel>
-
-          <Bubbel style={{ width: "min-content" }}>
-              <a href="https://dispuutbagger.nl/declaratie">Declaraties</a>
-          </Bubbel>
-
-          <Bubbel style={{ width: "min-content" }}>
-              <a href="https://dispuutbagger.nl/planning">Planning</a>
-          </Bubbel>
+          <div className={'lichting-links'}>
+              <div className={'lichting-afbeelding-bubbel lichting-afbeelding-links'}>
+                  <Image className={'lichting-afbeelding'} src={TwoFriends} alt={'BAGGER logo'} />
+              </div>
+          </div>
+          <div className={'lichting-rechts'}>
+              <div className={'lichting-afbeelding-bubbel lichting-afbeelding-rechts'}>
+                  <Image className={'lichting-afbeelding'} src={TwoFriends} alt={'BAGGER logo'} />
+              </div>
+          </div>
+          <div className={'lichting-links'}>
+              <div className={'lichting-afbeelding-bubbel lichting-afbeelding-links'}>
+                  <Image className={'lichting-afbeelding'} src={TwoFriends} alt={'BAGGER logo'} />
+              </div>
+          </div>
+          <div className={'lichting-rechts'}>
+              <div className={'lichting-afbeelding-bubbel lichting-afbeelding-rechts'}>
+                  <Image className={'lichting-afbeelding'} src={TwoFriends} alt={'BAGGER logo'} />
+              </div>
+          </div>
       </LogoMidden>
       <LogoOnderkant/>
     </main>

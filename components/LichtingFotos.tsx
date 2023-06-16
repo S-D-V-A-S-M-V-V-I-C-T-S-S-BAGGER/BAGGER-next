@@ -2,6 +2,7 @@ import {FC} from 'react';
 import path from 'path';
 import fs from 'fs';
 import Image from 'next/image';
+import './lichtingfotos.css'
 
 const LichtingFotos: FC = () => {
     const lichtingFotoDir = 'lichtingfotos';

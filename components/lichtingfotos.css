@@ -1,0 +1,44 @@
+.lichting-afbeelding {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lichting-afbeelding-bubbel {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    width: 40vmin;
+    height: 40vmin;
+    padding: 3vmin;
+}
+
+@media (max-width: 800px) {
+    .lichting-afbeelding-bubbel {
+        background: var(--aarde-bier);
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 5vh;
+    }
+}
+
+@media (min-width: 801px) {
+    .lichting-afbeelding-bubbel {
+        background: var(--aarde-bovenkant-bruin);
+    }
+
+    .lichting-balk {
+        width: 100vw;
+        height: 30vmin;
+    }
+
+    .lichting-afbeelding-links {
+        margin-right: auto;
+        margin-left: clamp(calc(40vw - 40vmin), 3vw, 20vw);
+    }
+
+    .lichting-afbeelding-rechts {
+        margin-left: auto;
+        margin-right: clamp(calc(40vw - 40vmin), 3vw, 20vw);
+    }
+}

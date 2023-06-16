@@ -79,7 +79,7 @@ main {
     background: var(--aarde-bovenkant-bruin);
   }
 
-  .lichting-links {
+  .lichting-balk {
     width: 100vw;
     height: 30vmin;
   }
@@ -87,11 +87,6 @@ main {
   .lichting-afbeelding-links {
     margin-right: auto;
     margin-left: clamp(calc(40vw - 40vmin), 3vw, 20vw);
-  }
-
-  .lichting-rechts {
-    width: 100vw;
-    height: 30vmin;
   }
 
   .lichting-afbeelding-rechts {

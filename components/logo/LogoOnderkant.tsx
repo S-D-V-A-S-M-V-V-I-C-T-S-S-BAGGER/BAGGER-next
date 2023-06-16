@@ -1,6 +1,7 @@
 import {FC} from 'react';
 import Image from 'next/image';
 import Grolschje from '@/public/grolschje-optimized.svg';
+import './logo.css'
 
 const LogoOnderkant: FC = () => {
     return (

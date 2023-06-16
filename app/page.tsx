@@ -1,7 +1,7 @@
 import Bubbel from "@/components/Bubbel";
-import LogoBovenkant from '@/components/LogoBovenkant';
-import LogoOnderkant from '@/components/LogoOnderkant';
-import LogoMidden from '@/components/LogoMidden';
+import LogoBovenkant from '@/components/logo/LogoBovenkant';
+import LogoOnderkant from '@/components/logo/LogoOnderkant';
+import LogoMidden from '@/components/logo/LogoMidden';
 
 export default function Home() {
   return (

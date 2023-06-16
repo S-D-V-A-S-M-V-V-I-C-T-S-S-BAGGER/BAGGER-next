@@ -1,6 +1,7 @@
 import {FC} from 'react';
 import Image from 'next/image';
 import Blaadjes from '@/public/blaadjes-optimized.svg';
+import './logo.css'
 
 const LogoBovenkant: FC = () => {
     return (

@@ -7,16 +7,12 @@ import './lichtingfotos.css'
 const LichtingFotos: FC = () => {
     const lichtingFotoDir = 'lichtingfotos';
     const dir             = path.resolve('./public', lichtingFotoDir);
-    const lichtingFotos   = fs.readdirSync(dir);
+    const lichtingFotos   = fs.readdirSync(dir).filter(fileName => fileName !== '.gitkeep');
 
     const components = [];
 
     for (let i = 0; i < lichtingFotos.length; i++) {
         const lichtingFoto = lichtingFotos[i];
-
-        if (lichtingFoto === '.gitkeep') {
-            continue;
-        }
 
         const imagePath = path.join('/', lichtingFotoDir, lichtingFoto);
 

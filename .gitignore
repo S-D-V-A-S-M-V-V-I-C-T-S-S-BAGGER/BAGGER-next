@@ -2,3 +2,4 @@
 /.idea/
 /.next/
 .env*
+!.env.example

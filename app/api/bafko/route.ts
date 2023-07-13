@@ -1,13 +1,18 @@
-import {Request} from 'next/dist/compiled/@edge-runtime/primitives/fetch';
+'use server'
 import { NextResponse } from 'next/server';
 
-export async function GET() {
-    const data = await (await fetch('https://sheet.best/api/sheets/9a5d4f63-ebda-45df-8d17-6a3d9246848c')).json();
-    var random_bafko = data[Math.floor(Math.random() * data.length)]
-    random_bafko = {
-        "BAfko": random_bafko["BAGGER Afkortingen Die Dan Wel Dan Niet Gemaakt Worden Door Het Woord BAGGER Voor Een Ander Woord Te Zetten"],
-        "betekenis": random_bafko["2"]
-    }
+const getBafkos = async () => {
+    const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.BAFKO_SHEET_ID}/values/A3:C?key=${process.env.SHEETS_API_KEY}`);
+    const responseJson = await response.json();
+    return responseJson.values;
+}
 
-    return NextResponse.json(random_bafko);
+export async function GET() {
+    const data = await getBafkos();
+    const random_index = Math.floor(Math.random() * data.length);
+    const random_bafko = data[random_index]
+    return NextResponse.json({
+        "BAfko": random_bafko[0],
+        "betekenis": random_bafko[2]
+    });
 }

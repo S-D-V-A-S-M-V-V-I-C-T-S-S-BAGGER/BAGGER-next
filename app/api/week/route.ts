@@ -1,4 +1,4 @@
-import {Request} from 'next/dist/compiled/@edge-runtime/primitives/fetch';
+'use server'
 
 import dayjs from 'dayjs';
 import weekOfYear from 'dayjs/plugin/weekOfYear';

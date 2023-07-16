@@ -48,4 +48,6 @@ main {
 
 .content-achter {
   grid-area: content-overlap;
+  display: flex;
+  flex-direction: row;
 }

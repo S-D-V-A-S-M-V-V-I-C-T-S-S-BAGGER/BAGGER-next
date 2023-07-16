@@ -84,8 +84,6 @@
 
 .bier-tunnel {
     background: var(--aarde-bier);
-    margin-left: auto;
-    margin-right: auto;
     height: 100%;
     width: calc(7.5 * var(--base-unit));
 }
@@ -134,4 +132,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.bubbeltjes-vlak {
+    flex: 1;
+    height: 100%;
 }

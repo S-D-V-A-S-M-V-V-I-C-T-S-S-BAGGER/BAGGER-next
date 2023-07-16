@@ -14,7 +14,7 @@ const LichtingFotos: FC = () => {
     for (let i = 0; i < lichtingFotos.length; i++) {
         const lichtingFoto = lichtingFotos[i];
 
-        const imagePath = path.join('/', lichtingFotoDir, lichtingFoto);
+        const imagePath = path.join('/', lichtingFotoDir, lichtingFoto).replaceAll('\\', '/');
 
         const links = i % 2 == 0;
 

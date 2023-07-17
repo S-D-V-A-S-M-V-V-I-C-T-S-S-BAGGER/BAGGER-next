@@ -1,13 +1,27 @@
-import {FC} from 'react';
-import path from 'path';
-import fs from 'fs';
-import Image from 'next/image';
-import './lichtingfotos.css';
+'use client';
 
-const LichtingFotos: FC = () => {
-    const lichtingFotoDir = 'lichtingfotos';
-    const dir             = path.resolve('./public', lichtingFotoDir);
-    const lichtingFotos   = fs.readdirSync(dir).filter(fileName => fileName !== '.gitkeep');
+import {FC, useContext, useEffect} from 'react';
+import path from 'path';
+import './lichtingfotos.css';
+import LichtingBubbel from '@/components/LichtingBubbel';
+import {BubbleDef} from '@/components/BubblesTest';
+import {HoleContext} from '@/components/logo/LogoMidden';
+
+type LichtingFotosProps = {
+    lichtingFotoDir: string,
+    lichtingFotos: string[],
+}
+
+const LichtingFotos: FC<LichtingFotosProps> = ({lichtingFotos, lichtingFotoDir}) => {
+    const bubbelPositions: (BubbleDef | null)[] = lichtingFotos.map(() => null);
+
+    const {holes, initHoles, setHole} = useContext(HoleContext);
+
+    useEffect(() => {
+        if (initHoles && holes.length != bubbelPositions.length) {
+            initHoles(bubbelPositions);
+        }
+    }, []);
 
     const components = [];
 
@@ -18,11 +32,11 @@ const LichtingFotos: FC = () => {
 
         const links = i % 2 == 0;
 
+        // TODO use callback hook?
+
         components.push((
             <div key={i} className={'lichting-balk'}>
-                <div className={`lichting-afbeelding-bubbel lichting-afbeelding-${links ? 'links' : 'rechts'}`}>
-                    <Image className={'lichting-afbeelding'} src={imagePath} height={1024} width={1024} alt={'Lichting foto'}/>
-                </div>
+                <LichtingBubbel links={links} imagePath={imagePath} positionCallback={(position) => setHole(i, position)}/>
             </div>
         ));
     }

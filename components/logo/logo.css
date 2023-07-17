@@ -86,6 +86,8 @@
     background: var(--aarde-bier);
     height: 100%;
     width: calc(7.5 * var(--base-unit));
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .bier-tunnel-boven {

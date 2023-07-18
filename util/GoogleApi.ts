@@ -35,3 +35,17 @@ export async function getSheetValues(spreadsheetId: string, range: string): Prom
     const sheetData = await getSheet(spreadsheetId, range);
     return sheetData?.data.values;
 }
+
+export async function appendSheetValues(spreadsheetId: string, range: string, values: string[][], valueInputOption: 'RAW' | 'USER_ENTERED' = 'RAW') {
+    const sheets = google.sheets({version: 'v4'})
+    return sheets.spreadsheets.values.append({
+        spreadsheetId,
+        range,
+        valueInputOption,
+        auth: getJwt(),
+        key: process.env.SHEETS_API_KEY,
+        requestBody: {
+            values,
+        }
+    })
+}

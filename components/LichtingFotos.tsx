@@ -6,13 +6,9 @@ import './lichtingfotos.css';
 import LichtingBubbel from '@/components/LichtingBubbel';
 import {BubbleDef} from '@/components/BubblesTest';
 import {HoleContext} from '@/components/logo/LogoMidden';
+import {lichtingFotoDir, lichtingFotos} from '@/lib/loadLichtingFotos';
 
-type LichtingFotosProps = {
-    lichtingFotoDir: string,
-    lichtingFotos: string[],
-}
-
-const LichtingFotos: FC<LichtingFotosProps> = ({lichtingFotos, lichtingFotoDir}) => {
+const LichtingFotos: FC = () => {
     const bubbelPositions: (BubbleDef | null)[] = lichtingFotos.map(() => null);
 
     const {holes, initHoles, setHole} = useContext(HoleContext);

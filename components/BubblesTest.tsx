@@ -8,8 +8,6 @@ export type BubbleDef = {
     radius: number,
 }
 
-const maxDiscRadius = 50;
-const minDiscRadius = 20;
 const densityMultiplier = 2.1;
 
 function densityTest(point1: BubbleDef, point2: BubbleDef) {
@@ -24,7 +22,7 @@ function holeDensityTest(hole: BubbleDef, point: BubbleDef) {
     return distanceSquared < minDistanceSquared;
 }
 
-function naivePoissonDiscs(height: number, width: number, maxNumberOfDiscs: number, holes: BubbleDef[] = []) {
+function naivePoissonDiscs(height: number, width: number, maxNumberOfDiscs: number, minDiscRadius: number, maxDiscRadius: number, holes: BubbleDef[]) {
     const points: BubbleDef[] = [];
 
     const maxRetries = 100;
@@ -83,6 +81,13 @@ const BubblesTest: FC = () => {
     useLayoutEffect(() => {
         const boundingClientRect = ref.current!.getBoundingClientRect();
 
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const wmin = Math.min(windowHeight, windowWidth);
+
+        const maxDiscRadius = 50 * (wmin / 1080);
+        const minDiscRadius = 20 * (wmin / 1080);
+
         const relativeHoles: BubbleDef[] = holeDefinitions.map((point: BubbleDef | null): (BubbleDef | null) => point ? ({
             x: point.x - boundingClientRect.x,
             y: point.y - boundingClientRect.y,
@@ -90,7 +95,14 @@ const BubblesTest: FC = () => {
         }) : null).filter(point => point !== null) as unknown[] as BubbleDef[];
 
         // console.log(boundingClientRect);
-        const points = naivePoissonDiscs(boundingClientRect.height, boundingClientRect.width, 100, relativeHoles);
+        const points = naivePoissonDiscs(
+            boundingClientRect.height,
+            boundingClientRect.width,
+            100,
+            minDiscRadius,
+            maxDiscRadius,
+            relativeHoles,
+        );
         console.log(points, holeDefinitions);
         setDiscPoints(points);
         setDebugHoles(relativeHoles);

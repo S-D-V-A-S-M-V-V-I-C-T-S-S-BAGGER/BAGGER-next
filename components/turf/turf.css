@@ -1,0 +1,72 @@
+.turfRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+.addEntryButtonBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.addEntryButton {
+    background-color: var(--blad-donkergroen);
+    width: 80%;
+}
+
+.rowFlex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tallyCreationMain {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10vh;
+}
+
+.gap10vw {
+    gap: 10vw;
+}
+
+.tallyCreationButton {
+    background-color: var(--blad-donkergroen);
+    width: 15vw;
+    min-width: 100px;
+}
+
+.gap5vw {
+    gap: 5vw;
+}
+
+.tallyCreationInput {
+    color: black;
+    width: 20vw;
+    min-width: 150px;
+}
+
+.tallyListMain {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.tallyDirectInput {
+    color: black;
+    width: 20vw;
+}
+
+.tallyDirectButton {
+    background-color: var(--blad-donkergroen);
+    width: 15vw;
+}
+
+.tallyInput {
+    color: black;
+}

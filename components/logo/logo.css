@@ -79,6 +79,7 @@
     z-index: 11;
     text-shadow: calc(0.59 * var(--base-unit)) calc(0.59 * var(--base-unit))
     var(--tekst-schaduw-blauw);
+    user-select: none;
 }
 
 .bier-tunnel {

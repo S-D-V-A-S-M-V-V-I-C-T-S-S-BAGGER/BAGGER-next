@@ -1,5 +1,5 @@
-'use client'
-import {FC, useContext, useLayoutEffect, useRef, useState} from 'react';
+'use client';
+import {FC, useCallback, useContext, useEffect, useRef, useState} from 'react';
 import {HoleContext} from '@/components/logo/Logo';
 
 export type BubbleDef = {
@@ -72,13 +72,15 @@ function naivePoissonDiscs(height: number, width: number, maxNumberOfDiscs: numb
 const BubblesTest: FC = () => {
     const ref = useRef<SVGSVGElement>(null);
 
+    const [firstPass, setFirstPass] = useState(true);
+
     const {holeRefs} = useContext(HoleContext);
 
     const [discPoints, setDiscPoints] = useState<BubbleDef[]>([])
 
     const [debugHoles, setDebugHoles] = useState<BubbleDef[]>([])
 
-    useLayoutEffect(() => {
+    const drawBubbles = useCallback(() => {
         const boundingClientRect = ref.current!.getBoundingClientRect();
 
         const windowWidth = window.innerWidth;
@@ -114,13 +116,29 @@ const BubblesTest: FC = () => {
         console.log(points, relativeHoles);
         setDiscPoints(points);
         setDebugHoles(relativeHoles);
-    }, [
-        ref.current?.getBoundingClientRect().width,
-        ref.current?.getBoundingClientRect().height,
-        holeRefs,
-    ])
+    }, []);
 
-    // TODO debounced onwindowresize
+    useEffect(() => {
+        const handleResize = () => {
+            console.log(window.innerHeight, window.innerWidth);
+            drawBubbles();
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    useEffect(() => {
+        setFirstPass(false);
+    }, []);
+
+    useEffect(() => {
+        if (!firstPass) {
+            drawBubbles();
+        }
+    }, [firstPass]);
 
     const circles = discPoints.map((point, index) => {
         return (

@@ -137,6 +137,7 @@
 }
 
 .bubbeltjes-vlak {
+    margin-top: calc(-5 * var(--base-unit));;
     flex: 1;
-    height: 100%;
+    height: calc(100% + (15 + 27.64 + 5) * var(--base-unit));
 }

@@ -1,6 +1,6 @@
 'use client'
 import {FC, useContext, useLayoutEffect, useRef, useState} from 'react';
-import {HoleContext} from '@/components/logo/LogoMidden';
+import {HoleContext} from '@/components/logo/Logo';
 
 export type BubbleDef = {
     x: number,
@@ -72,7 +72,7 @@ function naivePoissonDiscs(height: number, width: number, maxNumberOfDiscs: numb
 const BubblesTest: FC = () => {
     const ref = useRef<SVGSVGElement>(null);
 
-    const {holes: holeDefinitions} = useContext(HoleContext);
+    const {holeRefs} = useContext(HoleContext);
 
     const [discPoints, setDiscPoints] = useState<BubbleDef[]>([])
 
@@ -88,11 +88,19 @@ const BubblesTest: FC = () => {
         const maxDiscRadius = 50 * (wmin / 1080);
         const minDiscRadius = 20 * (wmin / 1080);
 
-        const relativeHoles: BubbleDef[] = holeDefinitions.map((point: BubbleDef | null): (BubbleDef | null) => point ? ({
-            x: point.x - boundingClientRect.x,
-            y: point.y - boundingClientRect.y,
-            radius: point.radius,
-        }) : null).filter(point => point !== null) as unknown[] as BubbleDef[];
+        const relativeHoles = holeRefs.map((ref) => {
+            if (ref && ref.current) {
+                const holeRect = ref.current.getBoundingClientRect();
+                const circle: BubbleDef  = {
+                    x: holeRect.right - (holeRect.width / 2) - boundingClientRect.x,
+                    y: holeRect.bottom - (holeRect.height / 2) - boundingClientRect.y,
+                    radius: holeRect.width / 2,
+                }
+                return circle;
+            } else {
+                return null;
+            }
+        }).filter(point => point !== null) as unknown as BubbleDef[];
 
         // console.log(boundingClientRect);
         const points = naivePoissonDiscs(
@@ -103,13 +111,13 @@ const BubblesTest: FC = () => {
             maxDiscRadius,
             relativeHoles,
         );
-        console.log(points, holeDefinitions);
+        console.log(points, relativeHoles);
         setDiscPoints(points);
         setDebugHoles(relativeHoles);
     }, [
         ref.current?.getBoundingClientRect().width,
         ref.current?.getBoundingClientRect().height,
-        holeDefinitions,
+        holeRefs,
     ])
 
     // TODO debounced onwindowresize

@@ -1,23 +1,14 @@
 'use client';
 
-import {FC, useContext, useEffect} from 'react';
+import {FC, useContext} from 'react';
 import path from 'path';
 import './lichtingfotos.css';
 import LichtingBubbel from '@/components/LichtingBubbel';
-import {BubbleDef} from '@/components/BubblesTest';
-import {HoleContext} from '@/components/logo/LogoMidden';
 import {lichtingFotoDir, lichtingFotos} from '@/lib/loadLichtingFotos';
+import {HoleContext} from '@/components/logo/Logo';
 
 const LichtingFotos: FC = () => {
-    const bubbelPositions: (BubbleDef | null)[] = lichtingFotos.map(() => null);
-
-    const {holes, initHoles, setHole} = useContext(HoleContext);
-
-    useEffect(() => {
-        if (initHoles && holes.length != bubbelPositions.length) {
-            initHoles(bubbelPositions);
-        }
-    }, []);
+    const {setHoleRef} = useContext(HoleContext);
 
     const components = [];
 
@@ -32,7 +23,7 @@ const LichtingFotos: FC = () => {
 
         components.push((
             <div key={i} className={'lichting-balk'}>
-                <LichtingBubbel links={links} imagePath={imagePath} positionCallback={(position) => setHole(i, position)}/>
+                <LichtingBubbel links={links} imagePath={imagePath} positionCallback={(ref) => setHoleRef(i + 1, ref)}/>
             </div>
         ));
     }

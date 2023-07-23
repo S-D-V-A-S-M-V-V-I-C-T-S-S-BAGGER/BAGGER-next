@@ -86,8 +86,6 @@
     background: var(--aarde-bier);
     height: 100%;
     width: calc(7.5 * var(--base-unit));
-    margin-left: 10px;
-    margin-right: 10px;
 }
 
 .bier-tunnel-boven {
@@ -137,7 +135,9 @@
 }
 
 .bubbeltjes-vlak {
-    margin-top: calc(-5 * var(--base-unit));;
+    margin-top: calc(-5 * var(--base-unit) + 10px);
     flex: 1;
-    height: calc(100% + (15 + 27.64 + 5) * var(--base-unit));
+    height: calc(100% + (15 + 27.64 + 5) * var(--base-unit) - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
 }

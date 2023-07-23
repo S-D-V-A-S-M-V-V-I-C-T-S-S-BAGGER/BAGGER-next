@@ -1,5 +1,5 @@
 'use client';
-import {createContext, FC, PropsWithChildren, RefObject, useEffect, useState} from 'react';
+import {createContext, FC, PropsWithChildren, RefObject, useState} from 'react';
 import LogoBovenkant from '@/components/logo/LogoBovenkant';
 import LogoMidden from '@/components/logo/LogoMidden';
 import LogoOnderkant from '@/components/logo/LogoOnderkant';
@@ -20,12 +20,7 @@ const Logo: FC<PropsWithChildren> = ({children}) => {
     for (let i = 0; i < 1 + lichtingFotos.length; i++) {
         emptyHoles.push(null);
     }
-    console.log('Empty:', emptyHoles)
     const [holeRefs, setHoleRefs] = useState<(HoleRef | null)[]>(emptyHoles);
-
-    useEffect(() => {
-        console.log('ping');
-    }, [holeRefs])
 
     return (
         <HoleContext.Provider value={{

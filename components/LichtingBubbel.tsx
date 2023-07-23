@@ -2,12 +2,12 @@
 
 import {FC, useEffect, useRef} from 'react';
 import Image from 'next/image';
-import {BubbleDef} from '@/components/BubblesTest';
+import {HoleRef} from '@/components/logo/Logo';
 
 type LichtingBubbelProps = {
     links: boolean,
     imagePath: string,
-    positionCallback: (position: BubbleDef) => void,
+    positionCallback: (position: HoleRef) => void,
 }
 
 const LichtingBubbel: FC<LichtingBubbelProps> = ({links, imagePath, positionCallback}) => {
@@ -15,13 +15,7 @@ const LichtingBubbel: FC<LichtingBubbelProps> = ({links, imagePath, positionCall
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const boundingClientRect = ref.current!.getBoundingClientRect();
-        const circle: BubbleDef  = {
-            x: boundingClientRect.right - (boundingClientRect.width / 2),
-            y: boundingClientRect.bottom - (boundingClientRect.height / 2),
-            radius: boundingClientRect.width / 2,
-        }
-        positionCallback(circle);
+        positionCallback(ref);
     }, [])
 
     return (

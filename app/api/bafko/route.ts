@@ -1,6 +1,6 @@
 'use server';
-import { NextResponse } from 'next/server';
-import {getSheetValues, SheetValues} from '@/util/GoogleApi';
+import {NextResponse} from 'next/server';
+import {getSheetValues, SheetValues} from '@/lib/GoogleApi';
 
 const getBafkos = async (): Promise<SheetValues | null> => {
     return getSheetValues(process.env.BAFKO_SHEET_ID!, 'A3:C');

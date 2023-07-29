@@ -5,15 +5,15 @@ const nextConfig = {
             {
                 source: '/declaratie',
                 destination: 'https://docs.google.com/forms/d/e/1FAIpQLSdyzIyKEI8HndK9RSDrTiIpkLLD2TLotthQI-kscaF8MA7TuA/viewform',
-                permanent: true
+                permanent: true,
             },
             {
                 source: '/planning',
                 destination: 'https://docs.google.com/spreadsheets/d/1o6McMzRbeRmsw71dv7S6Yz6koyDP60c9yVAX_mkPbKI',
-                permanent: true
-            }
-        ]
-    }
-}
+                permanent: true,
+            },
+        ];
+    },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

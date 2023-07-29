@@ -1,5 +1,5 @@
 import {FC, PropsWithChildren} from 'react';
-import './logo.css'
+import './logo.css';
 
 const LogoMidden: FC<PropsWithChildren> = ({children}) => {
     return (

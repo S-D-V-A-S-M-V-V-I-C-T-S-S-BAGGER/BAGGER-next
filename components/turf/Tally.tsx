@@ -1,8 +1,10 @@
 import {FC, useEffect} from 'react';
-import {useLocalStorage} from '@/lib/useLocalStorage';
 import TallyCreation from '@/components/turf/TallyCreation';
 import TallyList from '@/components/turf/TallyList';
 import TallyDirectAmount from '@/components/turf/TallyDirectAmount';
+import {addTallyRow} from '@/components/turf/tallySheet';
+import dayjs from 'dayjs';
+import {useLocalStorage} from '@/lib/useLocalStorage';
 
 enum TallyState {
     not_started,
@@ -14,6 +16,7 @@ const Tally: FC = () => {
     const [tallyPerson, setTallyPerson] = useLocalStorage<string | null>('turf-persoon', null);
     const [tallyEvent, setTallyEvent]   = useLocalStorage<string | null>('turf-gelegenheid', null);
     const [tallyState, setTallyState]   = useLocalStorage<TallyState>('turf-status', TallyState.not_started);
+    const [tallyStartDate, setTallyStartDate] = useLocalStorage<string | null>('turf-start-date', null);
 
     const setValues = (person: string, event: string): boolean => {
         if (person.length < 1) {
@@ -24,12 +27,11 @@ const Tally: FC = () => {
         }
         setTallyPerson(person);
         setTallyEvent(event);
-        // TODO set start datetime
         return true;
     };
 
     useEffect(() => {
-        console.log('Tally:', tallyPerson, tallyEvent, TallyState[tallyState]);
+        console.log('Tally:', tallyPerson, tallyEvent, tallyStartDate, tallyState);
     }, [tallyState]);
 
     const enterAmount = (person: string, event: string) => {
@@ -40,15 +42,22 @@ const Tally: FC = () => {
 
     const startTally = (person: string, event: string) => {
         if (setValues(person, event)) {
+            setTallyStartDate(dayjs().format('DD-MM-YYYY'));
             setTallyState(TallyState.tally_started);
         }
     };
 
-    const finishTally = (value: number) => {
+    const finishTally = async (value: number) => {
         if (value > 0) {
-            console.log('Send Tally:', tallyPerson, tallyEvent, value);
+            await addTallyRow([[tallyPerson ?? 'error', tallyEvent ?? 'error', tallyStartDate ?? 'error', value.toString()]])
+                .catch(err => {
+                    console.log('Add tally row error:', err);
+                }).then(() => {
+                    console.log('Sent Tally:', tallyPerson, tallyEvent, value);
+                });
         }
         setTallyEvent(null);
+        setTallyStartDate(null);
         setTallyState(TallyState.not_started);
     };
 

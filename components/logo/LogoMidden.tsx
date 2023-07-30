@@ -9,9 +9,9 @@ const LogoMidden: FC<PropsWithChildren> = ({children}) => {
         <div className="content">
 
             <div className="content-achter">
-                <BubblesTest/>
+                <BubblesTest seed={1}/>
                 <div className="bier-tunnel"/>
-                <BubblesTest/>
+                <BubblesTest seed={2}/>
             </div>
             <div className="content-voor">
                 {children}

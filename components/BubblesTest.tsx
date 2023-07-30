@@ -2,6 +2,10 @@
 import {FC, useCallback, useContext, useEffect, useRef, useState} from 'react';
 import {HoleContext} from '@/components/logo/Logo';
 
+type BubbleTestProps = {
+    seed: number,
+}
+
 export type BubbleDef = {
     x: number,
     y: number,
@@ -22,17 +26,41 @@ function holeDensityTest(hole: BubbleDef, point: BubbleDef) {
     return distanceSquared < minDistanceSquared;
 }
 
-function naivePoissonDiscs(height: number, width: number, maxNumberOfDiscs: number, minDiscRadius: number, maxDiscRadius: number, holes: BubbleDef[]) {
+function hashCode(str: string) {
+    let hash = 0;
+    for (let i = 0, len = str.length; i < len; i++) {
+        let chr = str.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+}
+
+function random(seed: string, offset: number) {
+    return (hashCode(`${seed}:${offset}`) / 0xFFFFFFFF + 1.0) % 1.0;
+}
+
+function naivePoissonDiscs(height: number, width: number, maxNumberOfDiscs: number, minDiscRadius: number, maxDiscRadius: number, holes: BubbleDef[], seed: number) {
     const points: BubbleDef[] = [];
 
     const maxRetries = 100;
     let tries = 0;
 
+    const seedString = `${height}:${width}:${seed}`;
+    let randomizer = random(seedString, 0);
+
     generatePoint: while (points.length < maxNumberOfDiscs) {
-        const radius                    = Math.random() * (maxDiscRadius - minDiscRadius) + minDiscRadius;
+        randomizer = random(seedString, randomizer);
+        const random0 = randomizer;
+        randomizer = random(seedString, randomizer);
+        const random1 = randomizer;
+        randomizer = random(seedString, randomizer);
+        const random2 = randomizer;
+
+        const radius                    = random0 * (maxDiscRadius - minDiscRadius) + minDiscRadius;
         const candidatePoint: BubbleDef = {
-            x: Math.random() * (width - (radius * 2)) + radius,
-            y: Math.random() * (height - (radius * 2)) + radius,
+            x: random1 * (width - (radius * 2)) + radius,
+            y: random2 * (height - (radius * 2)) + radius,
             radius,
         }
 
@@ -69,7 +97,7 @@ function naivePoissonDiscs(height: number, width: number, maxNumberOfDiscs: numb
     return points;
 }
 
-const BubblesTest: FC = () => {
+const BubblesTest: FC<BubbleTestProps> = ({seed}) => {
     const ref = useRef<SVGSVGElement>(null);
 
     const [firstPass, setFirstPass] = useState(true);
@@ -112,6 +140,7 @@ const BubblesTest: FC = () => {
             minDiscRadius,
             maxDiscRadius,
             relativeHoles,
+            seed,
         );
         console.log(points, relativeHoles);
         setDiscPoints(points);

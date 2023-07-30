@@ -1,3 +1,4 @@
+'use client';
 import {FC, useEffect} from 'react';
 import TallyCreation from '@/components/turf/TallyCreation';
 import TallyList from '@/components/turf/TallyList';
@@ -6,13 +7,17 @@ import {addTallyRow} from '@/components/turf/tallySheet';
 import dayjs from 'dayjs';
 import {useLocalStorage} from '@/lib/useLocalStorage';
 
+type TallyProps = {
+    pilsPrijs: number;
+}
+
 enum TallyState {
     not_started,
     direct_amount,
     tally_started,
 }
 
-const Tally: FC = () => {
+const Tally: FC<TallyProps> = ({pilsPrijs}) => {
     const [tallyPerson, setTallyPerson] = useLocalStorage<string | null>('turf-persoon', null);
     const [tallyEvent, setTallyEvent]   = useLocalStorage<string | null>('turf-gelegenheid', null);
     const [tallyState, setTallyState]   = useLocalStorage<TallyState>('turf-status', TallyState.not_started);
@@ -47,9 +52,9 @@ const Tally: FC = () => {
         }
     };
 
-    const finishTally = async (value: number) => {
+    const finishTally = async (value: number, additionalEntries: string[] = []) => {
         if (value > 0) {
-            await addTallyRow([[tallyPerson ?? 'error', tallyEvent ?? 'error', tallyStartDate ?? 'error', value.toString()]])
+            await addTallyRow([[tallyPerson ?? 'error', tallyEvent ?? 'error', tallyStartDate ?? 'error', value.toString(), ...additionalEntries]])
                 .catch(err => {
                     console.log('Add tally row error:', err);
                 }).then(() => {
@@ -72,7 +77,7 @@ const Tally: FC = () => {
                 />
             );
         case TallyState.tally_started:
-            return <TallyList finishTally={finishTally}/>;
+            return <TallyList finishTally={finishTally} pilsPrijs={pilsPrijs}/>;
         case TallyState.direct_amount:
             return <TallyDirectAmount finishTally={finishTally}/>;
         default:

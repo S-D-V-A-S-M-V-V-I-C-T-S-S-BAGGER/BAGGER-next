@@ -1,33 +1,33 @@
 'use client';
-import {FC, KeyboardEventHandler, MutableRefObject, useRef} from 'react';
+import {ChangeEventHandler, FC, KeyboardEventHandler, useRef} from 'react';
 import './turf.css';
+import {TallyEntry} from '@/components/turf/TallyList';
 
 type TurfRowProps = {
-    pils?: true;
-    totalValueRef: MutableRefObject<number>;
+    entry: TallyEntry,
+    changeEntry: (newEntry: TallyEntry) => void,
 }
 
-const TallyRow: FC<TurfRowProps> = ({pils, totalValueRef}) => {
+const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
     const euroRef  = useRef<HTMLInputElement>(null);
     const countRef = useRef<HTMLInputElement>(null);
 
-    const previousCentRef  = useRef(0);
-    const previousCountRef = useRef(0);
+    const {
+              fixed,
+              amount,
+              price,
+              name,
+          } = entry;
 
     const onCountChanged = () => {
         const count = countRef.current ? parseInt(countRef.current.value) : 0;
         const cents = euroRef.current ? Math.round(parseFloat(euroRef.current.value) * 100) : 0;
 
-        const newValue      = count * cents;
-        const previousValue = previousCentRef.current * previousCountRef.current;
+        console.log(`New ${name} value:`, count * cents);
 
-        totalValueRef.current -= previousValue;
-        totalValueRef.current += newValue;
-
-        console.log('New total value:', totalValueRef.current / 100);
-
-        previousCountRef.current = count;
-        previousCentRef.current  = cents;
+        entry.price = cents;
+        entry.amount = count;
+        changeEntry(entry);
     };
 
     const fixCents = () => {
@@ -44,6 +44,11 @@ const TallyRow: FC<TurfRowProps> = ({pils, totalValueRef}) => {
         }
     };
 
+    const onNameChanged: ChangeEventHandler<HTMLInputElement> = (event) => {
+        entry.name = event.target.value;
+        changeEntry(entry);
+    };
+
     return (
         <div className="turfRow">
             <input
@@ -51,37 +56,20 @@ const TallyRow: FC<TurfRowProps> = ({pils, totalValueRef}) => {
                 type="number"
                 min={0}
                 step={1}
-                defaultValue={pils ? 0 : 1}
+                defaultValue={amount}
                 className="tallyInput"
                 onChange={onCountChanged}
             />
-            {
-                pils
-                    ? (
-                        <input
-                            ref={euroRef}
-                            type="number"
-                            value={'3.38'}
-                            readOnly
-                            className="tallyInput"
-                        />
-                    ) : (
-                        <input
-                            ref={euroRef}
-                            type="number"
-                            min={0}
-                            step={0.01}
-                            defaultValue={'0.00'}
-                            className="tallyInput"
-                            onKeyUp={euroDecimals}
-                        />
-                    )
-            }
-            {
-                pils
-                    ? <input type="text" className="tallyInput" value="Pils" readOnly/>
-                    : <input type="text" className="tallyInput"/>
-            }
+            <input
+                ref={euroRef}
+                min={0}
+                step={0.01}
+                defaultValue={(price/100).toFixed(2)}
+                readOnly={fixed}
+                className="tallyInput"
+                onKeyUp={euroDecimals}
+            />
+            <input type="text" className="tallyInput" defaultValue={name} readOnly={fixed} onChange={onNameChanged}/>
         </div>
     );
 };

@@ -90,12 +90,6 @@
     gap: 10vw;
 }
 
-.tallyCreationButton {
-    background-color: var(--blad-donkergroen);
-    width: 15vw;
-    min-width: 100px;
-}
-
 .gap5vw {
     gap: 5vw;
 }

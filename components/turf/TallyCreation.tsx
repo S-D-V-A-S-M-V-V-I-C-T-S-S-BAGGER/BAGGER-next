@@ -1,5 +1,6 @@
 import {FC, useRef} from 'react';
 import './turf.css';
+import BaggerButton from '../BaggerButton';
 
 type TallyCreationProps = {
     person: string | null,
@@ -33,20 +34,20 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
                        defaultValue={event ?? undefined}/>
             </div>
             <div className="rowFlex gap10vw">
-                <button className="tallyCreationButton" onClick={() => {
+                <BaggerButton onClick={() => {
                     if (checkValues()) {
                         enterAmount(wieRef.current?.value ?? '', watRef.current?.value ?? '');
                     }
                 }}>
                     Eindbedrag invoeren
-                </button>
-                <button className="tallyCreationButton" onClick={() => {
+                </BaggerButton>
+                <BaggerButton onClick={() => {
                     if (checkValues()) {
                         startTally(wieRef.current?.value ?? '', watRef.current?.value ?? '');
                     }
                 }}>
                     Turven
-                </button>
+                </BaggerButton>
             </div>
         </main>
     );

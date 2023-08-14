@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {FC, useEffect, useRef} from 'react';
 import Image from 'next/image';
@@ -16,13 +16,13 @@ const LichtingBubbel: FC<LichtingBubbelProps> = ({links, imagePath, positionCall
 
     useEffect(() => {
         positionCallback(ref);
-    }, [])
+    }, []);
 
     return (
         <div ref={ref} className={`lichting-afbeelding-bubbel lichting-afbeelding-${links ? 'links' : 'rechts'}`}>
             <Image className={'lichting-afbeelding'} src={imagePath} height={1024} width={1024} alt={'Lichting foto'}/>
         </div>
-    )
-}
+    );
+};
 
 export default LichtingBubbel;

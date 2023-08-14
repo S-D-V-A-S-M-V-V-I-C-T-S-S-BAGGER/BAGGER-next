@@ -62,7 +62,7 @@ function naivePoissonDiscs(height: number, width: number, maxNumberOfDiscs: numb
             x: random1 * (width - (radius * 2)) + radius,
             y: random2 * (height - (radius * 2)) + radius,
             radius,
-        }
+        };
 
         for (const hole of holes) {
             const tooClose = holeDensityTest(hole, candidatePoint);
@@ -104,9 +104,9 @@ const BubblesTest: FC<BubbleTestProps> = ({seed}) => {
 
     const {holeRefs} = useContext(HoleContext);
 
-    const [discPoints, setDiscPoints] = useState<BubbleDef[]>([])
+    const [discPoints, setDiscPoints] = useState<BubbleDef[]>([]);
 
-    const [debugHoles, setDebugHoles] = useState<BubbleDef[]>([])
+    const [debugHoles, setDebugHoles] = useState<BubbleDef[]>([]);
 
     const drawBubbles = useCallback(() => {
         const boundingClientRect = ref.current!.getBoundingClientRect();
@@ -125,7 +125,7 @@ const BubblesTest: FC<BubbleTestProps> = ({seed}) => {
                     x: holeRect.right - (holeRect.width / 2) - boundingClientRect.x,
                     y: holeRect.bottom - (holeRect.height / 2) - boundingClientRect.y,
                     radius: holeRect.width / 2,
-                }
+                };
                 return circle;
             } else {
                 return null;
@@ -172,21 +172,21 @@ const BubblesTest: FC<BubbleTestProps> = ({seed}) => {
     const circles = discPoints.map((point, index) => {
         return (
             <circle key={index} cx={point.x} cy={point.y} r={point.radius} fill="var(--aarde-bovenkant-bruin)"/>
-        )
-    })
+        );
+    });
 
     const debugHoleCircles = debugHoles.map((hole, index) => {
         return (
             <circle key={circles.length + index} cx={hole.x} cy={hole.y} r={hole.radius + 10} fill='red'/>
-        )
-    })
+        );
+    });
 
     return (
         <svg ref={ref} className={'bubbeltjes-vlak'}>
             {circles}
             {/*{debugHoleCircles}*/}
         </svg>
-    )
-}
+    );
+};
 
 export default BubblesTest;

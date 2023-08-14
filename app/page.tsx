@@ -1,16 +1,11 @@
-import LogoBovenkant from '@/components/logo/LogoBovenkant';
-import LogoOnderkant from '@/components/logo/LogoOnderkant';
-import LogoMidden from '@/components/logo/LogoMidden';
-import LichtingFotos from '@/components/LichtingFotos';
+import WackyButton from '@/components/WackyButton';
 
 export default function Home() {
-  return (
-    <main>
-      <LogoBovenkant/>
-      <LogoMidden>
-          <LichtingFotos/>
-      </LogoMidden>
-      <LogoOnderkant/>
-    </main>
-  );
+    return (
+        <main>
+            <div style={{padding: '5rem'}}>
+                <WackyButton>Submit</WackyButton>
+            </div>
+        </main>
+    );
 }

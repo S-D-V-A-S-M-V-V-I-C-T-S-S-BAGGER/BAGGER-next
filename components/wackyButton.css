@@ -1,0 +1,18 @@
+.wackyButton {
+    margin: 200px;
+    width: 100px;
+    background: var(--blad-donkergroen);
+    border-radius: 5px;
+}
+
+.wackyButton:hover {
+    box-shadow: var(--blad-donkerdergroen) 0 3px;
+    transform: translateY(-3px);
+    transition: 0.2s
+}
+
+.wackyButton:active {
+    box-shadow: var(--aarde-donker-bruin) 0 -4px 0 2px, inset var(--aarde-bruin) 0 -5px 0 -3px, inset rgba(65, 41, 14, 0.5) 0 0 5px 5px;
+    transform: translateY(4px) scale(0.94);
+    transition: 0s
+}

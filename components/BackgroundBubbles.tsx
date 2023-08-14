@@ -97,7 +97,7 @@ function naivePoissonDiscs(height: number, width: number, maxNumberOfDiscs: numb
     return points;
 }
 
-const BubblesTest: FC<BubbleTestProps> = ({seed}) => {
+const BackgroundBubbles: FC<BubbleTestProps> = ({seed}) => {
     const ref = useRef<SVGSVGElement>(null);
 
     const [firstPass, setFirstPass] = useState(true);
@@ -121,7 +121,7 @@ const BubblesTest: FC<BubbleTestProps> = ({seed}) => {
         const relativeHoles = holeRefs.map((ref) => {
             if (ref && ref.current) {
                 const holeRect = ref.current.getBoundingClientRect();
-                const circle: BubbleDef  = {
+                const circle: BubbleDef = {
                     x: holeRect.right - (holeRect.width / 2) - boundingClientRect.x,
                     y: holeRect.bottom - (holeRect.height / 2) - boundingClientRect.y,
                     radius: holeRect.width / 2,
@@ -132,7 +132,6 @@ const BubblesTest: FC<BubbleTestProps> = ({seed}) => {
             }
         }).filter(point => point !== null) as unknown as BubbleDef[];
 
-        // console.log(boundingClientRect);
         const points = naivePoissonDiscs(
             boundingClientRect.height,
             boundingClientRect.width,
@@ -149,7 +148,6 @@ const BubblesTest: FC<BubbleTestProps> = ({seed}) => {
 
     useEffect(() => {
         const handleResize = () => {
-            console.log(window.innerHeight, window.innerWidth);
             drawBubbles();
         };
         window.addEventListener('resize', handleResize);
@@ -175,18 +173,18 @@ const BubblesTest: FC<BubbleTestProps> = ({seed}) => {
         );
     });
 
-    const debugHoleCircles = debugHoles.map((hole, index) => {
+    const _debugHoleCircles = debugHoles.map((hole, index) => {
         return (
-            <circle key={circles.length + index} cx={hole.x} cy={hole.y} r={hole.radius + 10} fill='red'/>
+            <circle key={circles.length + index} cx={hole.x} cy={hole.y} r={hole.radius + 10} fill="red"/>
         );
     });
 
     return (
         <svg ref={ref} className={'bubbeltjes-vlak'}>
             {circles}
-            {/*{debugHoleCircles}*/}
+            {/*{_debugHoleCircles}*/}
         </svg>
     );
 };
 
-export default BubblesTest;
+export default BackgroundBubbles;

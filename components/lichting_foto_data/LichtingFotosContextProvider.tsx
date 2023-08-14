@@ -7,7 +7,11 @@ type LichtingFotosContextProviderProps = {
     lichtingFotos: string[],
 }
 
-const LichtingFotosContextProvider: FC<PropsWithChildren<LichtingFotosContextProviderProps>> = ({children, lichtingFotoDir, lichtingFotos}) => {
+const LichtingFotosContextProvider: FC<PropsWithChildren<LichtingFotosContextProviderProps>> = ({
+    children,
+    lichtingFotoDir,
+    lichtingFotos,
+}) => {
     return (
         <LichtingFotosContext.Provider value={{
             lichtingFotoDir,

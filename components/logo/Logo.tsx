@@ -12,7 +12,7 @@ export const HoleContext = createContext<{
     setHoleRef: (index: number, holeRef: HoleRef | null) => void,
 }>({
     holeRefs: [],
-    setHoleRef: (index, holeRef) => {},
+    setHoleRef: (_index, _holeRef) => {},
 });
 
 const Logo: FC<PropsWithChildren> = ({children}) => {

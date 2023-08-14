@@ -6,9 +6,9 @@ export default function Home() {
     return (
         <main>
             <LichtingFotosContextLoader>
-            <Logo>
-                <LichtingFotos/>
-            </Logo>
+                <Logo>
+                    <LichtingFotos/>
+                </Logo>
             </LichtingFotosContextLoader>
         </main>
     );

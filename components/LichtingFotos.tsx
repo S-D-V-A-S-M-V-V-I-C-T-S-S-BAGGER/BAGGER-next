@@ -20,8 +20,6 @@ const LichtingFotos: FC = () => {
 
         const links = i % 2 == 0;
 
-        // TODO use callback hook?
-
         components.push((
             <div key={i} className={'lichting-balk'}>
                 <LichtingBubbel links={links} imagePath={imagePath} positionCallback={(ref) => setHoleRef(i + 1, ref)}/>

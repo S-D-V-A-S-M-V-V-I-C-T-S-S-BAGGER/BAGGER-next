@@ -1,18 +1,27 @@
 .wackyButton {
-    margin: 200px;
-    width: 100px;
+    --wackyButtonHeight: 60;
+    --wackyButtonWidth: 60;
+    --wackyButtonDepth: 4;
+    --wackyButtonProtrude: -3;
+    --wackyButtonUnit: 0.8rem;
+    width: calc(var(--wackyButtonWidth) * var(--wackyButtonUnit));
+    height: calc(var(--wackyButtonHeight) * var(--wackyButtonUnit));
     background: var(--blad-donkergroen);
-    border-radius: 5px;
+    border-radius: 50%;
+    font-size: calc(16 * var(--wackyButtonUnit));
 }
 
 .wackyButton:hover {
-    box-shadow: var(--blad-donkerdergroen) 0 3px;
-    transform: translateY(-3px);
+    box-shadow: var(--blad-donkerdergroen) 0 calc(-1 * var(--wackyButtonProtrude) * var(--wackyButtonUnit));
+    transform: translateY(calc(var(--wackyButtonProtrude) * var(--wackyButtonUnit)));
     transition: 0.2s
 }
 
 .wackyButton:active {
-    box-shadow: var(--aarde-donker-bruin) 0 -4px 0 2px, inset var(--aarde-bruin) 0 -5px 0 -3px, inset rgba(65, 41, 14, 0.5) 0 0 5px 5px;
-    transform: translateY(4px) scale(0.94);
+    box-shadow: var(--aarde-donker-bruin) 0 calc(-1 * var(--wackyButtonDepth) * var(--wackyButtonUnit)) 0 calc(0.5 * var(--wackyButtonDepth) * var(--wackyButtonUnit)), inset var(--aarde-bruin) 0 calc(-1 * var(--wackyButtonDepth) * var(--wackyButtonUnit)) 0 calc(-0.5 * var(--wackyButtonDepth) * var(--wackyButtonUnit)), inset rgba(65, 41, 14, 0.5) 0 0 calc(var(--wackyButtonDepth) * var(--wackyButtonUnit)) calc(var(--wackyButtonDepth) * var(--wackyButtonUnit));
+    /* The scaling should be chosen such that the size stays the same*/
+    transform: translateY(calc(var(--wackyButtonDepth) * var(--wackyButtonUnit)))
+    scaleY(calc(var(--wackyButtonHeight)/(var(--wackyButtonHeight) + var(--wackyButtonDepth))))
+    scaleX(calc(var(--wackyButtonWidth)/(var(--wackyButtonWidth) + var(--wackyButtonDepth))));
     transition: 0s
 }

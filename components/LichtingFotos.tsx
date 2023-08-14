@@ -4,11 +4,12 @@ import {FC, useContext} from 'react';
 import path from 'path';
 import './lichtingfotos.css';
 import LichtingBubbel from '@/components/LichtingBubbel';
-import {lichtingFotoDir, lichtingFotos} from '@/lib/loadLichtingFotos';
 import {HoleContext} from '@/components/logo/Logo';
+import LichtingFotosContext from '@/components/lichting_foto_data/LichtingFotosContext';
 
 const LichtingFotos: FC = () => {
     const {setHoleRef} = useContext(HoleContext);
+    const {lichtingFotoDir, lichtingFotos} = useContext(LichtingFotosContext);
 
     const components = [];
 

@@ -1,9 +1,9 @@
 'use client';
-import {createContext, FC, PropsWithChildren, RefObject, useState} from 'react';
+import {createContext, FC, PropsWithChildren, RefObject, useContext, useState} from 'react';
 import LogoBovenkant from '@/components/logo/LogoBovenkant';
 import LogoMidden from '@/components/logo/LogoMidden';
 import LogoOnderkant from '@/components/logo/LogoOnderkant';
-import {lichtingFotos} from '@/lib/loadLichtingFotos';
+import LichtingFotosContext from '@/components/lichting_foto_data/LichtingFotosContext';
 
 export type HoleRef = RefObject<HTMLDivElement>;
 
@@ -16,6 +16,8 @@ export const HoleContext = createContext<{
 });
 
 const Logo: FC<PropsWithChildren> = ({children}) => {
+    const {lichtingFotos} = useContext(LichtingFotosContext);
+
     const emptyHoles = [];
     for (let i = 0; i < 1 + lichtingFotos.length; i++) {
         emptyHoles.push(null);

@@ -41,6 +41,7 @@ const Tally: FC<TallyProps> = ({pilsPrijs}) => {
 
     const enterAmount = (person: string, event: string) => {
         if (setValues(person, event)) {
+            setTallyStartDate(dayjs().format('DD-MM-YYYY'));
             setTallyState(TallyState.direct_amount);
         }
     };

@@ -1,7 +1,6 @@
 'use client';
 
 import {FC, useContext} from 'react';
-import path from 'path';
 import './lichtingfotos.css';
 import LichtingBubbel from '@/components/LichtingBubbel';
 import {HoleContext} from '@/components/logo/Logo';
@@ -16,7 +15,7 @@ const LichtingFotos: FC = () => {
     for (let i = 0; i < lichtingFotos.length; i++) {
         const lichtingFoto = lichtingFotos[i];
 
-        const imagePath = path.join('/', lichtingFotoDir, lichtingFoto).replaceAll('\\', '/');
+        const imagePath = `/${lichtingFotoDir}/${lichtingFoto}`;
 
         const links = i % 2 == 0;
 

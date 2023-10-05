@@ -36,7 +36,7 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
                 <div className="rowFlex gap10vw">
                     <button className='tallyDirectButton' onClick={() => {
                         if (hoeveelRef.current) {
-                            const value = Math.round(parseFloat(hoeveelRef.current.value) * 100) / 100;
+                            const value = Math.round(parseFloat(hoeveelRef.current.value) * 100);
                             finishTally(value);
                         }
                     }}>Verstuur

@@ -38,7 +38,7 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
                         enterAmount(wieRef.current?.value ?? '', watRef.current?.value ?? '');
                     }
                 }}>
-                    Zelf bedrag invoeren
+                    Eindbedrag invoeren
                 </button>
                 <button className="tallyCreationButton" onClick={() => {
                     if (checkValues()) {

@@ -37,12 +37,15 @@ const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
         }
     };
 
-    const euroDecimals: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    const keyEuroDecimals: KeyboardEventHandler<HTMLInputElement> = (event) => {
         if (event.key == 'Enter') {
-            fixCents();
-            onCountChanged();
             euroRef.current?.blur();
         }
+    };
+
+    const euroDecimals = () => {
+        fixCents();
+        onCountChanged();
     };
 
     const onNameChanged: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -60,7 +63,8 @@ const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
                 defaultValue={(price/100).toFixed(2)}
                 readOnly={fixed}
                 className="tallyInput tallyPrice"
-                onKeyUp={euroDecimals}
+                onKeyUp={keyEuroDecimals}
+                onBlur={euroDecimals}
             />
             <input type="text" className="tallyInput tallyName" defaultValue={name} readOnly={fixed} onChange={onNameChanged}/>
         </div>

@@ -13,17 +13,23 @@ const TallyCounter: FC<TallyCounterProps> = ({countRef, amount, onCountChanged})
             onCountChanged();
         }
     };
+    const fixRounding = () => {
+        if (countRef.current) {
+            countRef.current.value = parseFloat(countRef.current.value).toFixed(0);
+        }
+    };
     return (
         <div className='tallyCount'>
             <button className='tallyButton' onClick={() => onChangeButton(-1)}>-</button>
             <input
                 ref={countRef}
-                type="number"
-                min={0}
-                step={1}
+                type="text"
                 defaultValue={amount}
                 className="tallyInput"
-                onChange={onCountChanged}
+                onChange={() => {
+                    fixRounding();
+                    onCountChanged();
+                }}
             />
             <button className='tallyButton' onClick={() => onChangeButton(+1)}>+</button>
         </div>

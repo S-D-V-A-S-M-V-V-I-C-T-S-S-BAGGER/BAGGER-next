@@ -1,10 +1,45 @@
 .turfRow {
-    display: flex;
     flex-direction: row;
     justify-content: space-around;
+    max-width: 100vw;
     width: 100%;
     margin-top: 1vh;
     margin-bottom: 1vh;
+}
+
+.turfRow {
+    display: flex;
+}
+
+/* On mobile */
+@media (max-width: 10cm), (max-width: 800px) {
+    .tallyListMain {
+        padding-left: 5mm;
+        padding-right: 5mm;
+    }
+
+    .turfRow {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50% 50%;
+        gap: 5px;
+    }
+
+    .tallyCount {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        font-size: 200%;
+    }
+
+    .tallyName {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .tallyPrice {
+        grid-column: 2;
+        grid-row: 2;
+    }
 }
 
 .addEntryButtonBar {
@@ -69,4 +104,26 @@
 
 .tallyInput {
     color: black;
+    overflow: hidden;
+    text-indent: 2mm;
+}
+
+.tallyCount {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+div.tallyCount {
+    text-indent: 5mm;
+}
+
+.tallyCount input {
+    flex: 1;
+    height: 100%;
+}
+
+.tallyButton {
+    background-color: var(--blad-donkergroen);
+    flex: 1;
 }

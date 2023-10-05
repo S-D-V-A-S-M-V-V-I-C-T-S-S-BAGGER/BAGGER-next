@@ -48,9 +48,9 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
     return (
         <main className='tallyListMain'>
             <div className='turfRow'>
-                <div>Hoeveel</div>
-                <div>Prijs</div>
-                <div>Wat</div>
+                <div className='tallyCount'>Hoeveel</div>
+                <div className='tallyPrice'>Prijs</div>
+                <div className='tallyName'>Wat</div>
             </div>
             {tallyEntries.map((entry, index) =>
                 <TallyRow key={index} entry={entry} changeEntry={(newEntry) => {setCustomEntry(index, newEntry);}}/>

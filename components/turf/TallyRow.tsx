@@ -2,6 +2,7 @@
 import {ChangeEventHandler, FC, KeyboardEventHandler, useRef} from 'react';
 import './turf.css';
 import {TallyEntry} from '@/components/turf/TallyList';
+import TallyCounter from '@/components/turf/TallyCounter';
 
 type TurfRowProps = {
     entry: TallyEntry,
@@ -51,25 +52,17 @@ const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
 
     return (
         <div className="turfRow">
-            <input
-                ref={countRef}
-                type="number"
-                min={0}
-                step={1}
-                defaultValue={amount}
-                className="tallyInput"
-                onChange={onCountChanged}
-            />
+            <TallyCounter countRef={countRef} amount={amount} onCountChanged={onCountChanged}/>
             <input
                 ref={euroRef}
                 min={0}
                 step={0.01}
                 defaultValue={(price/100).toFixed(2)}
                 readOnly={fixed}
-                className="tallyInput"
+                className="tallyInput tallyPrice"
                 onKeyUp={euroDecimals}
             />
-            <input type="text" className="tallyInput" defaultValue={name} readOnly={fixed} onChange={onNameChanged}/>
+            <input type="text" className="tallyInput tallyName" defaultValue={name} readOnly={fixed} onChange={onNameChanged}/>
         </div>
     );
 };

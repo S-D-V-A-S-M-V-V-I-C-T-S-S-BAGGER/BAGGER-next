@@ -1,5 +1,6 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import TallyRow from '@/components/turf/TallyRow';
+import {useLocalStorage} from '@/lib/useLocalStorage';
 
 type TallyListProps = {
     finishTally: (value: number, additionalEntries?: string[]) => void;
@@ -14,9 +15,11 @@ export type TallyEntry = {
 }
 
 const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
-    const [tallyEntries, setTallyEntries] = useState<TallyEntry[]>([
+    const defaultTally = [
         {fixed: true, amount: 0, price: pilsPrijs, name: 'Pils'},
-    ]);
+    ];
+
+    const [tallyEntries, setTallyEntries] = useLocalStorage<TallyEntry[]>('turf-lijst', defaultTally);
 
     const addCustomEntry = () => {
         const newEntry: TallyEntry = {
@@ -43,6 +46,8 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
         }
 
         finishTally(totalValue, additionalEntries);
+
+        setTallyEntries(defaultTally);
     };
 
     return (
@@ -52,7 +57,7 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
                 <div className='tallyPrice'>Prijs</div>
                 <div className='tallyName'>Wat</div>
             </div>
-            {tallyEntries.map((entry, index) =>
+            {tallyEntries.map((entry: TallyEntry, index: number) =>
                 <TallyRow key={index} entry={entry} changeEntry={(newEntry) => {setCustomEntry(index, newEntry);}}/>
             )}
             <div className='addEntryButtonBar'>

@@ -18,7 +18,10 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
 
     const fixCents = () => {
         if (hoeveelRef.current) {
-            hoeveelRef.current.value = parseFloat(hoeveelRef.current.value).toFixed(2);
+            const value = parseFloat(hoeveelRef.current.value);
+            if (!isNaN(value)) {
+                hoeveelRef.current.value = value.toFixed(2);
+            }
         }
     };
 

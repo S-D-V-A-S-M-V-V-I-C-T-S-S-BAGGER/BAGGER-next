@@ -1,11 +1,20 @@
-import {FC, KeyboardEventHandler, useRef} from 'react';
+import React, {FC, KeyboardEventHandler, useRef, useState} from 'react';
+import Modal from '@/components/modal/Modal';
 
 type TallyDirectAmountProps = {
-    finishTally: (value: number) => void;
+    finishTally: (value: number) => Promise<void>;
+}
+
+enum SubmittingState {
+    not_started,
+    awaiting_confirmation,
+    being_sent,
 }
 
 const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
     const hoeveelRef = useRef<HTMLInputElement>(null);
+
+    const [submittingState, setSubmittingState] = useState<SubmittingState>(SubmittingState.not_started);
 
     const fixCents = () => {
         if (hoeveelRef.current) {
@@ -20,8 +29,29 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
         }
     };
 
+    const tallyUp = async () => {
+        setSubmittingState(SubmittingState.being_sent);
+        if (hoeveelRef.current) {
+            const value = Math.round(parseFloat(hoeveelRef.current.value) * 100);
+            await finishTally(value);
+        }
+        setSubmittingState(SubmittingState.not_started);
+    };
+
     return (
         <main className="tallyCreationMain">
+            <Modal open={submittingState == SubmittingState.being_sent}>
+                <div className="submittingModal sending">
+                    <p>Aan het verzenden...</p>
+                </div>
+            </Modal>
+            <Modal open={submittingState == SubmittingState.awaiting_confirmation}>
+                <div className="submittingModal confirm">
+                    <p>Weet je het zeker?</p>
+                    <button className="no submittingModalButton" onClick={() => setSubmittingState(SubmittingState.not_started)}>Nee</button>
+                    <button className="yes submittingModalButton" onClick={() => tallyUp()}>Ja</button>
+                </div>
+            </Modal>
             <div className="rowFlex gap5vw">
                 <input
                     ref={hoeveelRef}
@@ -33,12 +63,7 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
                 />
             </div>
             <div className="rowFlex gap10vw">
-                <button className='tallyDirectButton' onClick={() => {
-                    if (hoeveelRef.current) {
-                        const value = Math.round(parseFloat(hoeveelRef.current.value) * 100);
-                        finishTally(value);
-                    }
-                }}>Verstuur
+                <button className='tallyDirectButton' onClick={() => setSubmittingState(SubmittingState.awaiting_confirmation)}>Verstuur
                 </button>
             </div>
         </main>

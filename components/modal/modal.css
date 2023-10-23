@@ -1,0 +1,19 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(54,54,54,0.8);
+    z-index: 9999;
+}
+
+.modalBox {
+    z-index: 10000;
+    position: fixed;
+    background: var(--aarde-bovenkant-beige);
+    color: var(--foreground-text);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

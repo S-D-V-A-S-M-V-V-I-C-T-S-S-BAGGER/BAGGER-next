@@ -22,11 +22,13 @@
   src: url("/MilasianCircaBold.ttf") format("truetype");
 }
 
+/*
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-text: #ffffffff;
   }
 }
+*/
 
 body {
   color: var(--foreground-text);

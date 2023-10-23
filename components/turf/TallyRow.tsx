@@ -33,7 +33,10 @@ const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
 
     const fixCents = () => {
         if (euroRef.current) {
-            euroRef.current.value = parseFloat(euroRef.current.value).toFixed(2);
+            const value = parseFloat(euroRef.current.value);
+            if (!isNaN(value)) {
+                euroRef.current.value = value.toFixed(2);
+            }
         }
     };
 

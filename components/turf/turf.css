@@ -127,3 +127,31 @@ div.tallyCount {
     background-color: var(--blad-donkergroen);
     flex: 1;
 }
+
+.submittingModal {
+    padding: 1em;
+}
+
+.submittingModal.confirm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    grid-template-areas: "a a"
+                         "b d";
+}
+
+.submittingModal p {
+    grid-area: a;
+}
+
+.submittingModalButton {
+    background-color: var(--blad-donkergroen);
+}
+
+.submittingModalButton.yes {
+    grid-area: d;
+}
+
+.submittingModalButton.no {
+    grid-area: b;
+}

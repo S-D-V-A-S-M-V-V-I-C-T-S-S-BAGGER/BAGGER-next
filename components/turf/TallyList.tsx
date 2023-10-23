@@ -1,9 +1,10 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import TallyRow from '@/components/turf/TallyRow';
 import {useLocalStorage} from '@/lib/useLocalStorage';
+import Modal from '@/components/modal/Modal';
 
 type TallyListProps = {
-    finishTally: (value: number, additionalEntries?: string[]) => void;
+    finishTally: (value: number, additionalEntries?: string[]) => Promise<void>;
     pilsPrijs: number;
 }
 
@@ -14,12 +15,20 @@ export type TallyEntry = {
     name: string,
 }
 
+enum SubmittingState {
+    not_started,
+    awaiting_confirmation,
+    being_sent,
+}
+
 const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
     const defaultTally = [
         {fixed: true, amount: 0, price: pilsPrijs, name: 'Pils'},
     ];
 
-    const [tallyEntries, setTallyEntries] = useLocalStorage<TallyEntry[]>('turf-lijst', defaultTally);
+    const tallyListLocalStorageKey = 'turf-lijst';
+    const [tallyEntries, setTallyEntries] = useLocalStorage<TallyEntry[]>(tallyListLocalStorageKey, defaultTally);
+    const [submittingState, setSubmittingState] = useState<SubmittingState>(SubmittingState.not_started);
 
     const addCustomEntry = () => {
         const newEntry: TallyEntry = {
@@ -37,7 +46,8 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
         setTallyEntries(newEntries);
     };
 
-    const tallyUp = () => {
+    const tallyUp = async () => {
+        setSubmittingState(SubmittingState.being_sent);
         let totalValue = 0;
         let additionalEntries: string[] = [];
         for (const tallyEntry of tallyEntries) {
@@ -45,13 +55,27 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
             additionalEntries = additionalEntries.concat(tallyEntry.name, tallyEntry.price.toString(), tallyEntry.amount.toString());
         }
 
-        finishTally(totalValue, additionalEntries);
+        await finishTally(totalValue, additionalEntries);
 
-        setTallyEntries(defaultTally);
+        localStorage.setItem(tallyListLocalStorageKey, JSON.stringify(defaultTally));
+
+        setSubmittingState(SubmittingState.not_started);
     };
 
     return (
         <main className='tallyListMain'>
+            <Modal open={submittingState == SubmittingState.being_sent}>
+                <div className="submittingModal sending">
+                    <p>Aan het verzenden...</p>
+                </div>
+            </Modal>
+            <Modal open={submittingState == SubmittingState.awaiting_confirmation}>
+                <div className="submittingModal confirm">
+                    <p>Weet je het zeker?</p>
+                    <button className="no submittingModalButton" onClick={() => setSubmittingState(SubmittingState.not_started)}>Nee</button>
+                    <button className="yes submittingModalButton" onClick={() => tallyUp()}>Ja</button>
+                </div>
+            </Modal>
             <div className='turfRow'>
                 <div className='tallyCount'>Hoeveel</div>
                 <div className='tallyPrice'>Prijs</div>
@@ -65,7 +89,7 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
             </div>
             <div className='addEntryButtonBar'>
                 <button className='addEntryButton' onClick={
-                    () => tallyUp()
+                    () => setSubmittingState(SubmittingState.awaiting_confirmation)
                 }>Klaar!</button>
             </div>
         </main>

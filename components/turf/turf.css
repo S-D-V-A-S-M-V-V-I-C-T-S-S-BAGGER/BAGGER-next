@@ -166,6 +166,8 @@ div.tallyCount {
 
 .submittingModalButton {
     background-color: var(--blad-donkergroen);
+    min-width: 2cm;
+    min-height: 1cm;
 }
 
 .submittingModalButton.yes {

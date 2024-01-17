@@ -87,10 +87,11 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
             <div className='addEntryButtonBar'>
                 <button className='addEntryButton' onClick={addCustomEntry}>+</button>
             </div>
-            <div className='addEntryButtonBar'>
-                <button className='addEntryButton' onClick={
+            <div className='submitButtonBar'>
+                <button className='submitButton' onClick={
                     () => setSubmittingState(SubmittingState.awaiting_confirmation)
-                }>Klaar!</button>
+                }>Klaar!
+                </button>
             </div>
         </main>
     );

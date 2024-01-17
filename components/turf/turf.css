@@ -42,12 +42,24 @@
     }
 }
 
+.submitButtonBar,
 .addEntryButtonBar {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    min-height: 1cm;
 }
 
+.submitButtonBar,
+.addEntryButtonBar {
+    margin-top: 3vh;
+}
+
+.submitButtonBar {
+    margin-bottom: 5vh;
+}
+
+.submitButton,
 .addEntryButton {
     background-color: var(--blad-donkergroen);
     width: 80%;

@@ -103,6 +103,7 @@
     color: black;
     width: 20vw;
     min-width: 150px;
+    text-align: center;
 }
 
 .tallyListMain {
@@ -114,6 +115,8 @@
 .tallyDirectInput {
     color: black;
     width: 80vw;
+    min-height: 1cm;
+    text-align: center;
 }
 
 .tallyDirectButton {
@@ -125,16 +128,14 @@
     color: black;
     overflow: hidden;
     text-indent: 2mm;
+    text-align: right;
+    direction: rtl;
 }
 
 .tallyCount {
     display: flex;
     flex-direction: row;
     gap: 5px;
-}
-
-div.tallyCount {
-    text-indent: 5mm;
 }
 
 .tallyCount input {

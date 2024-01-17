@@ -50,12 +50,12 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
             </Modal>
             <Modal open={submittingState == SubmittingState.awaiting_confirmation}>
                 <div className="submittingModal confirm">
-                    <p>Weet je het zeker?</p>
+                    <p>Weet je zeker dat je dit op wil sturen?</p>
                     <button className="no submittingModalButton" onClick={() => setSubmittingState(SubmittingState.not_started)}>Nee</button>
                     <button className="yes submittingModalButton" onClick={() => tallyUp()}>Ja</button>
                 </div>
             </Modal>
-            <div className="rowFlex gap5vw">
+            <div className="rowFlex">
                 <input
                     ref={hoeveelRef}
                     type="text"
@@ -65,8 +65,8 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
                     onBlur={fixCents}
                 />
             </div>
-            <div className="rowFlex gap10vw">
-                <button className='tallyDirectButton' onClick={() => setSubmittingState(SubmittingState.awaiting_confirmation)}>Verstuur
+            <div className="submitButtonBar">
+                <button className='submitButton' onClick={() => setSubmittingState(SubmittingState.awaiting_confirmation)}>Verstuur
                 </button>
             </div>
         </main>

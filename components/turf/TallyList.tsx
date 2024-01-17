@@ -19,6 +19,7 @@ enum SubmittingState {
     not_started,
     awaiting_confirmation,
     being_sent,
+    awaiting_cancellation,
 }
 
 const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
@@ -62,6 +63,14 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
         setSubmittingState(SubmittingState.not_started);
     };
 
+    const cancel = async () => {
+        await finishTally(0, []);
+
+        localStorage.setItem(tallyListLocalStorageKey, JSON.stringify(defaultTally));
+
+        setSubmittingState(SubmittingState.not_started);
+    };
+
     return (
         <main className='tallyListMain'>
             <Modal open={submittingState == SubmittingState.being_sent}>
@@ -71,11 +80,24 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
             </Modal>
             <Modal open={submittingState == SubmittingState.awaiting_confirmation}>
                 <div className="submittingModal confirm">
-                    <p>Weet je het zeker?</p>
+                    <p>Weet je zeker dat je dit op wil sturen?</p>
                     <button className="no submittingModalButton" onClick={() => setSubmittingState(SubmittingState.not_started)}>Nee</button>
                     <button className="yes submittingModalButton" onClick={() => tallyUp()}>Ja</button>
                 </div>
             </Modal>
+            <Modal open={submittingState == SubmittingState.awaiting_cancellation}>
+                <div className="submittingModal cancel">
+                    <p>Weet je zeker dat je wil resetten?</p>
+                    <button className="no submittingModalButton" onClick={() => setSubmittingState(SubmittingState.not_started)}>Nee</button>
+                    <button className="yes submittingModalButton" onClick={() => cancel()}>Reset</button>
+                </div>
+            </Modal>
+            <div className='cancelButtonBar'>
+                <button className='cancelButton' onClick={
+                    () => setSubmittingState(SubmittingState.awaiting_cancellation)
+                }>Reset
+                </button>
+            </div>
             <div className='turfRow'>
                 <div className='tallyCount'>Hoeveel</div>
                 <div className='tallyPrice'>Prijs</div>

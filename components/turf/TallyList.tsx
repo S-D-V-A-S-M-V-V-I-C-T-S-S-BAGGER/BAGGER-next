@@ -34,7 +34,7 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
     const addCustomEntry = () => {
         const newEntry: TallyEntry = {
             fixed: false,
-            amount: 0,
+            amount: 1,
             price: 0,
             name: '',
         };

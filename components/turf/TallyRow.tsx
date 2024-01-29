@@ -3,6 +3,7 @@ import {ChangeEventHandler, FC, KeyboardEventHandler, useRef} from 'react';
 import './turf.css';
 import {TallyEntry} from '@/components/turf/TallyList';
 import TallyCounter from '@/components/turf/TallyCounter';
+import {formatEuros, parseCents} from '@/components/turf/euroUtil';
 
 type TurfRowProps = {
     entry: TallyEntry,
@@ -22,7 +23,7 @@ const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
 
     const onCountChanged = () => {
         const count = countRef.current ? parseInt(countRef.current.value) : 0;
-        const cents = euroRef.current ? Math.round(parseFloat(euroRef.current.value) * 100) : 0;
+        const cents = parseCents(euroRef);
 
         console.log(`New ${name} value:`, count * cents);
 
@@ -33,9 +34,9 @@ const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
 
     const fixCents = () => {
         if (euroRef.current) {
-            const value = parseFloat(euroRef.current.value);
+            const value = parseCents(euroRef);
             if (!isNaN(value)) {
-                euroRef.current.value = value.toFixed(2);
+                euroRef.current.value = formatEuros(value);
             }
         }
     };
@@ -63,7 +64,7 @@ const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
                 ref={euroRef}
                 min={0}
                 step={0.01}
-                defaultValue={(price/100).toFixed(2)}
+                defaultValue={formatEuros(price/100)}
                 readOnly={fixed}
                 className="tallyInput tallyPrice"
                 onKeyUp={keyEuroDecimals}

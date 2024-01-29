@@ -1,5 +1,6 @@
 import React, {FC, KeyboardEventHandler, useRef, useState} from 'react';
 import Modal from '@/components/modal/Modal';
+import {formatEuros, parseCents, parseEuros} from '@/components/turf/euroUtil';
 
 type TallyDirectAmountProps = {
     finishTally: (value: number) => Promise<void>;
@@ -18,9 +19,9 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
 
     const fixCents = () => {
         if (hoeveelRef.current) {
-            const value = parseFloat(hoeveelRef.current.value);
+            const value = parseEuros(hoeveelRef);
             if (!isNaN(value)) {
-                hoeveelRef.current.value = value.toFixed(2);
+                hoeveelRef.current.value = formatEuros(value);
             }
         }
     };
@@ -35,7 +36,7 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
     const tallyUp = async () => {
         setSubmittingState(SubmittingState.being_sent);
         if (hoeveelRef.current) {
-            const value = Math.round(parseFloat(hoeveelRef.current.value) * 100);
+            const value = parseCents(hoeveelRef);
             await finishTally(value);
         }
         setSubmittingState(SubmittingState.not_started);

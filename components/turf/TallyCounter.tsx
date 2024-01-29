@@ -15,7 +15,7 @@ const TallyCounter: FC<TallyCounterProps> = ({countRef, amount, onCountChanged})
     };
     const fixRounding = () => {
         if (countRef.current) {
-            countRef.current.value = parseFloat(countRef.current.value).toFixed(0);
+            countRef.current.value = parseInt(countRef.current.value).toFixed(0);
         }
     };
     return (

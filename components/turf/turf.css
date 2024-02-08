@@ -127,9 +127,8 @@
 .tallyInput {
     color: black;
     overflow: hidden;
-    text-indent: 2mm;
+    padding-right: 2mm;
     text-align: right;
-    direction: rtl;
 }
 
 .tallyCount {

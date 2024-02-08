@@ -3,7 +3,7 @@ import {ChangeEventHandler, FC, KeyboardEventHandler, useRef} from 'react';
 import './turf.css';
 import {TallyEntry} from '@/components/turf/TallyList';
 import TallyCounter from '@/components/turf/TallyCounter';
-import {formatEuros, parseCents} from '@/components/turf/euroUtil';
+import {formatEuros, parseCents, parseEuros} from '@/components/turf/euroUtil';
 
 type TurfRowProps = {
     entry: TallyEntry,
@@ -34,7 +34,7 @@ const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
 
     const fixCents = () => {
         if (euroRef.current) {
-            const value = parseCents(euroRef);
+            const value = parseEuros(euroRef);
             if (!isNaN(value)) {
                 euroRef.current.value = formatEuros(value);
             }

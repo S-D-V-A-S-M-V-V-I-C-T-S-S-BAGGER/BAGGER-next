@@ -2,6 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import TallyRow from '@/components/turf/TallyRow';
 import {useLocalStorage} from '@/lib/useLocalStorage';
 import Modal from '@/components/modal/Modal';
+import {formatEuros} from "@/components/turf/euroUtil";
 
 type TallyListProps = {
     finishTally: (value: number, additionalEntries?: string[]) => Promise<void>;
@@ -105,6 +106,9 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
                     () => setSubmittingState(SubmittingState.awaiting_cancellation)
                 }>Reset
                 </button>
+            </div>
+            <div className='totalBar'>
+                <button className='total' disabled={true}>Totaal: €{formatEuros(totalValue / 100)}</button>
             </div>
             <div className='turfRow'>
                 <div className='tallyCount'>Hoeveel</div>

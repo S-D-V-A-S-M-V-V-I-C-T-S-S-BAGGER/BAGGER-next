@@ -42,6 +42,7 @@
     }
 }
 
+.totalBar,
 .cancelButtonBar,
 .submitButtonBar,
 .addEntryButtonBar {
@@ -176,4 +177,9 @@
 
 .submittingModalButton.no {
     grid-area: b;
+}
+
+.total {
+    width: 80%;
+    background-color: var(--blad-donkergroen);
 }

@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import TallyRow from '@/components/turf/TallyRow';
 import {useLocalStorage} from '@/lib/useLocalStorage';
 import Modal from '@/components/modal/Modal';
@@ -47,14 +47,22 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
         setTallyEntries(newEntries);
     };
 
+    const [totalValue, setTotalValue] = useState<number>(0);
+    const [additionalEntries, setAdditionalEntries] = useState<string[]>([]);
+
+    useEffect(() => {
+        let _totalValue = 0;
+        let _additionalEntries: string[] = [];
+        for (const tallyEntry of tallyEntries) {
+            _totalValue += tallyEntry.amount * tallyEntry.price;
+            _additionalEntries = _additionalEntries.concat(tallyEntry.name, tallyEntry.price.toString(), tallyEntry.amount.toString());
+        }
+        setTotalValue(_totalValue);
+        setAdditionalEntries(_additionalEntries);
+    }, [tallyEntries]);
+
     const tallyUp = async () => {
         setSubmittingState(SubmittingState.being_sent);
-        let totalValue = 0;
-        let additionalEntries: string[] = [];
-        for (const tallyEntry of tallyEntries) {
-            totalValue += tallyEntry.amount * tallyEntry.price;
-            additionalEntries = additionalEntries.concat(tallyEntry.name, tallyEntry.price.toString(), tallyEntry.amount.toString());
-        }
 
         await finishTally(totalValue, additionalEntries);
 

@@ -177,3 +177,27 @@
     width: 80%;
     background-color: var(--blad-donkergroen);
 }
+
+.centeredContent {
+    display: flex;
+    justify-content: center;
+}
+
+.baggerInput {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: var(--aarde-mega-licht-bruin);
+    box-shadow: var(--aarde-bovenkant-bruin) 1px 1px 8px 0 inset;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.baggerInputLabel {
+    font-size: 0.8rem;
+    color: var(--aarde-mega-bruin);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+

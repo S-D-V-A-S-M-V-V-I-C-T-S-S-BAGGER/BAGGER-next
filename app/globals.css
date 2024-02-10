@@ -8,6 +8,7 @@
   --aarde-mega-bruin: #3d2002ff;
   --aarde-bruin: #6d461bff;
   --aarde-bovenkant-bruin: #825a30ff;
+  --aarde-mega-licht-bruin: #f9ede0ff;
   --aarde-bovenkant-beige: #e39f61ff;
   --blad-lichtgroen: #65b045ff;
   --blad-donkergroen: #538f40ff;
@@ -58,4 +59,9 @@ main {
   grid-area: content-overlap;
   display: flex;
   flex-direction: row;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: 600;
 }

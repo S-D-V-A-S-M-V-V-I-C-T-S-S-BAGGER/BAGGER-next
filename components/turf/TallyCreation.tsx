@@ -28,10 +28,18 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
     return (
         <main className="tallyCreationMain">
             <div className="rowFlex gap5vw">
-                <input className="tallyCreationInput" ref={wieRef} type="text" placeholder="Wie"
-                       defaultValue={person ?? undefined}/>
-                <input className="tallyCreationInput" ref={watRef} type="text" placeholder="Wat"
-                       defaultValue={event ?? undefined}/>
+                <h3 className="rowFlex">Hallooo </h3>
+                <input className="tallyCreationInput baggerInput" ref={wieRef} type="text" placeholder="Wie"
+                        defaultValue={person ?? undefined}/>
+            </div>
+            <div>
+                <div className="centeredContent">
+                    <div>
+                        <label htmlFor="activity" className="baggerInputLabel">Wat is de gelegenheid?</label>
+                        <input id="activity" className="tallyCreationInput baggerInput" ref={watRef} type="text" placeholder="Bier Stanislaus [DATUM] ofzo"
+                            defaultValue={event ?? undefined}/>
+                    </div>
+                </div>
             </div>
             <div className="rowFlex gap10vw">
                 <BaggerButton onClick={() => {

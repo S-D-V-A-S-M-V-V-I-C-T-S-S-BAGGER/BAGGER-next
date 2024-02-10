@@ -7,12 +7,19 @@
   --tekst-schaduw-blauw: #018678ff;
   --aarde-mega-bruin: #3d2002ff;
   --aarde-bruin: #6d461bff;
+
   --aarde-bovenkant-bruin: #825a30ff;
+  --aarde-bovenkant-bruin-1: #8c6338ff;
+  --aarde-bovenkant-bruin-2: #6e4922ff;
+  --aarde-bovenkant-bruin-3: #5e3c19ff;
+  --aarde-bovenkant-bruin-4: #4f3112ff;
+  --aarde-bovenkant-bruin-5: #42270bff;
+
   --aarde-mega-licht-bruin: #f9ede0ff;
   --aarde-bovenkant-beige: #e39f61ff;
   --blad-lichtgroen: #65b045ff;
   --blad-donkergroen: #538f40ff;
-  --blad-iets-donkerdergroen: #4a8737ff;
+  --blad-donkergroen-1: #4a8737ff;
   --steeltje-donkergroen: #396732ff;
   --aarde-bier: #ce8d4aff;
   --tekst-zwart: #000000ff;
@@ -60,4 +67,5 @@ main {
 h3 {
   font-size: 2rem;
   font-weight: 600;
+  color: var(--aarde-mega-licht-bruin)
 }

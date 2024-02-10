@@ -77,6 +77,9 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    &.center {
+        align-items: center;
+    }
 }
 
 .tallyCreationMain {
@@ -92,6 +95,14 @@
 
 .gap5vw {
     gap: 5vw;
+}
+
+.gap1rem {
+    gap: 1rem;
+}
+
+.noMargin {
+    margin: 0;
 }
 
 .tallyCreationInput {
@@ -189,7 +200,6 @@
     border-radius: 0.25rem;
     background-color: var(--aarde-mega-licht-bruin);
     box-shadow: var(--aarde-bovenkant-bruin) 1px 1px 8px 0 inset;
-    margin-bottom: 1rem;
     display: block;
 }
 

@@ -1,6 +1,10 @@
-import {FC, useRef} from 'react';
+import {FC, useRef, useState} from 'react';
 import './turf.css';
 import BaggerButton from '../BaggerButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
+import RoundNeoButton from "@/components/RoundNeoButton";
+import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
 
 type TallyCreationProps = {
     person: string | null,
@@ -12,6 +16,9 @@ type TallyCreationProps = {
 const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person, event}) => {
     const wieRef = useRef<HTMLInputElement>(null);
     const watRef = useRef<HTMLInputElement>(null);
+    const [isEditing, setEditing] = useState(false);
+
+    const [name, setName] = useState(person ?? undefined);
 
     const checkValues = () => {
         if (wieRef.current && wieRef.current.value.length < 1) {
@@ -25,12 +32,34 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
         return true;
     };
 
+    const toggleEdit = () => {
+        if (isEditing) {
+            // TODO: save this name in localstorage?
+            setName(wieRef?.current?.value);
+        }
+        setEditing(!isEditing);
+    };
+
     return (
         <main className="tallyCreationMain">
-            <div className="rowFlex gap5vw">
-                <h3 className="rowFlex">Hallooo </h3>
-                <input className="tallyCreationInput baggerInput" ref={wieRef} type="text" placeholder="Wie"
-                        defaultValue={person ?? undefined}/>
+            <div className="rowFlex gap1rem center">
+                <h3 className="rowFlex">Hallo {
+                    isEditing ? undefined : `${name}!`
+                }</h3>
+                {isEditing
+                    ? (
+                        <input
+                            className="tallyCreationInput baggerInput noMargin"
+                            ref={wieRef}
+                            type="text"
+                            placeholder="Wie"
+                            defaultValue={name ?? undefined}
+                        />
+                    ) : undefined
+                }
+                <RoundNeoButton onClick={() => toggleEdit()}>
+                    <FontAwesomeIcon icon={isEditing ? faCheck : faPencil} />
+                </RoundNeoButton>
             </div>
             <div>
                 <div className="centeredContent">
@@ -44,14 +73,14 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
             <div className="rowFlex gap10vw">
                 <BaggerButton onClick={() => {
                     if (checkValues()) {
-                        enterAmount(wieRef.current?.value ?? '', watRef.current?.value ?? '');
+                        enterAmount(name ?? '', watRef.current?.value ?? '');
                     }
                 }}>
                     Eindbedrag invoeren
                 </BaggerButton>
                 <BaggerButton onClick={() => {
                     if (checkValues()) {
-                        startTally(wieRef.current?.value ?? '', watRef.current?.value ?? '');
+                        startTally(name ?? '', watRef.current?.value ?? '');
                     }
                 }}>
                     Turven

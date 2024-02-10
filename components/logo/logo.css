@@ -106,17 +106,14 @@
 }
 
 .bier-gat {
-    background: var(--aarde-bier);
     margin-left: auto;
     margin-right: auto;
     width: calc(27.64 * var(--base-unit));
     height: calc(27.64 * var(--base-unit));
-    border-radius: calc(13.82 * var(--base-unit));
 }
 
 .biertje-afbeelding {
     position: relative;
-    top: calc(3.49 * var(--base-unit));
     left: calc(4.16 * var(--base-unit));
     width: calc(18.82 * var(--base-unit));
 }
@@ -140,4 +137,32 @@
     height: calc(100% + (15 + 27.64 + 5) * var(--base-unit) - 20px);
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.bierButton {
+    --BierButtonHeight: 27.64;
+    --BierButtonWidth: 27.64;
+    --BierButtonDepth: 4;
+    --BierButtonProtrude: -3;
+    --BierButtonUnit: var(--base-unit);
+    width: calc(var(--BierButtonWidth) * var(--BierButtonUnit));
+    height: calc(var(--BierButtonHeight) * var(--BierButtonUnit));
+    background: var(--aarde-bier);
+    border-radius: 50%;
+    font-size: calc(16 * var(--BierButtonUnit));
+}
+
+.bierButton:hover {
+    box-shadow: var(--aarde-bier-donker) 0 calc(-1 * var(--BierButtonProtrude) * var(--BierButtonUnit));
+    transform: translateY(calc(var(--BierButtonProtrude) * var(--BierButtonUnit)));
+    transition: 0.2s
+}
+
+.bierButton:active {
+    box-shadow: var(--aarde-donker-bruin) 0 calc(-1 * var(--BierButtonDepth) * var(--BierButtonUnit)) 0 calc(0.5 * var(--BierButtonDepth) * var(--BierButtonUnit)), inset var(--aarde-bruin) 0 calc(-1 * var(--BierButtonDepth) * var(--BierButtonUnit)) 0 calc(-0.5 * var(--BierButtonDepth) * var(--BierButtonUnit)), inset rgba(65, 41, 14, 0.5) 0 0 calc(var(--BierButtonDepth) * var(--BierButtonUnit)) calc(var(--BierButtonDepth) * var(--BierButtonUnit));
+    /* The scaling should be chosen such that the size stays the same*/
+    transform: translateY(calc(var(--BierButtonDepth) * var(--BierButtonUnit)))
+    scaleY(calc(var(--BierButtonHeight)/(var(--BierButtonHeight) + var(--BierButtonDepth))))
+    scaleX(calc(var(--BierButtonWidth)/(var(--BierButtonWidth) + var(--BierButtonDepth))));
+    transition: 0s
 }

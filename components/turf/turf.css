@@ -13,6 +13,14 @@
 
 /* On mobile */
 @media (max-width: 10cm), (max-width: 800px) {
+    .tallyPage {
+        padding: 0 2rem;
+    }
+
+    .tallyCreationMain {
+        width: 100%;
+    }
+
     .tallyListMain {
         padding-left: 5mm;
         padding-right: 5mm;
@@ -39,6 +47,18 @@
     .tallyPrice {
         grid-column: 2;
         grid-row: 2;
+    }
+}
+
+@media (min-width: 10cm), (min-width: 800px) {
+    .tallyPage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tallyCreationMain {
+        width: 50vw;
     }
 }
 
@@ -189,25 +209,33 @@
     background-color: var(--blad-donkergroen);
 }
 
-.centeredContent {
+.centeredColContent {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    gap: 0.125rem;
 }
 
 .baggerInput {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 0.75rem;
+    line-height: 1rem;
+    text-align: left;
     border: none;
     border-radius: 0.25rem;
-    background-color: var(--aarde-mega-licht-bruin);
-    box-shadow: var(--aarde-bovenkant-bruin) 1px 1px 8px 0 inset;
+    background-color: var(--aarde-mega-licht-bruin-3);
+    box-shadow: var(--aarde-bovenkant-bruin) 1px 1px 3px 0 inset;
     display: block;
+    width: 100%;
 }
 
 .baggerInputLabel {
     font-size: 0.8rem;
-    color: var(--aarde-mega-bruin);
+    color: var(--aarde-mega-licht-bruin-4);
     display: block;
     margin-bottom: 0.25rem;
 }
 
+h3 {
+    color: var(--aarde-mega-licht-bruin-3);
+}
 

@@ -65,9 +65,10 @@ const Tally: FC<TallyProps> = ({pilsPrijs}) => {
         setTallyState(TallyState.not_started);
     };
 
+    let tallyPage;
     switch (tallyState) {
         case TallyState.not_started:
-            return (
+            tallyPage = (
                 <TallyCreation
                     enterAmount={enterAmount}
                     startTally={startTally}
@@ -77,13 +78,18 @@ const Tally: FC<TallyProps> = ({pilsPrijs}) => {
                     setEvent={setTallyEvent}
                 />
             );
+            break;
         case TallyState.tally_started:
-            return <TallyList finishTally={finishTally} pilsPrijs={pilsPrijs}/>;
+            tallyPage = <TallyList finishTally={finishTally} pilsPrijs={pilsPrijs}/>;
+            break;
         case TallyState.direct_amount:
-            return <TallyDirectAmount finishTally={finishTally}/>;
+            tallyPage = <TallyDirectAmount finishTally={finishTally}/>;
+            break;
         default:
-            return <div>error</div>;
+            tallyPage = <div>error</div>;
+            break;
     }
+    return <div className="tallyPage">{ tallyPage }</div>;
 };
 
 export default Tally;

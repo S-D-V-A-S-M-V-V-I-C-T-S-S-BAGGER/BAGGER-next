@@ -16,6 +16,11 @@
   --aarde-bovenkant-bruin-5: #42270bff;
 
   --aarde-mega-licht-bruin: #f9ede0ff;
+  --aarde-mega-licht-bruin-1: #faf3ebff;
+  --aarde-mega-licht-bruin-2: #faf5f0ff;
+  --aarde-mega-licht-bruin-3: #faf9f7ff;
+  --aarde-mega-licht-bruin-4: #f0decc;
+
   --aarde-bovenkant-beige: #e39f61ff;
   --blad-lichtgroen: #65b045ff;
   --blad-donkergroen: #538f40ff;
@@ -67,5 +72,4 @@ main {
 h3 {
   font-size: 2rem;
   font-weight: 600;
-  color: var(--aarde-mega-licht-bruin)
 }

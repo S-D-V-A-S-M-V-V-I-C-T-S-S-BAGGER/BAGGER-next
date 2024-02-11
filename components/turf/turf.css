@@ -12,7 +12,7 @@
 }
 
 /* On mobile */
-@media (max-width: 10cm), (max-width: 800px) {
+@media (max-width: 800px) {
     .tallyPage {
         padding: 0 2rem;
     }
@@ -56,7 +56,21 @@
     }
 }
 
-@media (min-width: 10cm), (min-width: 800px) {
+@media (min-width: 380px) {
+    .tallyCreationMain {
+        .buttonContainer {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+
+            .baggerButton {
+                justify-self: stretch;
+            }
+        }
+    }
+}
+
+@media (min-width: 800px) {
     .tallyPage {
         display: flex;
         align-items: center;
@@ -67,13 +81,7 @@
         width: 50vw;
 
         .buttonContainer {
-            display: grid;
             gap: 3rem;
-            grid-template-columns: 1fr 1fr;
-
-            .baggerButton {
-                justify-self: stretch;
-            }
         }
     }
 }

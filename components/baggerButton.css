@@ -63,7 +63,7 @@
 	}
 }
 
-@media (max-width: 10cm), (max-width: 380px) {
+@media (max-width: 380px) {
 	.baggerButton {
 		.cardButtonContent {
 			display: grid;

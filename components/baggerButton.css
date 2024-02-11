@@ -92,6 +92,10 @@
 			display: grid;
 			grid-template: "icon header" "icon description" auto / auto 1fr;
 			grid-column-gap: 1.5rem;
+
+			h5, p {
+				text-align: left;
+			}
 		}
 	}
 }

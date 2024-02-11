@@ -1,0 +1,18 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: var(--blad-lichtgroen);
+    font-size: min(5vw, 48px);
+    margin-top: min(5vw, 48px);
+}
+
+.section a {
+    color: var(--blad-donkergroen);
+    font-weight: bold;
+    text-decoration-line: underline;
+}
+
+.section > .title {
+    font-size: 1.5em;
+}

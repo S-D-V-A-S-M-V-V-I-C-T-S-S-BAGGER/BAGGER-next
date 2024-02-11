@@ -17,6 +17,10 @@
   --base-unit: 1vmin;
 }
 
+body {
+  font-family: "Inter", sans-serif;
+}
+
 @font-face {
   font-family: "Milasian Circa";
   src: url("/MilasianCircaBold.ttf") format("truetype");

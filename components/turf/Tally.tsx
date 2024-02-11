@@ -23,15 +23,13 @@ const Tally: FC<TallyProps> = ({pilsPrijs}) => {
     const [tallyState, setTallyState]   = useLocalStorage<TallyState>('turf-status', TallyState.not_started);
     const [tallyStartDate, setTallyStartDate] = useLocalStorage<string | null>('turf-start-date', null);
 
-    const setValues = (person: string, event: string): boolean => {
-        if (person.length < 1) {
+    const checkInputValues = (): boolean => {
+        if (tallyPerson === null || tallyPerson.length < 1) {
             return false;
         }
-        if (event.length < 1) {
+        if (tallyEvent === null || tallyEvent.length < 1) {
             return false;
         }
-        setTallyPerson(person);
-        setTallyEvent(event);
         return true;
     };
 
@@ -39,15 +37,15 @@ const Tally: FC<TallyProps> = ({pilsPrijs}) => {
         console.log('Tally:', tallyPerson, tallyEvent, tallyStartDate, tallyState);
     }, [tallyState]);
 
-    const enterAmount = (person: string, event: string) => {
-        if (setValues(person, event)) {
+    const enterAmount = () => {
+        if (checkInputValues()) {
             setTallyStartDate(dayjs().format('DD-MM-YYYY'));
             setTallyState(TallyState.direct_amount);
         }
     };
 
-    const startTally = (person: string, event: string) => {
-        if (setValues(person, event)) {
+    const startTally = () => {
+        if (checkInputValues()) {
             setTallyStartDate(dayjs().format('DD-MM-YYYY'));
             setTallyState(TallyState.tally_started);
         }
@@ -74,7 +72,9 @@ const Tally: FC<TallyProps> = ({pilsPrijs}) => {
                     enterAmount={enterAmount}
                     startTally={startTally}
                     person={tallyPerson}
+                    setPerson={setTallyPerson}
                     event={tallyEvent}
+                    setEvent={setTallyEvent}
                 />
             );
         case TallyState.tally_started:

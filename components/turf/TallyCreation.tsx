@@ -5,6 +5,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import RoundNeoButton from "@/components/RoundNeoButton";
 import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
+import {faCoins} from "@fortawesome/free-solid-svg-icons/faCoins";
+import {faListOl} from "@fortawesome/free-solid-svg-icons/faListOl";
 
 type TallyCreationProps = {
     person: string | null,
@@ -67,20 +69,32 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
                                 setEvent(event.target.value);
                         }}/>
             </div>
-            <div className="rowFlex gap10vw">
+            <div className="buttonContainer">
                 <BaggerButton onClick={() => {
                     if (checkValues()) {
                         enterAmount();
                     }
                 }}>
-                    Eindbedrag invoeren
+                    <div className="cardButtonContent">
+                        <span className="buttonIconBig">
+                            <FontAwesomeIcon icon={faCoins}/>
+                        </span>
+                        <h5>Eindbedrag invoeren</h5>
+                        <p>Tel het zelf op</p>
+                    </div>
                 </BaggerButton>
                 <BaggerButton onClick={() => {
                     if (checkValues()) {
                         startTally();
                     }
                 }}>
-                    Turven
+                    <div className="cardButtonContent">
+                        <span className="buttonIconBig">
+                            <FontAwesomeIcon icon={faListOl}/>
+                        </span>
+                        <h5>Turven</h5>
+                        <p>Laat het voor je doen</p>
+                    </div>
                 </BaggerButton>
             </div>
         </main>

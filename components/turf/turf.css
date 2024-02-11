@@ -19,6 +19,12 @@
 
     .tallyCreationMain {
         width: 100%;
+
+        .buttonContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
     }
 
     .tallyListMain {
@@ -59,6 +65,16 @@
 
     .tallyCreationMain {
         width: 50vw;
+
+        .buttonContainer {
+            display: grid;
+            gap: 3rem;
+            grid-template-columns: 1fr 1fr;
+
+            .baggerButton {
+                justify-self: stretch;
+            }
+        }
     }
 }
 
@@ -226,6 +242,9 @@
     box-shadow: var(--aarde-bovenkant-bruin) 1px 1px 3px 0 inset;
     display: block;
     width: 100%;
+    &::placeholder {
+        color: lightgray;
+    }
 }
 
 .baggerInputLabel {

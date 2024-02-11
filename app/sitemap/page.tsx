@@ -6,11 +6,11 @@ const Index: FC = () => {
         <div>
             <div className={'section'}>
                 <p className={'title'}>Links</p>
-                <a href={'/'}>Home/Smoelenboek</a><br/>
-                <a href={'/turf'}>Turflijst</a><br/>
-                <a href={'/declaratie'}>Declaratie indienen</a><br/>
-                <a href={'/planning'}>Activiteiten planning</a><br/>
-                <a href={'/sitemap'}>Hier</a><br/>
+                <p><a href={'/'}>Home/Smoelenboek</a></p>
+                <p><a href={'/turf'}>Turflijst</a></p>
+                <p><a href={'/declaratie'}>Declaratie indienen</a></p>
+                <p><a href={'/planning'}>Activiteiten planning</a></p>
+                <p><a href={'/sitemap'}>Hier</a></p>
             </div>
             <div className={'section'}>
                 <p className={'title'}>API</p>

@@ -60,16 +60,12 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
                     <FontAwesomeIcon icon={isEditing ? faCheck : faPencil} />
                 </RoundNeoButton>
             </div>
-            <div>
-                <div className="centeredContent">
-                    <div>
-                        <label htmlFor="activity" className="baggerInputLabel">Wat is de gelegenheid?</label>
-                        <input id="activity" className="tallyCreationInput baggerInput" ref={watRef} type="text" placeholder="Bier Stanislaus [DATUM] ofzo"
-                            defaultValue={event ?? undefined} onChange={(event) => {
+            <div className="centeredColContent">
+                <label htmlFor="activity" className="baggerInputLabel">Wat is de gelegenheid?</label>
+                <input id="activity" className="tallyCreationInput baggerInput" ref={watRef} type="text" placeholder="Bier Stanislaus ofzo 🍻"
+                    defaultValue={event ?? undefined} onChange={(event) => {
                                 setEvent(event.target.value);
                         }}/>
-                    </div>
-                </div>
             </div>
             <div className="rowFlex gap10vw">
                 <BaggerButton onClick={() => {

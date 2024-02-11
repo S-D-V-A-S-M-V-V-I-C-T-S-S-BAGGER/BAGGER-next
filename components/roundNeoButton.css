@@ -4,9 +4,14 @@
     height: 2.5rem;
     background: var(--aarde-bovenkant-bruin);
     box-shadow: var(--aarde-mega-bruin) 0 7px 13px -3px;
+    flex-shrink: 0;
 
     &:hover {
         background: var(--aarde-bovenkant-bruin-1);
         box-shadow: var(--aarde-mega-bruin) 0 10px 20px -3px;
+    }
+
+    &:active {
+        background: var(--aarde-bovenkant-bruin);
     }
 }

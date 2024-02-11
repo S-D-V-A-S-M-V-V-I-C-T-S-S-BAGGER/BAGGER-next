@@ -10,6 +10,7 @@ export type BubbleDef = {
     x: number,
     y: number,
     radius: number,
+    startOffset: number,
 }
 
 const densityMultiplier = 2.1;
@@ -56,12 +57,15 @@ function naivePoissonDiscs(height: number, width: number, maxNumberOfDiscs: numb
         const random1 = randomizer;
         randomizer = random(seedString, randomizer);
         const random2 = randomizer;
+        randomizer = random(seedString, randomizer);
+        const random3 = randomizer;
 
         const radius                    = random0 * (maxDiscRadius - minDiscRadius) + minDiscRadius;
         const candidatePoint: BubbleDef = {
             x: random1 * (width - (radius * 2)) + radius,
             y: random2 * (height - (radius * 2)) + radius,
             radius,
+            startOffset: random3,
         };
 
         for (const hole of holes) {
@@ -125,6 +129,7 @@ const BackgroundBubbles: FC<BubbleTestProps> = ({seed}) => {
                     x: holeRect.right - (holeRect.width / 2) - boundingClientRect.x,
                     y: holeRect.bottom - (holeRect.height / 2) - boundingClientRect.y,
                     radius: holeRect.width / 2,
+                    startOffset: 0,
                 };
                 return circle;
             } else {
@@ -168,8 +173,30 @@ const BackgroundBubbles: FC<BubbleTestProps> = ({seed}) => {
     }, [firstPass]);
 
     const circles = discPoints.map((point, index) => {
+        // How much the size is overshot in the animation.
+        const overSizeMultiplier = 1.2;
+        /* How many seconds until the animation starts after the page is loaded.
+         A little is needed to have time for the fixed bubble sizes to be known. */
+        const minStartOffset = 0.2;
+        // Over how many seconds the animation starts are spread out
+        const startOffsetWindow = 0.4;
+
         return (
-            <circle key={index} cx={point.x} cy={point.y} r={point.radius} fill="var(--aarde-bovenkant-bruin)"/>
+            <circle key={index} cx={point.x} cy={point.y} fill="var(--aarde-bovenkant-bruin)">
+                <animate
+                    attributeName='r'
+                    values={`0;${point.radius * overSizeMultiplier};${point.radius}`}
+                    dur='0.1s'
+                    repeatCount='1'
+                    fill='freeze'
+                    begin={minStartOffset + point.startOffset * startOffsetWindow}
+                    calcMode='spline'
+                    // Grow for 90%, shrink to final size for 10% of animation
+                    keyTimes='0;0.9;1.0'
+                    // sharp start, then ease to final size
+                    keySplines='0.17 0.67 0.0 1.0; 0.5 0.0 0.5 1.0'
+                />
+            </circle>
         );
     });
 

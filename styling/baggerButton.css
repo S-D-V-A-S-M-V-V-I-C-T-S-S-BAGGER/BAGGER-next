@@ -1,0 +1,82 @@
+.baggerButton {
+    background-color: var(--blad-donkergroen);
+    min-width: 100px;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    box-shadow: var(--steeltje-donkergroen) 0 3px 0, var(--aarde-mega-bruin) 0 7px 13px -3px;
+    font-weight: 700;
+
+    .cardButtonContent {
+        display: grid;
+        grid-template: "icon header" "icon description" auto / auto 1fr;
+        grid-column-gap: 1.5rem;
+
+        h5 {
+            grid-area: header;
+            text-align: left;
+        }
+
+        p {
+            display: block;
+            font-weight: normal;
+            font-size: 0.8rem;
+            grid-area: description;
+            text-align: left;
+        }
+
+        .buttonIconBig {
+            display: block;
+            font-size: 2rem;
+            color: var(--aarde-bier);
+            grid-area: icon;
+            align-self: center;
+        }
+    }
+}
+
+.baggerButton:hover {
+    box-shadow: var(--steeltje-donkergroen) 0 5px 0, var(--aarde-mega-bruin) 0 10px 20px -3px;
+    transform: translateY(-2px);
+}
+
+.baggerButton:active {
+    background-color: var(--blad-donkergroen-1);
+}
+
+@media (max-width: 380px) {
+    .baggerButton {
+        .cardButtonContent {
+            display: grid;
+            grid-template: "icon header" "icon description" auto / auto 1fr;
+            grid-column-gap: 1.5rem;
+        }
+    }
+}
+
+@media (min-width: 380px) {
+    .baggerButton {
+        .cardButtonContent {
+            display: flex;
+            flex-direction: column;
+
+            h5, p {
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media (min-width: 800px) {
+    .baggerButton {
+        .cardButtonContent {
+            display: grid;
+            grid-template: "icon header" "icon description" auto / auto 1fr;
+            grid-column-gap: 1.5rem;
+
+            h5, p {
+                text-align: left;
+            }
+        }
+    }
+}
+

@@ -11,6 +11,9 @@
     color: var(--blad-donkergroen);
     font-weight: bold;
     text-decoration-line: underline;
+    &:hover {
+        color: var(--blad-donkergroen-1);
+    }
 }
 
 .section > .title {

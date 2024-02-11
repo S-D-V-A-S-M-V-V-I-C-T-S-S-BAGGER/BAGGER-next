@@ -1,12 +1,12 @@
 import {Dispatch, FC, SetStateAction, useRef, useState} from 'react';
 import './turf.css';
-import BaggerButton from '../BaggerButton';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
-import RoundNeoButton from "@/components/RoundNeoButton";
 import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
 import {faCoins} from "@fortawesome/free-solid-svg-icons/faCoins";
 import {faListOl} from "@fortawesome/free-solid-svg-icons/faListOl";
+import '@/styling/baggerButton.css';
+import '@/styling/roundNeoButton.css';
 
 type TallyCreationProps = {
     person: string | null,
@@ -44,9 +44,7 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
     return (
         <main className="tallyCreationMain">
             <div className="rowFlex gap1rem center">
-                <h3 className="rowFlex">Hallo {
-                    isEditing ? undefined : `${person ?? undefined}!`
-                }</h3>
+                <h3 className="rowFlex">{isEditing? 'Naam: ': person? `Hallo ${person}!`: 'Vul je naam in ->'}</h3>
                 {isEditing
                     ? (
                         <input
@@ -58,19 +56,19 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
                         />
                     ) : undefined
                 }
-                <RoundNeoButton onClick={() => toggleEdit()}>
+                <button className="roundNeoButton" onClick={() => toggleEdit()}>
                     <FontAwesomeIcon icon={isEditing ? faCheck : faPencil} />
-                </RoundNeoButton>
+                </button>
             </div>
             <div className="centeredColContent">
                 <label htmlFor="activity" className="baggerInputLabel">Wat is de gelegenheid?</label>
-                <input id="activity" className="tallyCreationInput baggerInput" ref={watRef} type="text" placeholder="Bier Stanislaus ofzo 🍻"
+                <input id="activity" className="tallyCreationInput baggerInput" ref={watRef} type="text" placeholder="Stanislaus ofzo 🍻"
                     defaultValue={event ?? undefined} onChange={(event) => {
                                 setEvent(event.target.value);
                         }}/>
             </div>
             <div className="buttonContainer">
-                <BaggerButton onClick={() => {
+                <button className="baggerButton" onClick={() => {
                     if (checkValues()) {
                         enterAmount();
                     }
@@ -82,8 +80,8 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
                         <h5>Eindbedrag invoeren</h5>
                         <p>Tel het zelf op</p>
                     </div>
-                </BaggerButton>
-                <BaggerButton onClick={() => {
+                </button>
+                <button className="baggerButton" onClick={() => {
                     if (checkValues()) {
                         startTally();
                     }
@@ -95,7 +93,7 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
                         <h5>Turven</h5>
                         <p>Laat het voor je doen</p>
                     </div>
-                </BaggerButton>
+                </button>
             </div>
         </main>
     );

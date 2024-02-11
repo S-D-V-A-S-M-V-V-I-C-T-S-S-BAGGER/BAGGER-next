@@ -14,4 +14,16 @@
     &:active {
         background: var(--aarde-bovenkant-bruin);
     }
+
+    &.green {
+        background-color: var(--blad-donkergroen);
+
+        &:hover {
+            background-color: var(--blad-donkergroen-2);
+        }
+
+        &:active {
+            background-color: var(--blad-donkergroen-1);
+        }
+    }
 }

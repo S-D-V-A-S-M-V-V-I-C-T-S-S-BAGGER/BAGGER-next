@@ -56,7 +56,7 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
                         />
                     ) : undefined
                 }
-                <button className="roundNeoButton" onClick={() => toggleEdit()}>
+                <button className={person? "roundNeoButton" : "roundNeoButton green"} onClick={() => toggleEdit()}>
                     <FontAwesomeIcon icon={isEditing ? faCheck : faPencil} />
                 </button>
             </div>

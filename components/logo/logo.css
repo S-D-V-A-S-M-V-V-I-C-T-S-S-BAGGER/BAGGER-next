@@ -159,7 +159,7 @@
 }
 
 .bierButton:active {
-    box-shadow: var(--aarde-donker-bruin) 0 calc(-1 * var(--BierButtonDepth) * var(--BierButtonUnit)) 0 calc(0.5 * var(--BierButtonDepth) * var(--BierButtonUnit)), inset var(--aarde-bruin) 0 calc(-1 * var(--BierButtonDepth) * var(--BierButtonUnit)) 0 calc(-0.5 * var(--BierButtonDepth) * var(--BierButtonUnit)), inset rgba(65, 41, 14, 0.5) 0 0 calc(var(--BierButtonDepth) * var(--BierButtonUnit)) calc(var(--BierButtonDepth) * var(--BierButtonUnit));
+    box-shadow: var(--aarde-bovenkant-bruin-5) 0 calc(-1 * var(--BierButtonDepth) * var(--BierButtonUnit)) 0 calc(0.5 * var(--BierButtonDepth) * var(--BierButtonUnit)), inset var(--aarde-bruin) 0 calc(-1 * var(--BierButtonDepth) * var(--BierButtonUnit)) 0 calc(-0.5 * var(--BierButtonDepth) * var(--BierButtonUnit)), inset rgba(65, 41, 14, 0.5) 0 0 calc(var(--BierButtonDepth) * var(--BierButtonUnit)) calc(var(--BierButtonDepth) * var(--BierButtonUnit));
     /* The scaling should be chosen such that the size stays the same*/
     transform: translateY(calc(var(--BierButtonDepth) * var(--BierButtonUnit)))
     scaleY(calc(var(--BierButtonHeight)/(var(--BierButtonHeight) + var(--BierButtonDepth))))

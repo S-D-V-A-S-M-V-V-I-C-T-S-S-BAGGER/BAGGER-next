@@ -27,15 +27,13 @@
   --blad-donkergroen: #538f40ff;
   --blad-donkergroen-1: #4a8737ff;
   --blad-donkergroen-2: #589944ff;
-  
+
   --steeltje-donkergroen: #396732ff;
   --aarde-bier: #ce8d4aff;
   --aarde-bier-donker: #996837ff;
   --tekst-zwart: #000000ff;
   --foreground-text: var(--tekst-zwart);
   --base-unit: 1vmin;
-  --aarde-donker-bruin: #412910ff;
-  --blad-donkerdergroen: #3d6b2f;
 }
 
 body {

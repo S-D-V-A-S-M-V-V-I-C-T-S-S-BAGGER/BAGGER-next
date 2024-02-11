@@ -3,8 +3,8 @@
     flex-direction: column;
     text-align: center;
     color: var(--blad-lichtgroen);
-    font-size: min(5vw, 48px);
-    margin-top: min(5vw, 48px);
+    line-height: 2rem;
+    margin-top: 2rem;
 }
 
 .section a {

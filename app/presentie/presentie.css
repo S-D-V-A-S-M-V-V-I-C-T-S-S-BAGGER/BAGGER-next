@@ -1,0 +1,21 @@
+.presentieButton {
+    &.present {
+        color: black;
+        background-color: var(--blad-donkergroen);
+    }
+
+    &.absent {
+        color: gray;
+        background-color: var(--blad-donkergroen-3);
+    }
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: var(--blad-lichtgroen);
+    font-size: max(min(5vw, 32px), 11px);
+    margin-top: max(min(5vw, 32px), 11px);
+    gap: 1rem;
+}

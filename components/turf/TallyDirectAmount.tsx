@@ -10,6 +10,7 @@ enum SubmittingState {
     not_started,
     awaiting_confirmation,
     being_sent,
+    awaiting_cancellation,
 }
 
 const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
@@ -42,6 +43,11 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
         setSubmittingState(SubmittingState.not_started);
     };
 
+    const cancel = async () => {
+        await finishTally(0);
+        setSubmittingState(SubmittingState.not_started);
+    };
+
     return (
         <main className="tallyCreationMain">
             <Modal open={submittingState == SubmittingState.being_sent}>
@@ -56,6 +62,19 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
                     <button className="yes submittingModalButton" onClick={() => tallyUp()}>Ja</button>
                 </div>
             </Modal>
+            <Modal open={submittingState == SubmittingState.awaiting_cancellation}>
+                <div className="submittingModal cancel">
+                    <p>Weet je zeker dat je wil resetten?</p>
+                    <button className="no submittingModalButton" onClick={() => setSubmittingState(SubmittingState.not_started)}>Nee</button>
+                    <button className="yes submittingModalButton" onClick={() => cancel()}>Reset</button>
+                </div>
+            </Modal>
+            <div className='cancelButtonBar'>
+                <button className='cancelButton' onClick={
+                    () => setSubmittingState(SubmittingState.awaiting_cancellation)
+                }>Reset
+                </button>
+            </div>
             <div className="rowFlex">
                 <input
                     ref={hoeveelRef}

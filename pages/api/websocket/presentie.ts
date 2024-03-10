@@ -1,7 +1,8 @@
+"use server";
 import {NextApiRequest, NextApiResponse} from "next";
 import {Server} from "socket.io";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // @ts-ignore
     if (!res.socket.server.io) {
         console.log('Opening WS...');

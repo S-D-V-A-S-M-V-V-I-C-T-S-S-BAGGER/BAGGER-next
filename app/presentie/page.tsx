@@ -17,6 +17,7 @@ const socket = io({
 const Attendance: FC = () => {
     const [attendance, setAttendance] = useState<AttendanceState>({});
     const newNameRef = useRef<HTMLInputElement>(null);
+    const [error, setError] = useState();
 
     const buttons = [];
 
@@ -31,10 +32,14 @@ const Attendance: FC = () => {
         socket.on('connect', () => console.log('WS Connected'));
         socket.on('disconnect', () => console.log('WS disconnected'));
         socket.on('pong', () => console.log('pong'));
-        socket.on('error', (err) => console.error(err));
+        socket.on('error', (err) => {
+            console.error(err);
+            setError(err);
+        });
         socket.on('attendanceUpdate', (newAttendance) => {
             console.log('Attendance update:', newAttendance);
             setAttendance(newAttendance);
+            setError(undefined);
         });
 
         return () => {
@@ -44,6 +49,7 @@ const Attendance: FC = () => {
 
     return (
         <div className={'section'}>
+            {error}
             {buttons}
             <div>
                 <input ref={newNameRef} placeholder={'Anders...'}/><button onClick={() => {

@@ -5,6 +5,7 @@ import {useLocalStorage} from "@/lib/useLocalStorage";
 import dayjs from "dayjs";
 import {AttendanceButton} from "@/components/presentie/AttendanceButton";
 import {getActieveLeden} from "@/components/presentie/attendanceSheet";
+import {io} from "socket.io-client";
 
 type AttendanceState = {
     [name: string] : boolean,
@@ -54,6 +55,20 @@ const Attendance: FC = () => {
         const onClick = () => setAttendance(togglePerson(attendance, attendanceName));
         buttons.push(<AttendanceButton key={attendanceName} name={attendanceName} present={attendance[attendanceName]} onClick={onClick}/>);
     }
+
+    useEffect(() => {
+        const socket = io({
+            path: '/api/websocket/presentie',
+            addTrailingSlash: false,
+        });
+        socket.on('connect', () => {
+            console.log('Connected to ws');
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
 
     return (
         <div className={'section'}>

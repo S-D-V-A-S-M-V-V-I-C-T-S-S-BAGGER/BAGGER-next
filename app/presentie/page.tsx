@@ -8,18 +8,18 @@ type AttendanceState = {
     [name: string] : boolean,
 }
 
-// TODO define events
-const socket = io({
-    path: '/api/websocket/presentie',
-    addTrailingSlash: false,
-});
-
 const Attendance: FC = () => {
     const [attendance, setAttendance] = useState<AttendanceState>({});
     const newNameRef = useRef<HTMLInputElement>(null);
     const [error, setError] = useState();
 
     const buttons = [];
+
+    // TODO define events
+    const socket = io({
+        path: '/api/websocket/presentie',
+        addTrailingSlash: false,
+    });
 
     for (const attendanceName in attendance) {
         const onClick = () => {

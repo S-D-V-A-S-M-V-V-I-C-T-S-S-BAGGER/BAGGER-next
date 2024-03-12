@@ -1,5 +1,5 @@
 "use client";
-import {FC, useEffect, useRef, useState} from "react";
+import {FC, useEffect, useMemo, useRef, useState} from "react";
 import './presentie.css';
 import {AttendanceButton} from "@/components/presentie/AttendanceButton";
 import {io} from "socket.io-client";
@@ -16,10 +16,10 @@ const Attendance: FC = () => {
     const buttons = [];
 
     // TODO define events
-    const socket = io({
+    const socket = useMemo(() => io({
         path: '/api/websocket/presentie',
         addTrailingSlash: false,
-    });
+    }), []);
 
     for (const attendanceName in attendance) {
         const onClick = () => {

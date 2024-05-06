@@ -1,6 +1,8 @@
 'use server';
+import 'server-only';
 import {google, sheets_v4} from 'googleapis';
 import {GaxiosResponse} from 'gaxios';
+import {OAuth2Client} from "google-auth-library";
 
 function getJwt() {
     return new google.auth.JWT(
@@ -36,13 +38,13 @@ export async function getSheetValues(spreadsheetId: string, range: string): Prom
     return sheetData?.data.values;
 }
 
-export async function appendSheetValues(spreadsheetId: string, range: string, values: string[][], valueInputOption: 'RAW' | 'USER_ENTERED' = 'RAW') {
+export async function appendSheetValues(spreadsheetId: string, range: string, values: string[][], client: OAuth2Client | undefined = undefined, valueInputOption: 'RAW' | 'USER_ENTERED' = 'RAW') {
     const sheets = google.sheets({version: 'v4'});
     return sheets.spreadsheets.values.append({
         spreadsheetId,
         range,
         valueInputOption,
-        auth: getJwt(),
+        auth: client ?? getJwt(),
         key: process.env.SHEETS_API_KEY,
         requestBody: {
             values,

@@ -5,6 +5,7 @@
     width: 100%;
     margin-top: 1vh;
     margin-bottom: 1vh;
+    gap: 2mm;
 }
 
 .turfRow {
@@ -177,7 +178,6 @@
 .tallyInput {
     color: black;
     overflow: hidden;
-    padding-right: 2mm;
     text-align: right;
     min-width: 0;
 }

@@ -3,7 +3,10 @@ import {NextResponse} from 'next/server';
 import {getSheetValues, SheetValues} from '@/lib/GoogleApi';
 
 const getBafkos = async (): Promise<SheetValues | null> => {
-    return getSheetValues(process.env.BAFKO_SHEET_ID!, process.env.BAFKO_SHEET_RANGE!);
+    if (process?.env?.BAFKO_SHEET_ID && process?.env?.BAFKO_SHEET_RANGE) {
+        return getSheetValues(process.env.BAFKO_SHEET_ID, process.env.BAFKO_SHEET_RANGE);
+    }
+    return null;
 };
 
 export async function GET() {

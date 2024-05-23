@@ -15,7 +15,7 @@ const LogoOnderkant: FC = () => {
     }, []);
 
     const router = useRouter();
-    const routingDelay = 500; // milliseconds
+    const routingDelay = 150; // milliseconds
 
     const onClick = async () => {
         // Prefetch the page

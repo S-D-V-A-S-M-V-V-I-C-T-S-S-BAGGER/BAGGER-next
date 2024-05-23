@@ -1,3 +1,4 @@
+'use client';
 import {FC, RefObject} from 'react';
 
 type TallyCounterProps = {

@@ -1,3 +1,4 @@
+'use client';
 import React, {FC, useEffect, useState} from 'react';
 import TallyRow from '@/components/turf/TallyRow';
 import {useLocalStorage} from '@/lib/useLocalStorage';

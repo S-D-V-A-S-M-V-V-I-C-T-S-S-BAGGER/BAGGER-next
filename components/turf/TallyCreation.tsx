@@ -1,3 +1,4 @@
+'use client';
 import {Dispatch, FC, SetStateAction, useRef, useState} from 'react';
 import './turf.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';

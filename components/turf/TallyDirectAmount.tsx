@@ -1,3 +1,4 @@
+'use client';
 import React, {FC, KeyboardEventHandler, useRef, useState} from 'react';
 import Modal from '@/components/modal/Modal';
 import {formatEuros, parseCents, parseEuros} from '@/components/turf/euroUtil';

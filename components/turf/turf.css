@@ -179,6 +179,7 @@
     overflow: hidden;
     padding-right: 2mm;
     text-align: right;
+    min-width: 0;
 }
 
 .tallyCount {

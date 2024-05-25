@@ -23,8 +23,9 @@ RUN \
 COPY --from=builder --link /app/public ./public
 COPY --from=builder --link --chown=1001:1001 /app/.next/standalone ./
 COPY --from=builder --link --chown=1001:1001 /app/.next/static ./.next/static
+
 USER nextjs
 EXPOSE 3000
 ENV PORT 3000
-ENV HOSTNAME localhost
+
 CMD ["node", "server.js"]

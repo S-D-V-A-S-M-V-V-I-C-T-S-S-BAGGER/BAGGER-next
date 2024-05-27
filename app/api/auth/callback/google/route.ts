@@ -1,10 +1,11 @@
 'use server';
 
 import {exchangeForTokens} from "@/lib/GoogleAuth";
-import {NextRequest, NextResponse} from "next/server";
+import {NextRequest} from "next/server";
+import {cookies} from "next/headers";
 
-// TODO redirect back to original page
-// ensure this is done securely, so to the original navigation state and not just any url
+const redirect_cookie_name = 'google_redirect';
+
 export async function GET(request: NextRequest) {
     const response = await exchangeForTokens(request);
 
@@ -12,5 +13,7 @@ export async function GET(request: NextRequest) {
         return response;
     }
 
-    return new NextResponse('Ding');
+    // Navigate the user back to the page from where they logged in
+    const redirectCookie = cookies().get(redirect_cookie_name);
+    return Response.redirect(new URL(redirectCookie?.value ?? "/", request.url));
 }

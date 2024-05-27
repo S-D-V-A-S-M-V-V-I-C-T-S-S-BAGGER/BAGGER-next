@@ -21,7 +21,8 @@ const scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
 ];
 
-const cookie_name = 'google_nonce';
+const nonce_cookie_name = 'google_nonce';
+const redirect_cookie_name = 'google_redirect';
 
 function getOAuthClient() {
     return new google.auth.OAuth2(
@@ -31,10 +32,12 @@ function getOAuthClient() {
     );
 }
 
-export async function getAuthorizationUrl() {
+export async function getAuthorizationUrl(redirect_uri: string) {
     "use server";
     const state = crypto.randomBytes(32).toString("hex");
-    cookies().set(cookie_name, state);
+    // TODO make these more secure
+    cookies().set(nonce_cookie_name, state, {secure: true});
+    cookies().set(redirect_cookie_name, redirect_uri, {secure: true});
     return globalOAuthClient.generateAuthUrl({
         access_type: 'offline',
         scope: scopes,
@@ -45,7 +48,7 @@ export async function getAuthorizationUrl() {
 
 export async function exchangeForTokens(request: NextRequest) {
     "use server";
-    const nonce = cookies().get(cookie_name)?.value;
+    const nonce = cookies().get(nonce_cookie_name)?.value;
     const code = request.nextUrl.searchParams.get('code');
     const state = request.nextUrl.searchParams.get('state');
 

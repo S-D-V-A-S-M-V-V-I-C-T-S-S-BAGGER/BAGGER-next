@@ -9,10 +9,12 @@ import {decodeJwt} from "jose";
 import {Credentials, OAuth2Client} from "google-auth-library";
 import {createSession} from "@/lib/session";
 import {readFileSync, writeFileSync} from "node:fs";
+import {experimental_taintObjectReference} from "react";
 
-// TODO use tainted variables
+experimental_taintObjectReference("No leaky pls", secrets);
 
 const globalOAuthClient = getOAuthClient();
+experimental_taintObjectReference("No leaky pls", globalOAuthClient);
 
 const scopes = [
     "https://www.googleapis.com/auth/userinfo.email",
@@ -30,6 +32,7 @@ function getOAuthClient() {
 }
 
 export async function getAuthorizationUrl() {
+    "use server";
     const state = crypto.randomBytes(32).toString("hex");
     cookies().set(cookie_name, state);
     return globalOAuthClient.generateAuthUrl({
@@ -41,6 +44,7 @@ export async function getAuthorizationUrl() {
 }
 
 export async function exchangeForTokens(request: NextRequest) {
+    "use server";
     const nonce = cookies().get(cookie_name)?.value;
     const code = request.nextUrl.searchParams.get('code');
     const state = request.nextUrl.searchParams.get('state');
@@ -51,8 +55,10 @@ export async function exchangeForTokens(request: NextRequest) {
 
     if (code) {
         const {tokens} = await globalOAuthClient.getToken(code);
+        experimental_taintObjectReference("No leaky pls", tokens);
 
         const personalClient = getOAuthClient();
+        experimental_taintObjectReference("No leaky pls", personalClient);
         personalClient.setCredentials(tokens);
 
         const userInfo = decodeJwt(tokens.id_token!);
@@ -71,6 +77,7 @@ const clientsPath = process.env.GOOGLE_CLIENT_SECRETS_PATH!;
 type Client = Credentials;
 
 export async function setPersonalOAuthClient(email: string, tokens: Credentials) {
+    "use server";
     const clientsRaw = readFileSync(clientsPath, 'utf8');
     const clients: Record<string, Client> = JSON.parse(clientsRaw);
 
@@ -81,6 +88,7 @@ export async function setPersonalOAuthClient(email: string, tokens: Credentials)
 }
 
 export async function getPersonalOAuthClient(email: string): Promise<OAuth2Client | undefined> {
+    "use server";
     const clientsRaw = readFileSync(clientsPath, 'utf8');
     const clients: Record<string, Client> = JSON.parse(clientsRaw);
 

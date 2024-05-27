@@ -15,6 +15,9 @@ const nextConfig = {
         ];
     },
     output: 'standalone',
+    experimental: {
+        taint: true,
+    },
 };
 
 module.exports = nextConfig;

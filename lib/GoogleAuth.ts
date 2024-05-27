@@ -10,6 +10,7 @@ import {Credentials, OAuth2Client} from "google-auth-library";
 import {createSession} from "@/lib/session";
 import {readFileSync, writeFileSync} from "node:fs";
 import {experimental_taintObjectReference} from "react";
+import {ResponseCookie} from "next/dist/compiled/@edge-runtime/cookies";
 
 experimental_taintObjectReference("No leaky pls", secrets);
 
@@ -35,9 +36,20 @@ function getOAuthClient() {
 export async function getAuthorizationUrl(redirect_uri: string) {
     "use server";
     const state = crypto.randomBytes(32).toString("hex");
-    // TODO make these more secure
-    cookies().set(nonce_cookie_name, state, {secure: true});
-    cookies().set(redirect_cookie_name, redirect_uri, {secure: true});
+    // Cookies are valid for 5 minutes
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
+    const cookieOptions: Partial<ResponseCookie> = {
+        httpOnly: true,
+        secure: true,
+        expires: expiresAt,
+        sameSite: 'lax',
+        path: '/',
+    };
+    // Anti-forgery state token
+    cookies().set(nonce_cookie_name, state, cookieOptions);
+    // Page within the website to redirect to
+    cookies().set(redirect_cookie_name, redirect_uri, cookieOptions);
+
     return globalOAuthClient.generateAuthUrl({
         access_type: 'offline',
         scope: scopes,

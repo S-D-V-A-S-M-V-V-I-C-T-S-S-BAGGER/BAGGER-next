@@ -57,6 +57,28 @@ export async function getSessionUser() {
     }
 }
 
+export async function hasSessionUser(): Promise<boolean> {
+    "use server";
+    try {
+        const session = cookies().get('session');
+        if (session?.value) {
+            const sessionPayload = await decrypt(session.value);
+            if (sessionPayload?.userId) {
+                const email: string = sessionPayload.userId as string;
+                const personalOAuthClient = await getPersonalOAuthClient(email);
+
+                if (personalOAuthClient) {
+                    experimental_taintObjectReference("No leaky pls", personalOAuthClient);
+                    return true;
+                }
+            }
+        }
+        return false;
+    } catch (err) {
+        return false;
+    }
+}
+
 export async function createSession(userId: string) {
     const expiresAt = dayjs().add(7, "days").toDate();
     const session = await encrypt({ userId, expiresAt });

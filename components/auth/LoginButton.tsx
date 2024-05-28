@@ -4,7 +4,7 @@ import {getAuthorizationUrl} from "@/lib/GoogleAuth";
 import {usePathname, useRouter} from "next/navigation";
 import '@/styling/baggerButton.css';
 
-export const AuthButton: FC = () => {
+const LoginButton: FC = () => {
     const [url, setUrl] = useState<string>();
 
     const pathname = usePathname();
@@ -21,3 +21,5 @@ export const AuthButton: FC = () => {
         >Login</button>
     );
 };
+
+export default LoginButton;

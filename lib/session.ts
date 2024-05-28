@@ -4,6 +4,7 @@ import {jwtVerify, SignJWT} from 'jose';
 import {cookies} from "next/headers";
 import {getPersonalOAuthClient, removePersonalOAuthClient, setPersonalOAuthClient} from "@/lib/GoogleAuth";
 import dayjs from "dayjs";
+import {experimental_taintObjectReference} from "react";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
@@ -33,6 +34,7 @@ export async function decrypt(session: string | undefined = '') {
 }
 
 export async function getSessionUser() {
+    "use server";
     // TODO refresh
     const session = cookies().get('session');
     if (session?.value) {
@@ -40,11 +42,14 @@ export async function getSessionUser() {
         if (sessionPayload?.userId) {
             const email: string = sessionPayload.userId as string;
             const personalOAuthClient = await getPersonalOAuthClient(email);
-            // Store refreshed Google tokens
-            personalOAuthClient?.on("tokens", (tokens => {
-                console.log("Refreshed Google tokens for", email);
-                setPersonalOAuthClient(email, tokens);
-            }));
+            if (personalOAuthClient !== undefined) {
+                experimental_taintObjectReference("No leaky pls", personalOAuthClient);
+                // Store refreshed Google tokens
+                personalOAuthClient.on("tokens", (tokens => {
+                    console.log("Refreshed Google tokens for", email);
+                    setPersonalOAuthClient(email, tokens);
+                }));
+            }
             return personalOAuthClient;
         } else {
             return undefined;

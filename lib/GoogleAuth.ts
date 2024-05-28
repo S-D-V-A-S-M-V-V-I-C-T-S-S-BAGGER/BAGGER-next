@@ -11,6 +11,7 @@ import {createSession} from "@/lib/session";
 import {readFileSync, writeFileSync} from "node:fs";
 import {experimental_taintObjectReference} from "react";
 import {ResponseCookie} from "next/dist/compiled/@edge-runtime/cookies";
+import dayjs from "dayjs";
 
 experimental_taintObjectReference("No leaky pls", secrets);
 
@@ -36,8 +37,8 @@ function getOAuthClient() {
 export async function getAuthorizationUrl(redirect_uri: string) {
     "use server";
     const state = crypto.randomBytes(32).toString("hex");
-    // Cookies are valid for 5 minutes
-    const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
+
+    const expiresAt = dayjs().add(5, "minutes").toDate();
     const cookieOptions: Partial<ResponseCookie> = {
         httpOnly: true,
         secure: true,
@@ -45,6 +46,7 @@ export async function getAuthorizationUrl(redirect_uri: string) {
         sameSite: 'lax',
         path: '/',
     };
+
     // Anti-forgery state token
     cookies().set(nonce_cookie_name, state, cookieOptions);
     // Page within the website to redirect to

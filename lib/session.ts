@@ -2,7 +2,7 @@
 import 'server-only';
 import {jwtVerify, SignJWT} from 'jose';
 import {cookies} from "next/headers";
-import {getPersonalOAuthClient, setPersonalOAuthClient} from "@/lib/GoogleAuth";
+import {getPersonalOAuthClient, removePersonalOAuthClient, setPersonalOAuthClient} from "@/lib/GoogleAuth";
 import dayjs from "dayjs";
 
 const secretKey = process.env.SESSION_SECRET;
@@ -66,6 +66,15 @@ export async function createSession(userId: string) {
 }
 
 export async function deleteSession() {
+    const session = cookies().get('session');
+    if (session?.value) {
+        const sessionPayload = await decrypt(session.value).catch();
+        if (sessionPayload?.userId) {
+            const email: string = sessionPayload.userId as string;
+            console.log("Logout from", email);
+            await removePersonalOAuthClient(email).catch(() => console.error("Failed to delete client for", email));
+        }
+    }
     cookies().delete('session');
 }
 

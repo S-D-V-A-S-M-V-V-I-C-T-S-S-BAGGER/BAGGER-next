@@ -104,6 +104,17 @@ export async function setPersonalOAuthClient(email: string, tokens: Credentials)
     writeFileSync(clientsPath, newClientsRaw, 'utf8');
 }
 
+export async function removePersonalOAuthClient(email: string) {
+    "use server";
+    const clientsRaw = readFileSync(clientsPath, 'utf8');
+    const clients: Record<string, Client> = JSON.parse(clientsRaw);
+
+    delete clients[email];
+
+    const newClientsRaw = JSON.stringify(clients, undefined, 2);
+    writeFileSync(clientsPath, newClientsRaw, 'utf8');
+}
+
 export async function getPersonalOAuthClient(email: string): Promise<OAuth2Client | undefined> {
     "use server";
     const clientsRaw = readFileSync(clientsPath, 'utf8');

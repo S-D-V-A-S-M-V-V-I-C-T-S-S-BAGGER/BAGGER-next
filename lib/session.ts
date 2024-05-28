@@ -11,6 +11,7 @@ const encodedKey = new TextEncoder().encode(secretKey);
 
 type SessionPayload = {
     userId: string,
+    userName: string,
     expiresAt: Date,
 }
 
@@ -57,6 +58,16 @@ export async function getSessionUser() {
     }
 }
 
+export async function getSessionName(): Promise<string | undefined> {
+    "use server";
+    const session = cookies().get('session');
+    if (session?.value) {
+        const sessionPayload = await decrypt(session.value);
+        return sessionPayload?.userName as (string | undefined);
+    }
+    return undefined;
+}
+
 export async function hasSessionUser(): Promise<boolean> {
     "use server";
     try {
@@ -79,9 +90,9 @@ export async function hasSessionUser(): Promise<boolean> {
     }
 }
 
-export async function createSession(userId: string) {
+export async function createSession(userId: string, userName: string) {
     const expiresAt = dayjs().add(7, "days").toDate();
-    const session = await encrypt({ userId, expiresAt });
+    const session = await encrypt({ userId, userName, expiresAt });
 
     cookies().set('session', session, {
         httpOnly: true,

@@ -19,6 +19,7 @@ const globalOAuthClient = getOAuthClient();
 experimental_taintObjectReference("No leaky pls", globalOAuthClient);
 
 const scopes = [
+    "https://www.googleapis.com/auth/userinfo.profile",
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/spreadsheets",
 ];
@@ -80,11 +81,12 @@ export async function exchangeForTokens(request: NextRequest) {
 
         const userInfo = decodeJwt(tokens.id_token!);
         const email: string | undefined = userInfo.email as string;
+        const name: string | undefined = userInfo.given_name as string;
 
         if (email) {
-            console.log("Login from", email);
+            console.log("Login from", userInfo);
             await setPersonalOAuthClient(email, tokens);
-            await createSession(email);
+            await createSession(email, name);
         }
     }
 }

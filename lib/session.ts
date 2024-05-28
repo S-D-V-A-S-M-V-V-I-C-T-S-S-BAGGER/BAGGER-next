@@ -2,7 +2,7 @@
 import 'server-only';
 import {jwtVerify, SignJWT} from 'jose';
 import {cookies} from "next/headers";
-import {getPersonalOAuthClient} from "@/lib/GoogleAuth";
+import {getPersonalOAuthClient, setPersonalOAuthClient} from "@/lib/GoogleAuth";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
@@ -27,7 +27,7 @@ export async function decrypt(session: string | undefined = '') {
         });
         return payload;
     } catch (error) {
-        console.log('Failed to verify session');
+        console.log('Failed to verify session:', session);
     }
 }
 
@@ -36,10 +36,15 @@ export async function getSessionUser() {
     const session = cookies().get('session');
     if (session?.value) {
         const sessionPayload = await decrypt(session.value);
-        console.log("Session:", sessionPayload);
         if (sessionPayload?.userId) {
             const email: string = sessionPayload.userId as string;
-            return getPersonalOAuthClient(email);
+            const personalOAuthClient = await getPersonalOAuthClient(email);
+            // Store refreshed Google tokens
+            personalOAuthClient?.on("tokens", (tokens => {
+                console.log("Refreshed Google tokens for", email);
+                setPersonalOAuthClient(email, tokens);
+            }));
+            return personalOAuthClient;
         } else {
             return undefined;
         }

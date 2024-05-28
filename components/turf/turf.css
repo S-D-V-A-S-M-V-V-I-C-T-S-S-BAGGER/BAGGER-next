@@ -87,6 +87,7 @@
     }
 }
 
+.tallyListHeader,
 .totalBar,
 .cancelButtonBar,
 .submitButtonBar,
@@ -97,7 +98,6 @@
     min-height: 1cm;
 }
 
-.cancelButtonBar,
 .submitButtonBar,
 .addEntryButtonBar {
     margin-top: 3vh;
@@ -271,4 +271,11 @@ h3 {
     position: absolute;
     top: 2vmin;
     right: 2vmin;
+}
+
+.tallyListHeader {
+    text-align: center;
+    align-items: center;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
 }

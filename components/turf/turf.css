@@ -267,3 +267,8 @@ h3 {
     color: var(--aarde-mega-licht-bruin-3);
 }
 
+.logout {
+    position: absolute;
+    top: 2vmin;
+    right: 2vmin;
+}

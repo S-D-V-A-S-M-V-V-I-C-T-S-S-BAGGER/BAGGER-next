@@ -35,5 +35,6 @@
     "eslint-config-next": "^14.2.3",
     "eslint-plugin-unused-imports": "^2.0.0"
   },
-  "license": "SEE LICENSE IN license.txt"
+  "license": "SEE LICENSE IN license.txt",
+  "packageManager": "npm@10.8.0"
 }

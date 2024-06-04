@@ -1,17 +1,15 @@
-"use client";
-import {FC, useContext} from "react";
+"use server";
+import {FC} from "react";
 import '@/styling/baggerButton.css';
-import {AuthContext} from "@/components/auth/AuthContext";
 import LoginButton from "@/components/auth/LoginButton";
 import LogoutButton from "@/components/auth/LogoutButton";
+import {hasSessionUser} from "@/lib/session";
 
-const AuthButton: FC = () => {
-    const authContextData = useContext(AuthContext);
-
-    if (!authContextData?.isAuthenticated) {
-        return <LoginButton/>;
-    } else {
+const AuthButton: FC = async () => {
+    if (await hasSessionUser()) {
         return <LogoutButton/>;
+    } else {
+        return <LoginButton/>;
     }
 };
 

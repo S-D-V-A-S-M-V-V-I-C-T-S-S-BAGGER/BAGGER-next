@@ -106,17 +106,22 @@ export async function setPersonalOAuthClient(email: string, tokens: Credentials)
     writeFileSync(clientsPath, newClientsRaw, 'utf8');
 }
 
-export async function removePersonalOAuthClient(email: string) {
+export async function removePersonalOAuthClient(email: string, revokeCredentials = true) {
     "use server";
     const clientsRaw = readFileSync(clientsPath, 'utf8');
     const clients: Record<string, Client> = JSON.parse(clientsRaw);
 
-    const tokens = clients[email];
+    if (revokeCredentials) {
+        const tokens = clients[email];
 
-    if (tokens) {
-        const oAuthClient = getOAuthClient();
-        oAuthClient.setCredentials(tokens);
-        oAuthClient.revokeCredentials().then(() => console.log("Revoked credentials for", email)).catch(err => console.error("Failed to revoke credentials for", email, ":", err));
+        if (tokens) {
+            const oAuthClient = getOAuthClient();
+            oAuthClient.setCredentials(tokens);
+            oAuthClient.revokeCredentials().then(() => console.log(
+                "Revoked credentials for",
+                email
+            )).catch(err => console.error("Failed to revoke credentials for", email, ":", err));
+        }
     }
 
     delete clients[email];

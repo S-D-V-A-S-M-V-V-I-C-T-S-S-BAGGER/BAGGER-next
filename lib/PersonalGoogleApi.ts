@@ -2,8 +2,21 @@
 
 import {google, sheets_v4} from "googleapis";
 import {SheetContent} from "@/lib/GoogleApi";
-import {getSessionUser} from "@/lib/session";
-import {GaxiosResponse} from "gaxios";
+import {deleteSession, getSessionUser} from "@/lib/session";
+import {GaxiosError, GaxiosResponse} from "gaxios";
+
+async function handleAuthError<T>(promise: Promise<T>): Promise<T | undefined> {
+    return promise
+        .catch(async (err: GaxiosError) => {
+            if (err.status !== undefined && [401, 403].includes(err.status)) {
+                console.log("Expired credentials...");
+                await deleteSession(false).catch();
+                return undefined;
+            } else {
+                throw err;
+            }
+        });
+}
 
 export async function getSheet(spreadsheetId: string, range: string): Promise<SheetContent> {
     "use server";
@@ -16,18 +29,12 @@ export async function getSheet(spreadsheetId: string, range: string): Promise<Sh
 
     const sheets = google.sheets({version: 'v4', auth: sessionUser});
 
-    return new Promise((resolve, reject) => {
+    return handleAuthError(
         sheets.spreadsheets.values.get({
             spreadsheetId,
             range,
-        }, (err, res) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(res);
-            }
-        });
-    });
+        })
+    );
 }
 
 export type SheetValues = GaxiosResponse<sheets_v4.Schema$ValueRange>['data']['values'];
@@ -46,12 +53,14 @@ export async function appendSheetValues(spreadsheetId: string, range: string, va
 
     const sheets = google.sheets({version: 'v4', auth: sessionUser});
 
-    return sheets.spreadsheets.values.append({
-        spreadsheetId,
-        range,
-        valueInputOption,
-        requestBody: {
-            values,
-        },
-    });
+    return handleAuthError(
+        sheets.spreadsheets.values.append({
+            spreadsheetId,
+            range,
+            valueInputOption,
+            requestBody: {
+                values,
+            },
+        })
+    );
 }

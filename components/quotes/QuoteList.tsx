@@ -12,8 +12,11 @@ const QuoteList: FC = () => {
     const [newQuotePerson, setNewQuotePerson] = useState("");
     const [newQuoteText, setNewQuoteText] = useState("");
 
+    const [submitting, setSubmitting] = useState(false);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-        getQuoteSheet().then(res => setQuotes(res as QuoteData[]));
+        getQuoteSheet().then(res => setQuotes(res as QuoteData[])).finally(() => setLoading(false));
     }, []);
 
     const parsedQuotes = quotes?.map((value, index): Quote => {
@@ -33,16 +36,23 @@ const QuoteList: FC = () => {
         return <QuoteRow key={value.id} name={value.name} text={value.text} date={value.date}/>;
     });
 
-    const onSubmitQuote = () => submitQuote(
-        newQuoteDate.format("M/D/YYYY"),
-        newQuotePerson,
-        newQuoteText
-    ).then(res => {
-        setQuotes(res as QuoteData[]);
-        setNewQuoteDate(dayjs());
-        setNewQuotePerson("");
-        setNewQuoteText("");
-    });
+    const onSubmitQuote = async () => {
+        setSubmitting(true);
+        await submitQuote(
+            newQuoteDate.format("M/D/YYYY"),
+            newQuotePerson,
+            newQuoteText
+        )
+            .then(res => {
+                setQuotes(res as QuoteData[]);
+                setNewQuoteDate(dayjs());
+                setNewQuotePerson("");
+                setNewQuoteText("");
+            })
+            .finally(() => {
+                setSubmitting(false);
+            });
+    };
 
     return (
         <div className="App">
@@ -56,14 +66,16 @@ const QuoteList: FC = () => {
                 dateCallback={(newDate: Date) => {
                     setNewQuoteDate(dayjs(newDate));
                 }}
+                disabled={submitting}
              />
             <button
+                disabled={submitting}
                 onClick={onSubmitQuote}
             >
-                Nieuwe quote toevoegen!
+                {submitting ? "Bezig met toevoegen..." : "Nieuwe quote toevoegen!"}
             </button>
             <h2>we kramen een hoop troep uit, zoals:</h2>
-            {quoteRows}
+            {loading ? "Laden..." : quoteRows}
         </div>
     );
 };

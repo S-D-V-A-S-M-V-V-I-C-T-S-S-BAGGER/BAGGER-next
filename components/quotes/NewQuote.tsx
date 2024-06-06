@@ -7,40 +7,41 @@ import "./quotes.css";
 import {Dayjs} from "dayjs";
 
 export interface NewQuoteProps {
-  name: string;
-  text: string;
-  date: Dayjs;
+    name: string;
+    text: string;
+    date: Dayjs;
+    nameCallback: (name: string) => void;
+    textCallback: (text: string) => void;
+    dateCallback: (date: Date) => void;
+    disabled?: boolean;
 }
 
-export interface NewQuoteElementProps extends NewQuoteProps {
-  nameCallback: (name: string) => void;
-  textCallback: (text: string) => void;
-  dateCallback: (date: Date) => void;
-}
-
-const NewQuote: FC<NewQuoteElementProps> = (props) => {
-  return (
-    <>
-      <input
-        placeholder="Naam"
-        value={props.name}
-        onChange={event => props.nameCallback(event.target.value)}
-      />
-      <input
-        placeholder="Quote"
-        value={props.text}
-        onChange={event => {
-          props.textCallback(event.target.value);
-        }}
-      />
-      <DatePicker
-        selected={props.date.toDate()}
-        onChange={(date: Date | null) => {
-          props.dateCallback(date!);
-        }}
-      />
-    </>
-  );
+const NewQuote: FC<NewQuoteProps> = ({disabled = false, ...props}) => {
+    return (
+        <>
+            <input
+                disabled={disabled}
+                placeholder="Naam"
+                value={props.name}
+                onChange={event => props.nameCallback(event.target.value)}
+            />
+            <input
+                disabled={disabled}
+                placeholder="Quote"
+                value={props.text}
+                onChange={event => {
+                    props.textCallback(event.target.value);
+                }}
+            />
+            <DatePicker
+                disabled={disabled}
+                selected={props.date.toDate()}
+                onChange={(date: Date | null) => {
+                    props.dateCallback(date!);
+                }}
+            />
+        </>
+    );
 };
 
 export default NewQuote;

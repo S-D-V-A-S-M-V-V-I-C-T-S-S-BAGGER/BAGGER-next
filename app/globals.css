@@ -45,6 +45,11 @@ body {
   src: url("/MilasianCircaBold.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Nunito", sans-serif;
+  src: url("/Nunito-VariableFont_wght.ttf") format("truetype");
+}
+
 /*
 @media (prefers-color-scheme: dark) {
   :root {

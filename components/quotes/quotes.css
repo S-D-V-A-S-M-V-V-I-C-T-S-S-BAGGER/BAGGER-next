@@ -1,0 +1,29 @@
+.App {
+  font-family: "Nunito", sans-serif;
+  color: rgb(3, 235, 214);
+  text-align: center;
+
+  input {
+    color: rgb(110, 69, 22);
+    background-color: rgb(3, 235, 214);
+    border: 3px solid rgb(3, 235, 214);
+    border-radius: 5px;
+    margin: 0.2rem;
+  }
+
+  button {
+    color: rgb(110, 69, 22);
+    background-color: rgb(3, 235, 214);
+    border: 3px solid white;
+    border-radius: 5px;
+  }
+}
+
+.quote-top {
+  font-size: large;
+  margin-bottom: 0;
+}
+
+.quote-bottom {
+  margin-top: 0;
+}

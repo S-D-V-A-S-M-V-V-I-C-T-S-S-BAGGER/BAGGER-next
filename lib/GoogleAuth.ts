@@ -84,7 +84,7 @@ export async function exchangeForTokens(request: NextRequest) {
         const name: string | undefined = userInfo.given_name as string;
 
         if (email) {
-            console.log("Login from", userInfo);
+            console.log("Login from", email);
             await setPersonalOAuthClient(email, tokens);
             await createSession(email, name);
         }

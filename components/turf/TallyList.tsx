@@ -1,9 +1,12 @@
 'use client';
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import TallyRow from '@/components/turf/TallyRow';
 import {useLocalStorage} from '@/lib/useLocalStorage';
 import Modal from '@/components/modal/Modal';
 import {formatEuros} from "@/components/turf/euroUtil";
+import {AuthContext} from "@/components/auth/AuthContext";
+import LogoutButton from "@/components/auth/LogoutButton";
+import LoginButton from "@/components/auth/LoginButton";
 
 type TallyListProps = {
     finishTally: (value: number, additionalEntries?: string[]) => Promise<void>;
@@ -34,6 +37,9 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs, tallyEvent, tall
     const tallyListLocalStorageKey = 'turf-lijst';
     const [tallyEntries, setTallyEntries] = useLocalStorage<TallyEntry[]>(tallyListLocalStorageKey, defaultTally);
     const [submittingState, setSubmittingState] = useState<SubmittingState>(SubmittingState.not_started);
+
+    const authContextData = useContext(AuthContext);
+    const authenticated = authContextData.isAuthenticated;
 
     const addCustomEntry = () => {
         const newEntry: TallyEntry = {
@@ -97,6 +103,7 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs, tallyEvent, tall
                     <button className="yes submittingModalButton" onClick={() => tallyUp()}>Ja</button>
                 </div>
             </Modal>
+            {authenticated && <div className="logout"><LogoutButton/></div>}
             <Modal open={submittingState == SubmittingState.awaiting_cancellation}>
                 <div className="submittingModal cancel">
                     <p>Weet je zeker dat je wil resetten?</p>
@@ -126,10 +133,14 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs, tallyEvent, tall
                 <button className='addEntryButton' onClick={addCustomEntry}>+</button>
             </div>
             <div className='submitButtonBar'>
-                <button className='submitButton' onClick={
-                    () => setSubmittingState(SubmittingState.awaiting_confirmation)
-                }>Klaar!
-                </button>
+                {authenticated ? (
+                    <button
+                        className='submitButton'
+                        onClick={() => setSubmittingState(SubmittingState.awaiting_confirmation)}
+                    >
+                        Klaar!
+                    </button>
+                ) : <LoginButton/>}
             </div>
         </main>
     );

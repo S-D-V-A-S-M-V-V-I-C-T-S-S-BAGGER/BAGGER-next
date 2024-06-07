@@ -1,5 +1,5 @@
 "use server";
-import {appendSheetValues, getSheetValues, SheetValues} from '@/lib/GoogleApi';
+import {appendSheetValues, getSheetValues, SheetValues} from '@/lib/PersonalGoogleApi';
 
 export async function getTallySheet(): Promise<SheetValues | null> {
         "use server";

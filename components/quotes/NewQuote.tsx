@@ -39,6 +39,7 @@ const NewQuote: FC<NewQuoteProps> = ({disabled = false, ...props}) => {
                 onChange={(date: Date | null) => {
                     props.dateCallback(date!);
                 }}
+                withPortal={true}
             />
         </>
     );

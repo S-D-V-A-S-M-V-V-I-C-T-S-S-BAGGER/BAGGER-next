@@ -1,10 +1,13 @@
 "use client";
 import * as React from "react";
 import {FC} from "react";
-import DatePicker from "react-datepicker";
+import DatePicker, {registerLocale} from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./quotes.css";
 import {Dayjs} from "dayjs";
+import {nl} from "date-fns/locale";
+
+registerLocale("nl", nl);
 
 export interface NewQuoteProps {
     name: string;
@@ -40,6 +43,8 @@ const NewQuote: FC<NewQuoteProps> = ({disabled = false, ...props}) => {
                     props.dateCallback(date!);
                 }}
                 withPortal={true}
+                dateFormat="d/M/yyyy"
+                locale="nl"
             />
         </>
     );

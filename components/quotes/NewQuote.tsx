@@ -45,6 +45,7 @@ const NewQuote: FC<NewQuoteProps> = ({disabled = false, ...props}) => {
                 withPortal={true}
                 dateFormat="d/M/yyyy"
                 locale="nl"
+                excludeDateIntervals={[{start: new Date(), end: new Date(8.64e15)}]}
             />
         </>
     );

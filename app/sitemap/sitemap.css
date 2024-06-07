@@ -19,3 +19,9 @@
 .section > .title {
     font-size: 1.5em;
 }
+
+.auth {
+    position: absolute;
+    top: 2vmin;
+    right: 2vmin;
+}

@@ -1,9 +1,11 @@
 import {FC} from "react";
 import './sitemap.css';
+import AuthButton from "@/components/auth/AuthButton";
 
 const Index: FC = () => {
     return (
         <div>
+            <div className="auth"><AuthButton/></div>
             <div className={'section'}>
                 <p className={'title'}>Links</p>
                 <p><a href={'/'}>Home/Smoelenboek</a></p>

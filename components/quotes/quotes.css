@@ -17,13 +17,27 @@
     border: 3px solid white;
     border-radius: 5px;
   }
+
+  h1 {
+    font-size: 2rem;
+    margin: 0.67rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 0.83rem 0;
+  }
+}
+
+.quote-block {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .quote-top {
-  font-size: large;
-  margin-bottom: 0;
+  font-size: 18px;
 }
 
 .quote-bottom {
-  margin-top: 0;
+  font-size: 16px;
 }

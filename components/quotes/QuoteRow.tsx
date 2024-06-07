@@ -12,7 +12,7 @@ type QuoteRowProps = {
 
 const QuoteRow: FC<QuoteRowProps> = ({date, name, text}) => {
     return (
-        <div>
+        <div className="quote-block">
             <p className="quote-top">
                 {date.locale("nl").format("dddd D MMMM YYYY")} - {name}
             </p>

@@ -1,7 +1,10 @@
 'use client';
-import React, {FC, KeyboardEventHandler, useRef, useState} from 'react';
+import React, {FC, KeyboardEventHandler, useContext, useRef, useState} from 'react';
 import Modal from '@/components/modal/Modal';
 import {formatEuros, parseCents, parseEuros} from '@/components/turf/euroUtil';
+import {AuthContext} from "@/components/auth/AuthContext";
+import LogoutButton from "@/components/auth/LogoutButton";
+import LoginButton from "@/components/auth/LoginButton";
 
 type TallyDirectAmountProps = {
     finishTally: (value: number) => Promise<void>;
@@ -20,6 +23,9 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally, tallyEvent,
     const hoeveelRef = useRef<HTMLInputElement>(null);
 
     const [submittingState, setSubmittingState] = useState<SubmittingState>(SubmittingState.not_started);
+
+    const authContextData = useContext(AuthContext);
+    const authenticated = authContextData.isAuthenticated;
 
     const fixCents = () => {
         if (hoeveelRef.current) {
@@ -65,6 +71,7 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally, tallyEvent,
                     <button className="yes submittingModalButton" onClick={() => tallyUp()}>Ja</button>
                 </div>
             </Modal>
+            {authenticated && <div className="logout"><LogoutButton/></div>}
             <Modal open={submittingState == SubmittingState.awaiting_cancellation}>
                 <div className="submittingModal cancel">
                     <p>Weet je zeker dat je wil resetten?</p>
@@ -90,8 +97,14 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally, tallyEvent,
                 />
             </div>
             <div className="submitButtonBar">
-                <button className='submitButton' onClick={() => setSubmittingState(SubmittingState.awaiting_confirmation)}>Verstuur
-                </button>
+                {authenticated ? (
+                    <button
+                        className='submitButton'
+                        onClick={() => setSubmittingState(SubmittingState.awaiting_confirmation)}
+                    >
+                        Verstuur
+                    </button>
+                ) : <LoginButton/>}
             </div>
         </main>
     );

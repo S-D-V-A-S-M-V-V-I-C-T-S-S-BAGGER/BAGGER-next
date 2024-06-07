@@ -1,13 +1,15 @@
 'use client';
-import {Dispatch, FC, SetStateAction, useRef, useState} from 'react';
+import {Dispatch, FC, SetStateAction, useContext, useEffect, useRef, useState} from 'react';
 import './turf.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
-import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
 import {faCoins} from "@fortawesome/free-solid-svg-icons/faCoins";
 import {faListOl} from "@fortawesome/free-solid-svg-icons/faListOl";
 import '@/styling/baggerButton.css';
 import '@/styling/roundNeoButton.css';
+import {AuthContext} from "@/components/auth/AuthContext";
+import {getSessionName} from "@/lib/session";
+import LoginButton from "@/components/auth/LoginButton";
+import LogoutButton from "@/components/auth/LogoutButton";
 
 type TallyCreationProps = {
     person: string | null,
@@ -19,60 +21,49 @@ type TallyCreationProps = {
 }
 
 const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person, setPerson, event, setEvent}) => {
-    const wieRef = useRef<HTMLInputElement>(null);
     const watRef = useRef<HTMLInputElement>(null);
-    const [isEditing, setEditing] = useState(false);
+    const [validWat, setValidWat] = useState<boolean>(event !== null && event.length > 1);
 
-    const checkValues = () => {
-        if (wieRef.current && wieRef.current.value.length < 1) {
-            wieRef.current.focus();
-            return false;
-        }
-        if (watRef.current && watRef.current.value.length < 1) {
-            watRef.current.focus();
-            return false;
-        }
-        return true;
-    };
+    const authContextData = useContext(AuthContext);
+    const authenticated = authContextData.isAuthenticated;
 
-    const toggleEdit = () => {
-        if (isEditing) {
-            setPerson(wieRef?.current?.value ?? null);
+    useEffect(() => {
+        if (authenticated) {
+            getSessionName().then(res => setPerson(res!));
         }
-        setEditing(!isEditing);
-    };
+        // Leave person unchanged if not logged in
+    }, [authenticated, setPerson]);
 
     return (
         <main className="tallyCreationMain">
+            {authenticated && <div className="logout"><LogoutButton/></div>}
             <div className="rowFlex gap1rem center">
-                <h3 className="rowFlex">{isEditing? 'Naam: ': person? `Hallo ${person}!`: 'Vul je naam in ->'}</h3>
-                {isEditing
-                    ? (
-                        <input
-                            className="tallyCreationInput baggerInput noMargin"
-                            ref={wieRef}
-                            type="text"
-                            placeholder="Wie"
-                            defaultValue={person ?? undefined}
-                        />
-                    ) : undefined
+                {
+                    authenticated
+                    ? <h3 className="rowFlex">Hallo {person}!</h3>
+                    : <LoginButton/>
                 }
-                <button className={person? "roundNeoButton" : "roundNeoButton green"} onClick={() => toggleEdit()}>
-                    <FontAwesomeIcon icon={isEditing ? faCheck : faPencil} />
-                </button>
             </div>
             <div className="centeredColContent">
-                <label htmlFor="activity" className="baggerInputLabel">Wat is de gelegenheid?</label>
-                <input id="activity" className="tallyCreationInput baggerInput" ref={watRef} type="text" placeholder="Stanislaus ofzo 🍻"
-                    defaultValue={event ?? undefined} onChange={(event) => {
-                                setEvent(event.target.value);
-                        }}/>
+            <label htmlFor="activity" className="baggerInputLabel">Wat is de gelegenheid?</label>
+                <input
+                    disabled={!authenticated}
+                    id="activity"
+                    className="tallyCreationInput baggerInput"
+                    ref={watRef}
+                    type="text"
+                    placeholder="Stanislaus ofzo 🍻"
+                    defaultValue={event ?? undefined}
+                    onChange={(event) => {
+                        const watValue = event.target.value;
+                        setEvent(watValue);
+                        setValidWat(watValue.length > 1);
+                    }}
+                />
             </div>
             <div className="buttonContainer">
-                <button className="baggerButton" onClick={() => {
-                    if (checkValues()) {
-                        enterAmount();
-                    }
+                <button disabled={!authenticated || !validWat} className="baggerButton" onClick={() => {
+                    enterAmount();
                 }}>
                     <div className="cardButtonContent">
                         <span className="buttonIconBig">
@@ -82,10 +73,8 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
                         <p>Tel het zelf op</p>
                     </div>
                 </button>
-                <button className="baggerButton" onClick={() => {
-                    if (checkValues()) {
-                        startTally();
-                    }
+                <button disabled={!authenticated || !validWat} className="baggerButton" onClick={() => {
+                    startTally();
                 }}>
                     <div className="cardButtonContent">
                         <span className="buttonIconBig">

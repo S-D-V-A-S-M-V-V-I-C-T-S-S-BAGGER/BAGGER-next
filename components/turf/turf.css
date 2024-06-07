@@ -273,3 +273,9 @@ h3 {
     margin-top: 3vh;
     margin-bottom: 3vh;
 }
+
+.logout {
+    position: absolute;
+    top: 2vmin;
+    right: 2vmin;
+}

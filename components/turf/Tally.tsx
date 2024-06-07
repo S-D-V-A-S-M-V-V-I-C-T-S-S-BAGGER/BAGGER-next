@@ -80,10 +80,10 @@ const Tally: FC<TallyProps> = ({pilsPrijs}) => {
             );
             break;
         case TallyState.tally_started:
-            tallyPage = <TallyList finishTally={finishTally} pilsPrijs={pilsPrijs}/>;
+            tallyPage = <TallyList tallyEvent={tallyEvent} tallyStartDate={tallyStartDate} finishTally={finishTally} pilsPrijs={pilsPrijs}/>;
             break;
         case TallyState.direct_amount:
-            tallyPage = <TallyDirectAmount finishTally={finishTally}/>;
+            tallyPage = <TallyDirectAmount tallyEvent={tallyEvent} tallyStartDate={tallyStartDate} finishTally={finishTally}/>;
             break;
         default:
             tallyPage = <div>error</div>;

@@ -8,6 +8,8 @@ import {formatEuros} from "@/components/turf/euroUtil";
 type TallyListProps = {
     finishTally: (value: number, additionalEntries?: string[]) => Promise<void>;
     pilsPrijs: number;
+    tallyEvent: string;
+    tallyStartDate: string;
 }
 
 export type TallyEntry = {
@@ -24,7 +26,7 @@ enum SubmittingState {
     awaiting_cancellation,
 }
 
-const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
+const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs, tallyEvent, tallyStartDate}) => {
     const defaultTally = [
         {fixed: true, amount: 0, price: pilsPrijs, name: 'Pils'},
     ];
@@ -102,6 +104,7 @@ const TallyList: FC<TallyListProps> = ({finishTally, pilsPrijs}) => {
                     <button className="yes submittingModalButton" onClick={() => cancel()}>Reset</button>
                 </div>
             </Modal>
+            <div className="tallyListHeader">Turven voor {tallyEvent} op {tallyStartDate}</div>
             <div className='cancelButtonBar'>
                 <button className='cancelButton' onClick={
                     () => setSubmittingState(SubmittingState.awaiting_cancellation)

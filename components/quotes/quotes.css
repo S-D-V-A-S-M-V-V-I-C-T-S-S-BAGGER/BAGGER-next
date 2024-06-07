@@ -1,4 +1,6 @@
 .App {
+  margin-top: calc(40px + 1rem);
+
   font-family: "Nunito", sans-serif;
   color: rgb(3, 235, 214);
   text-align: center;

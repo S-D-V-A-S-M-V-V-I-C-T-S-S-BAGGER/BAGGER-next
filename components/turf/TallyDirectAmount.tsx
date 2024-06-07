@@ -5,6 +5,8 @@ import {formatEuros, parseCents, parseEuros} from '@/components/turf/euroUtil';
 
 type TallyDirectAmountProps = {
     finishTally: (value: number) => Promise<void>;
+    tallyEvent: string;
+    tallyStartDate: string;
 }
 
 enum SubmittingState {
@@ -14,7 +16,7 @@ enum SubmittingState {
     awaiting_cancellation,
 }
 
-const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
+const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally, tallyEvent, tallyStartDate}) => {
     const hoeveelRef = useRef<HTMLInputElement>(null);
 
     const [submittingState, setSubmittingState] = useState<SubmittingState>(SubmittingState.not_started);
@@ -70,6 +72,7 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally}) => {
                     <button className="yes submittingModalButton" onClick={() => cancel()}>Reset</button>
                 </div>
             </Modal>
+            <div className="tallyListHeader">Totaal voor {tallyEvent} op {tallyStartDate}</div>
             <div className='cancelButtonBar'>
                 <button className='cancelButton' onClick={
                     () => setSubmittingState(SubmittingState.awaiting_cancellation)

@@ -3,21 +3,6 @@
   color: rgb(3, 235, 214);
   text-align: center;
 
-  input {
-    color: rgb(110, 69, 22);
-    background-color: rgb(3, 235, 214);
-    border: 3px solid rgb(3, 235, 214);
-    border-radius: 5px;
-    margin: 0.2rem;
-  }
-
-  button {
-    color: rgb(110, 69, 22);
-    background-color: rgb(3, 235, 214);
-    border: 3px solid white;
-    border-radius: 5px;
-  }
-
   h1 {
     font-size: 2rem;
     margin: 0.67rem;
@@ -25,13 +10,12 @@
 
   h2 {
     font-size: 1.5rem;
-    margin: 0.83rem 0;
+    margin: 0.83rem;
   }
 }
 
 .quote-block {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
 
 .quote-top {
@@ -40,4 +24,30 @@
 
 .quote-bottom {
   font-size: 16px;
+}
+
+span.avoidwrap { display:inline-block; }
+
+.new-quote-block {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  input {
+    color: rgb(110, 69, 22);
+    background-color: rgb(3, 235, 214);
+    border: 3px solid rgb(3, 235, 214);
+    border-radius: 5px;
+    margin: 0.2rem;
+    width: 16em;
+  }
+
+  > button {
+    margin: 0.2rem;
+    color: rgb(110, 69, 22);
+    background-color: rgb(3, 235, 214);
+    border: 3px solid white;
+    border-radius: 5px;
+    width: 16em;
+  }
 }

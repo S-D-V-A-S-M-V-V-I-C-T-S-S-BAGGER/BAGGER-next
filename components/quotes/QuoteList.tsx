@@ -56,24 +56,26 @@ const QuoteList: FC = () => {
 
     return (
         <div className="App">
-            <h1>BAGGER ZEGT VULGAIRE DINGEN</h1>
-            <NewQuote
-                date={newQuoteDate}
-                name={newQuotePerson}
-                text={newQuoteText}
-                nameCallback={setNewQuotePerson}
-                textCallback={setNewQuoteText}
-                dateCallback={(newDate: Date) => {
-                    setNewQuoteDate(dayjs(newDate));
-                }}
-                disabled={submitting}
-             />
-            <button
-                disabled={submitting}
-                onClick={onSubmitQuote}
-            >
-                {submitting ? "Bezig met toevoegen..." : "Nieuwe quote toevoegen!"}
-            </button>
+            <h1><span className="avoidwrap">BAGGER ZEGT</span> <span className="avoidwrap">VULGAIRE DINGEN</span></h1>
+            <div className="new-quote-block">
+                <NewQuote
+                    date={newQuoteDate}
+                    name={newQuotePerson}
+                    text={newQuoteText}
+                    nameCallback={setNewQuotePerson}
+                    textCallback={setNewQuoteText}
+                    dateCallback={(newDate: Date) => {
+                        setNewQuoteDate(dayjs(newDate));
+                    }}
+                    disabled={submitting}
+                 />
+                <button
+                    disabled={submitting}
+                    onClick={onSubmitQuote}
+                >
+                    {submitting ? "Bezig met toevoegen..." : "Nieuwe quote toevoegen!"}
+                </button>
+            </div>
             <h2>we kramen een hoop troep uit, zoals:</h2>
             {loading ? "Laden..." : quoteRows}
         </div>

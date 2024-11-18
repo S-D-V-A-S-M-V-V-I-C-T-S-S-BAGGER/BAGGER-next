@@ -1,10 +1,11 @@
 'use server';
 import {google, sheets_v4} from 'googleapis';
 import {GaxiosResponse} from 'gaxios';
+import {decodeBase64} from "@/lib/util";
 
 function getJwt() {
     return new google.auth.JWT(
-        process.env.SERVICE_CLIENT_EMAIL, undefined, process.env.SERVICE_CLIENT_KEY,
+        process.env.SERVICE_CLIENT_EMAIL, undefined, decodeBase64(process.env.SERVICE_CLIENT_KEY),
         ['https://www.googleapis.com/auth/spreadsheets']
     );
 }

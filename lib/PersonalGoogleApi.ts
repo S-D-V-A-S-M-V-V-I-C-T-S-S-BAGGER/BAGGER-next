@@ -9,7 +9,6 @@ async function handleAuthError<T>(promise: Promise<T>): Promise<T | undefined> {
     return promise
         .catch(async (err: GaxiosError) => {
             if ((err.status !== undefined && [401, 403].includes(err.status) || (err.message === "No refresh token is set."))) {
-                console.log("Expired credentials...");
                 await deleteSession(false).catch();
                 return undefined;
             } else {

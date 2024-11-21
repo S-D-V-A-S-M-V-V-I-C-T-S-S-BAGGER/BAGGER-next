@@ -15,5 +15,5 @@ export async function GET(request: NextRequest) {
 
     // Navigate the user back to the page from where they logged in
     const redirectCookie = cookies().get(redirect_cookie_name);
-    return Response.redirect(new URL(redirectCookie?.value ?? "/", request.url));
+    return Response.redirect(new URL(redirectCookie?.value ?? "/", "https://dispuutbagger.nl"));
 }

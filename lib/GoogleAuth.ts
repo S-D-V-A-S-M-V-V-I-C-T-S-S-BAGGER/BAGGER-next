@@ -2,7 +2,6 @@
 import 'server-only';
 import {google} from "googleapis";
 import * as crypto from "node:crypto";
-import secrets from '@/config/client_secret.json';
 import {NextRequest} from "next/server";
 import {cookies} from "next/headers";
 import {decodeJwt} from "jose";
@@ -13,8 +12,6 @@ import {experimental_taintObjectReference} from "react";
 import {ResponseCookie} from "next/dist/compiled/@edge-runtime/cookies";
 import dayjs from "dayjs";
 import {GaxiosError} from "gaxios";
-
-experimental_taintObjectReference("No leaky pls", secrets);
 
 const globalOAuthClient = getOAuthClient();
 experimental_taintObjectReference("No leaky pls", globalOAuthClient);
@@ -30,9 +27,9 @@ const redirect_cookie_name = 'google_redirect';
 
 function getOAuthClient() {
     return new google.auth.OAuth2(
-        secrets.web.client_id,
-        secrets.web.client_secret,
-        secrets.web.redirect_uris[0],
+        process.env.AUTH_GOOGLE_ID,
+        process.env.AUTH_GOOGLE_SECRET,
+        process.env.AUTH_GOOGLE_REDIRECT,
     );
 }
 

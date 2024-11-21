@@ -2,7 +2,7 @@
 import 'server-only';
 import {google} from "googleapis";
 import * as crypto from "node:crypto";
-import secrets from '@/client_secret.json';
+import secrets from '@/config/client_secret.json';
 import {NextRequest} from "next/server";
 import {cookies} from "next/headers";
 import {decodeJwt} from "jose";

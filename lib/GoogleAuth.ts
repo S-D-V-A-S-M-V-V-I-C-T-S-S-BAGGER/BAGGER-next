@@ -85,7 +85,6 @@ export async function exchangeForTokens(request: NextRequest) {
         const name: string | undefined = userInfo.given_name as string;
 
         if (email) {
-            console.log("Login from", email);
             await setPersonalOAuthClient(email, tokens);
             await createSession(email, name);
         }
@@ -118,13 +117,8 @@ export async function removePersonalOAuthClient(email: string, revokeCredentials
         if (tokens) {
             const oAuthClient = getOAuthClient();
             oAuthClient.setCredentials(tokens);
-            oAuthClient.revokeCredentials().then(() => console.log(
-                "Revoked credentials for",
-                email
-            )).catch((err: GaxiosError) => {
-                if (err.response?.data.error === "invalid_token") {
-                    console.log("Credentials for", email, "already invalid");
-                } else {
+            oAuthClient.revokeCredentials().catch((err: GaxiosError) => {
+                if (err.response?.data.error !== "invalid_token") {
                     console.error("Failed to revoke credentials for", email, ":", err);
                 }
             });

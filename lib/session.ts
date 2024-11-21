@@ -30,13 +30,12 @@ export async function decrypt(session: string | undefined = '') {
         });
         return payload;
     } catch (error) {
-        console.log('Failed to verify session:', session);
+        console.error('Failed to verify session:', session);
     }
 }
 
 export async function getSessionUser() {
     "use server";
-    // TODO refresh
     const session = cookies().get('session');
     if (session?.value) {
         const sessionPayload = await decrypt(session.value);
@@ -47,7 +46,6 @@ export async function getSessionUser() {
                 experimental_taintObjectReference("No leaky pls", personalOAuthClient);
                 // Store refreshed Google tokens
                 personalOAuthClient.on("tokens", (tokens => {
-                    console.log("Refreshed Google tokens for", email);
                     setPersonalOAuthClient(email, tokens);
                 }));
             }
@@ -109,14 +107,12 @@ export async function deleteSession(revokeCredentials = true) {
         const sessionPayload = await decrypt(session.value).catch();
         if (sessionPayload?.userId) {
             const email: string = sessionPayload.userId as string;
-            console.log("Logout from", email);
             await removePersonalOAuthClient(email, revokeCredentials).catch(() => console.error("Failed to delete client for", email));
         }
     }
     cookies().delete('session');
 }
 
-// TODO add refresh tokens
 export async function updateSession() {
     const session = cookies().get('session')?.value;
     const payload = await decrypt(session);

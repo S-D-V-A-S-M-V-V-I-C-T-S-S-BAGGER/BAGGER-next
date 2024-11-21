@@ -3,5 +3,5 @@
 /.next/
 .env*
 !.env.example
-/client_secret.json
+*/client_secret.json
 /clientSecrets.json

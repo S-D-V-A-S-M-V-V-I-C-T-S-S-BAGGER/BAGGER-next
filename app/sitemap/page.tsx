@@ -10,6 +10,7 @@ const Index: FC = () => {
                 <p className={'title'}>Links</p>
                 <p><a href={'/'}>Home/Smoelenboek</a></p>
                 <p><a href={'/turf'}>Turflijst</a></p>
+                <p><a href={'/quotes'}>Quotes</a></p>
                 <p><a href={'/declaratie'}>Declaratie indienen</a></p>
                 <p><a href={'/planning'}>Activiteiten planning</a></p>
                 <p><a href={'/sitemap'}>Hier</a></p>

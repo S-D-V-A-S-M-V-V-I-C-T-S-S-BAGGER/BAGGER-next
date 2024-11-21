@@ -1,0 +1,12 @@
+.loginPage {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth {
+    position: absolute;
+    top: 2vmin;
+    right: 2vmin;
+}

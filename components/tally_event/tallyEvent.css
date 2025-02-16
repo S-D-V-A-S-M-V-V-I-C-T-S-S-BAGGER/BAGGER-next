@@ -1,0 +1,75 @@
+.App {
+  margin-top: calc(40px + 1rem);
+
+  font-family: "Nunito", sans-serif;
+  color: rgb(3, 235, 214);
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    margin: 0.67rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 0.83rem;
+  }
+
+  * {
+    user-select: none;
+  }
+}
+
+.datepicker {
+   > div {
+    height: 100%;
+    display: flex;
+
+     > div {
+       height: 100%;
+       display: flex;
+     }
+  }
+}
+
+.tally-event-block {
+  margin: 1rem;
+
+  &.selected {
+    background: pink;
+  }
+}
+
+.tally-event-top {
+  font-size: 18px;
+}
+
+.tally-event-bottom {
+  font-size: 16px;
+}
+
+span.avoidwrap { display:inline-block; }
+
+.new-tally-event-block {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  input {
+    color: rgb(110, 69, 22);
+    background-color: rgb(3, 235, 214);
+    border: 3px solid rgb(3, 235, 214);
+    border-radius: 5px;
+    margin: 0.2rem;
+    width: 16em;
+  }
+
+  > button {
+    margin: 0.2rem;
+    color: rgb(110, 69, 22);
+    background-color: rgb(3, 235, 214);
+    border: 3px solid white;
+    border-radius: 5px;
+    width: 16em;
+  }
+}

@@ -1,68 +1,64 @@
 'use client';
 import {FC, useEffect} from 'react';
 import TallyCreation from '@/components/turf/TallyCreation';
-import TallyList from '@/components/turf/TallyList';
+import TallyList, {TallyEntry} from '@/components/turf/TallyList';
 import TallyDirectAmount from '@/components/turf/TallyDirectAmount';
 import {addTallyRow} from '@/components/turf/tallySheet';
-import dayjs from 'dayjs';
 import {useLocalStorage} from '@/lib/useLocalStorage';
+import TallyEventList from "@/components/tally_event/TallyEventList";
+import {getSessionName} from "@/lib/session";
+import TallySubmit from "@/components/turf/TallySubmit";
+import {SerializedTallyEvent} from "@/components/tally_event/tallyEventSheet";
 
-type TallyProps = {
-    pilsPrijs: number;
-}
-
-enum TallyState {
+export const enum TallyState {
     not_started,
     direct_amount,
     tally_started,
+    finishing,
+    submitting,
 }
 
-const Tally: FC<TallyProps> = ({pilsPrijs}) => {
-    const [tallyPerson, setTallyPerson] = useLocalStorage<string | null>('turf-persoon', null);
-    const [tallyEvent, setTallyEvent]   = useLocalStorage<string | null>('turf-gelegenheid', null);
+const Tally: FC = () => {
+    const [tallyEvent, setTallyEvent]   = useLocalStorage<SerializedTallyEvent | null>('turf-gelegenheid', null);
     const [tallyState, setTallyState]   = useLocalStorage<TallyState>('turf-status', TallyState.not_started);
-    const [tallyStartDate, setTallyStartDate] = useLocalStorage<string | null>('turf-start-date', null);
-
-    const checkInputValues = (): boolean => {
-        if (tallyPerson === null || tallyPerson.length < 1) {
-            return false;
-        }
-        if (tallyEvent === null || tallyEvent.length < 1) {
-            return false;
-        }
-        return true;
-    };
+    const [tallyEntries, setTallyEntries] = useLocalStorage<TallyEntry[]>('turf-lijst', []);
+    const [tallyTotal, setTallyTotal] = useLocalStorage<number>('turf-totaal', 0);
 
     useEffect(() => {
-        console.log('Tally:', tallyPerson, tallyEvent, tallyStartDate, tallyState);
+        console.log('Tally:', tallyEvent, tallyState, tallyTotal, tallyEntries);
     }, [tallyState]);
 
-    const enterAmount = () => {
-        if (checkInputValues()) {
-            setTallyStartDate(dayjs().format('DD-MM-YYYY'));
-            setTallyState(TallyState.direct_amount);
+    const finishTally = (total: number, entries: TallyEntry[] = []) => {
+        setTallyTotal(total);
+        setTallyEntries(entries);
+        if (total > 0) {
+            setTallyState(TallyState.finishing);
+        } else {
+            setTallyState(TallyState.not_started);
         }
     };
 
-    const startTally = () => {
-        if (checkInputValues()) {
-            setTallyStartDate(dayjs().format('DD-MM-YYYY'));
-            setTallyState(TallyState.tally_started);
-        }
+    const resetTally = () => {
+        setTallyTotal(0);
+        setTallyEntries([]);
+        setTallyEvent(null);
+        setTallyState(TallyState.not_started);
     };
 
-    const finishTally = async (value: number, additionalEntries: string[] = []) => {
-        if (value > 0) {
-            await addTallyRow([[tallyPerson ?? 'error', tallyEvent ?? 'error', tallyStartDate ?? 'error', value.toString(), ...additionalEntries]])
+    const submitTally = async () => {
+        if (tallyTotal > 0) {
+            const tallyPerson = await getSessionName();
+            const additionalEntries: string[] = tallyEntries.flatMap(entry => [entry.name, entry.price.toString(), entry.amount.toString()]);
+            await addTallyRow([[tallyPerson ?? 'error', tallyEvent?.id.toString() ?? 'error', tallyTotal.toString() ?? 'error', ...additionalEntries]])
                 .catch(err => {
                     console.log('Add tally row error:', err);
                 }).then(() => {
-                    console.log('Sent Tally:', tallyPerson, tallyEvent, value);
+                    console.log('Sent Tally:', tallyEvent, tallyTotal);
+                    resetTally();
                 });
+        } else {
+            resetTally();
         }
-        setTallyEvent(null);
-        setTallyStartDate(null);
-        setTallyState(TallyState.not_started);
     };
 
     let tallyPage;
@@ -70,20 +66,38 @@ const Tally: FC<TallyProps> = ({pilsPrijs}) => {
         case TallyState.not_started:
             tallyPage = (
                 <TallyCreation
-                    enterAmount={enterAmount}
-                    startTally={startTally}
-                    person={tallyPerson}
-                    setPerson={setTallyPerson}
-                    event={tallyEvent}
-                    setEvent={setTallyEvent}
+                    enterAmount={() => setTallyState(TallyState.direct_amount)}
+                    startTally={() => setTallyState(TallyState.tally_started)}
                 />
             );
             break;
         case TallyState.tally_started:
-            tallyPage = <TallyList tallyEvent={tallyEvent} tallyStartDate={tallyStartDate} finishTally={finishTally} pilsPrijs={pilsPrijs}/>;
+            tallyPage = (
+                <TallyList
+                    finishTally={finishTally}
+                    tallyTotal={tallyTotal}
+                    setTallyTotal={setTallyTotal}
+                    tallyEntries={tallyEntries}
+                    setTallyEntries={setTallyEntries}
+                />
+            );
             break;
         case TallyState.direct_amount:
-            tallyPage = <TallyDirectAmount tallyEvent={tallyEvent} tallyStartDate={tallyStartDate} finishTally={finishTally}/>;
+            tallyPage = <TallyDirectAmount
+                finishTally={finishTally}
+                tallyTotal={tallyTotal}
+                setTallyTotal={setTallyTotal}
+            />;
+            break;
+        case TallyState.finishing:
+            tallyPage = <TallyEventList
+                finishSelection={() => setTallyState(TallyState.submitting)}
+                tallyEvent={tallyEvent}
+                setTallyEvent={setTallyEvent}
+            />;
+            break;
+        case TallyState.submitting:
+            tallyPage = <TallySubmit tallyEvent={tallyEvent!} tallyEntries={tallyEntries} tallyTotal={tallyTotal} setTallyState={setTallyState} submitTally={submitTally}/>;
             break;
         default:
             tallyPage = <div>error</div>;

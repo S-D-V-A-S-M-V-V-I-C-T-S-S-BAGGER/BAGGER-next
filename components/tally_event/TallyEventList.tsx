@@ -1,7 +1,8 @@
 "use client";
-import {FC, useEffect, useState} from "react";
+import {FC, useContext, useEffect, useState} from "react";
 import {
     getTallyEventSheet,
+    SerializedTallyEvent,
     submitTallyEvent,
     TallyEvent,
     TallyEventData,
@@ -9,20 +10,31 @@ import {
 import dayjs from "dayjs";
 import TallyEventRow from "@/components/tally_event/TallyEventRow";
 import NewTallyEvent from "@/components/tally_event/NewTallyEvent";
+import {AuthContext} from "@/components/auth/AuthContext";
+import LogoutButton from "@/components/auth/LogoutButton";
+import LoginButton from "@/components/auth/LoginButton";
 
-const TallyEventList: FC = () => {
+type TallyEventListProps = {
+    finishSelection: () => void;
+    tallyEvent: SerializedTallyEvent | null;
+    setTallyEvent: (event: SerializedTallyEvent | null) => void;
+}
+
+const TallyEventList: FC<TallyEventListProps> = ({tallyEvent, setTallyEvent, finishSelection}) => {
     const [tallyEvents, setTallyEvents] = useState<TallyEventData[]>();
+
+    const authContextData = useContext(AuthContext);
+    const authenticated = authContextData.isAuthenticated;
 
     const [newTallyEventDate, setNewTallyEventDate] = useState(dayjs());
     const [newTallyEventDescription, setNewTallyEventDescription] = useState("");
-    const [selectedTallyEvent, setSelectedTallyEvent] = useState<number>();
 
     const [submitting, setSubmitting] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getTallyEventSheet().then(res => setTallyEvents(res as TallyEventData[])).finally(() => setLoading(false));
-    }, []);
+    }, [authenticated]);
 
     const parsedTallyEvents = tallyEvents?.map((value, index): TallyEvent => {
         const [date, description] = value;
@@ -38,7 +50,20 @@ const TallyEventList: FC = () => {
     });
 
     const tallyEventRows = parsedTallyEvents?.map((value) => {
-        return <TallyEventRow key={value.id} selected={selectedTallyEvent == value.id} id={value.id} description={value.description} date={value.date} selectedCallback={setSelectedTallyEvent}/>;
+        const selected = tallyEvent?.id === value.id;
+        const selectedCallback = () => {
+            setTallyEvent(selected ? null : {...value, date: value.date.format()});
+        };
+        return (
+            <TallyEventRow
+                key={value.id}
+                selected={tallyEvent?.id == value.id}
+                id={value.id}
+                description={value.description}
+                date={value.date}
+                selectedCallback={selectedCallback}
+            />
+        );
     });
 
     const onSubmitTallyEvent = async () => {
@@ -59,6 +84,14 @@ const TallyEventList: FC = () => {
 
     return (
         <div className="App">
+            {authenticated && <div className="logout"><LogoutButton/></div>}
+            {authenticated ? (
+                <button
+                    disabled={tallyEvent === null}
+                    className="baggerButton"
+                    onClick={finishSelection}
+                >Volgende</button>
+            ) : <LoginButton/>}
             <h1><span className="avoidwrap">Wat is de</span> <span className="avoidwrap">gelegenheid?</span></h1>
             <div className="new-tally-event-block">
                 <NewTallyEvent

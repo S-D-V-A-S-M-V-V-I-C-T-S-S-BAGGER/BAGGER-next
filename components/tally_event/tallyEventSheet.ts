@@ -24,3 +24,8 @@ export type TallyEvent = {
     description: string,
     date: Dayjs,
 }
+export type SerializedTallyEvent = {
+    id: number,
+    description: string,
+    date: string,
+}

@@ -7,20 +7,20 @@ import LogoutButton from "@/components/auth/LogoutButton";
 import LoginButton from "@/components/auth/LoginButton";
 
 type TallyDirectAmountProps = {
-    finishTally: (value: number) => Promise<void>;
-    tallyEvent: string;
-    tallyStartDate: string;
+    finishTally: (total: number) => void;
+    tallyTotal: number;
+    setTallyTotal: (total: number) => void;
 }
 
 enum SubmittingState {
     not_started,
     awaiting_confirmation,
-    being_sent,
     awaiting_cancellation,
 }
 
-const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally, tallyEvent, tallyStartDate}) => {
+const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally, tallyTotal, setTallyTotal}) => {
     const hoeveelRef = useRef<HTMLInputElement>(null);
+    const defaultValue = formatEuros(tallyTotal / 100);
 
     const [submittingState, setSubmittingState] = useState<SubmittingState>(SubmittingState.not_started);
 
@@ -30,6 +30,8 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally, tallyEvent,
     const fixCents = () => {
         if (hoeveelRef.current) {
             const value = parseEuros(hoeveelRef);
+            const cents = parseCents(hoeveelRef);
+            setTallyTotal(cents);
             if (!isNaN(value)) {
                 hoeveelRef.current.value = formatEuros(value);
             }
@@ -44,26 +46,17 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally, tallyEvent,
     };
 
     const tallyUp = async () => {
-        setSubmittingState(SubmittingState.being_sent);
         if (hoeveelRef.current) {
-            const value = parseCents(hoeveelRef);
-            await finishTally(value);
+            finishTally(parseCents(hoeveelRef));
         }
-        setSubmittingState(SubmittingState.not_started);
     };
 
     const cancel = async () => {
-        await finishTally(0);
-        setSubmittingState(SubmittingState.not_started);
+        finishTally(0);
     };
 
     return (
         <main className="tallyCreationMain">
-            <Modal open={submittingState == SubmittingState.being_sent}>
-                <div className="submittingModal sending">
-                    <p>Aan het verzenden...</p>
-                </div>
-            </Modal>
             <Modal open={submittingState == SubmittingState.awaiting_confirmation}>
                 <div className="submittingModal confirm">
                     <p>Weet je zeker dat je dit op wil sturen?</p>
@@ -79,7 +72,6 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally, tallyEvent,
                     <button className="yes submittingModalButton" onClick={() => cancel()}>Reset</button>
                 </div>
             </Modal>
-            <div className="tallyListHeader">Totaal voor {tallyEvent} op {tallyStartDate}</div>
             <div className='cancelButtonBar'>
                 <button className='cancelButton' onClick={
                     () => setSubmittingState(SubmittingState.awaiting_cancellation)
@@ -89,6 +81,7 @@ const TallyDirectAmount: FC<TallyDirectAmountProps> = ({finishTally, tallyEvent,
             <div className="rowFlex">
                 <input
                     ref={hoeveelRef}
+                    defaultValue={defaultValue}
                     type="text"
                     placeholder="Hoeveel"
                     className="tallyDirectInput"

@@ -1,5 +1,5 @@
 'use client';
-import {Dispatch, FC, SetStateAction, useContext, useEffect, useRef, useState} from 'react';
+import {FC, useContext, useEffect, useState} from 'react';
 import './turf.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCoins} from "@fortawesome/free-solid-svg-icons/faCoins";
@@ -8,21 +8,16 @@ import '@/styling/baggerButton.css';
 import '@/styling/roundNeoButton.css';
 import {AuthContext} from "@/components/auth/AuthContext";
 import {getSessionName} from "@/lib/session";
-import LoginButton from "@/components/auth/LoginButton";
 import LogoutButton from "@/components/auth/LogoutButton";
+import LoginButton from "@/components/auth/LoginButton";
 
 type TallyCreationProps = {
-    person: string | null,
-    setPerson: Dispatch<SetStateAction<string | null>>,
-    event: string | null,
-    setEvent: Dispatch<SetStateAction<string | null>>,
     startTally: () => void,
     enterAmount: () => void,
 }
 
-const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person, setPerson, event, setEvent}) => {
-    const watRef = useRef<HTMLInputElement>(null);
-    const [validWat, setValidWat] = useState<boolean>(event !== null && event.length > 1);
+const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount}) => {
+    const [person, setPerson] = useState('');
 
     const authContextData = useContext(AuthContext);
     const authenticated = authContextData.isAuthenticated;
@@ -40,29 +35,12 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
             <div className="rowFlex gap1rem center">
                 {
                     authenticated
-                    ? <h3 className="rowFlex">Hallo {person}!</h3>
-                    : <LoginButton/>
+                        ? <h3 className="rowFlex">Hallo {person}!</h3>
+                        : <LoginButton/>
                 }
             </div>
-            <div className="centeredColContent">
-            <label htmlFor="activity" className="baggerInputLabel">Wat is de gelegenheid?</label>
-                <input
-                    disabled={!authenticated}
-                    id="activity"
-                    className="tallyCreationInput baggerInput"
-                    ref={watRef}
-                    type="text"
-                    placeholder="Stanislaus ofzo 🍻"
-                    defaultValue={event ?? undefined}
-                    onChange={(event) => {
-                        const watValue = event.target.value;
-                        setEvent(watValue);
-                        setValidWat(watValue.length > 1);
-                    }}
-                />
-            </div>
             <div className="buttonContainer">
-                <button disabled={!authenticated || !validWat} className="baggerButton" onClick={() => {
+                <button className="baggerButton" onClick={() => {
                     enterAmount();
                 }}>
                     <div className="cardButtonContent">
@@ -73,7 +51,7 @@ const TallyCreation: FC<TallyCreationProps> = ({startTally, enterAmount, person,
                         <p>Tel het zelf op</p>
                     </div>
                 </button>
-                <button disabled={!authenticated || !validWat} className="baggerButton" onClick={() => {
+                <button className="baggerButton" onClick={() => {
                     startTally();
                 }}>
                     <div className="cardButtonContent">

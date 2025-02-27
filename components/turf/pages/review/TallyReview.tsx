@@ -5,6 +5,8 @@ import {TallyEntry} from "@/components/turf/pages/TallyList";
 import {formatEuros} from "@/components/turf/euroUtil";
 import dayjs from "dayjs";
 import {TallyState} from "@/components/turf/Tally";
+import TallyReviewRow from "@/components/turf/pages/review/TallyReviewRow";
+import '@/styling/baggerButton.css';
 
 import('dayjs/locale/nl');
 
@@ -29,6 +31,8 @@ const TallyReview: FC<TallySubmitProps> = ({tallyEvent, tallyEntries, tallyTotal
     const tallyUp = () => {};
     const cancel = () => {};
 
+    const entryRows = tallyEntries.map((entry, index) => <TallyReviewRow key={index} entry={entry}/>);
+
     return <div>
         <Modal open={submittingState == SubmittingState.being_sent}>
             <div className="submittingModal sending">
@@ -49,15 +53,16 @@ const TallyReview: FC<TallySubmitProps> = ({tallyEvent, tallyEntries, tallyTotal
                 <button className="yes submittingModalButton" onClick={() => cancel()}>Reset</button>
             </div>
         </Modal>
-        <div>Je hebt €{formatEuros(tallyTotal/100)} geturfd voor {tallyEvent.description} op {dayjs(tallyEvent.date).locale("nl").format("dddd D MMMM YYYY")}</div>
-        <div>TODO entries</div>
+        <div className='result'>Je hebt <b>€{formatEuros(tallyTotal/100)}</b> geturfd voor <b>{tallyEvent.description}</b> op <i>{dayjs(tallyEvent.date).locale("nl").format("dddd D MMMM YYYY")}</i></div>
         <div className="tallySubmitButtons">
-            <button onClick={() => setTallyState(TallyState.tally_started)}>Pas turven aan</button>
-            <button onClick={() => setTallyState(TallyState.direct_amount)}>Pas eindbedrag aan</button>
-            <button onClick={() => setTallyState(TallyState.finishing)}>Pas gelegenheid aan</button>
-            <button onClick={submitTally}>Klaar!</button>
+            <button className='baggerButton' onClick={() => setTallyState(TallyState.tally_started)}>Pas turven aan</button>
+            <button className='baggerButton' onClick={() => setTallyState(TallyState.direct_amount)}>Pas eindbedrag aan</button>
+            <button className='baggerButton' onClick={() => setTallyState(TallyState.finishing)}>Pas gelegenheid aan</button>
+            <button className='baggerButton' onClick={submitTally}>Klaar!</button>
         </div>
+        {entryRows.length > 0 && <div>Je hebt geturfd:</div>}
+        {entryRows}
     </div>;
 };
 
-export default TallySubmit;
+export default TallyReview;

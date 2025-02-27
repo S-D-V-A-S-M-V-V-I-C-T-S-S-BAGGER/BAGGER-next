@@ -279,8 +279,3 @@ h3 {
     top: 2vmin;
     right: 2vmin;
 }
-
-.tallySubmitButtons {
-    display: flex;
-    flex-direction: column;
-}

@@ -43,6 +43,17 @@
     background-color: var(--blad-donkergroen-1);
 }
 
+.baggerButton:disabled {
+    background-color: var(--aarde-bovenkant-bruin-1);
+    box-shadow: var(--aarde-bovenkant-bruin-2) 0 3px 0, var(--aarde-mega-bruin) 0 5px 3px -3px;
+    color: var(--aarde-bruin);
+}
+
+.baggerButton:disabled:hover {
+    box-shadow: var(--aarde-bovenkant-bruin-2) 0 3px 0, var(--aarde-mega-bruin) 0 5px 3px -3px;
+    transform: none;
+}
+
 @media (max-width: 380px) {
     .baggerButton {
         .cardButtonContent {

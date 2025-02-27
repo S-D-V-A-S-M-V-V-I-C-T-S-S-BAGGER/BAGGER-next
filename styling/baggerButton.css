@@ -1,4 +1,5 @@
 .baggerButton {
+    color: var(--tekst-zwart);
     background-color: var(--blad-donkergroen);
     min-width: 100px;
     border-radius: 0.25rem;

@@ -1,14 +1,14 @@
 'use client';
 import {FC, useEffect} from 'react';
-import TallyCreation from '@/components/turf/TallyCreation';
-import TallyList, {TallyEntry} from '@/components/turf/TallyList';
-import TallyDirectAmount from '@/components/turf/TallyDirectAmount';
+import TallyCreation from '@/components/turf/pages/TallyCreation';
+import TallyList, {TallyEntry} from '@/components/turf/pages/TallyList';
+import TallyDirectAmount from '@/components/turf/pages/TallyDirectAmount';
 import {addTallyRow} from '@/components/turf/tallySheet';
 import {useLocalStorage} from '@/lib/useLocalStorage';
-import TallyEventList from "@/components/tally_event/TallyEventList";
+import TallyEventList from "@/components/turf/pages/event/TallyEventList";
 import {getSessionName} from "@/lib/session";
-import TallySubmit from "@/components/turf/TallySubmit";
-import {SerializedTallyEvent} from "@/components/tally_event/tallyEventSheet";
+import TallySubmit from "@/components/turf/pages/TallySubmit";
+import {SerializedTallyEvent} from "@/components/turf/pages/event/tallyEventSheet";
 
 export const enum TallyState {
     not_started,
@@ -51,7 +51,7 @@ const Tally: FC = () => {
             const additionalEntries: string[] = tallyEntries.flatMap(entry => [entry.name, entry.price.toString(), entry.amount.toString()]);
             await addTallyRow([[tallyPerson ?? 'error', tallyEvent?.id.toString() ?? 'error', tallyTotal.toString() ?? 'error', ...additionalEntries]])
                 .catch(err => {
-                    console.log('Add tally row error:', err);
+                    console.log('Add pages row error:', err);
                 }).then(() => {
                     console.log('Sent Tally:', tallyEvent, tallyTotal);
                     resetTally();

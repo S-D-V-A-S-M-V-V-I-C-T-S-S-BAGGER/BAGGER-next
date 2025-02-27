@@ -1,7 +1,7 @@
 'use client';
 import {ChangeEventHandler, FC, KeyboardEventHandler, useRef} from 'react';
 import './turf.css';
-import {TallyEntry} from '@/components/turf/TallyList';
+import {TallyEntry} from '@/components/turf/pages/TallyList';
 import TallyCounter from '@/components/turf/TallyCounter';
 import {formatEuros, parseCents, parseEuros} from '@/components/turf/euroUtil';
 
@@ -15,7 +15,6 @@ const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
     const countRef = useRef<HTMLInputElement>(null);
 
     const {
-              fixed,
               amount,
               price,
               name,
@@ -65,12 +64,11 @@ const TallyRow: FC<TurfRowProps> = ({entry, changeEntry}) => {
                 min={0}
                 step={0.01}
                 defaultValue={formatEuros(price/100)}
-                readOnly={fixed}
                 className="tallyInput tallyPrice"
                 onKeyUp={keyEuroDecimals}
                 onBlur={euroDecimals}
             />
-            <input type="text" className="tallyInput tallyName" defaultValue={name} readOnly={fixed} onChange={onNameChanged}/>
+            <input type="text" className="tallyInput tallyName" defaultValue={name} onChange={onNameChanged}/>
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React, {FC, useState} from "react";
 import Modal from "@/components/modal/Modal";
-import {SerializedTallyEvent} from "@/components/tally_event/tallyEventSheet";
-import {TallyEntry} from "@/components/turf/TallyList";
+import {SerializedTallyEvent} from "@/components/turf/pages/event/tallyEventSheet";
+import {TallyEntry} from "@/components/turf/pages/TallyList";
 import {formatEuros} from "@/components/turf/euroUtil";
 import dayjs from "dayjs";
 import {TallyState} from "@/components/turf/Tally";

@@ -2,7 +2,7 @@
   margin-top: calc(40px + 1rem);
 
   font-family: "Nunito", sans-serif;
-  color: rgb(3, 235, 214);
+  color: var(--tekst-zwart);
   text-align: center;
 
   h1 {
@@ -36,7 +36,7 @@
   margin: 1rem;
 
   &.selected {
-    background: pink;
+    background: var(--aarde-bier-donker);
   }
 }
 
@@ -56,20 +56,20 @@ span.avoidwrap { display:inline-block; }
   flex-wrap: wrap;
 
   input {
-    color: rgb(110, 69, 22);
-    background-color: rgb(3, 235, 214);
-    border: 3px solid rgb(3, 235, 214);
+    color: var(--tekst-zwart);
+    background-color: white;
+    padding: 3px;
     border-radius: 5px;
     margin: 0.2rem;
     width: 16em;
   }
 
-  > button {
-    margin: 0.2rem;
-    color: rgb(110, 69, 22);
-    background-color: rgb(3, 235, 214);
-    border: 3px solid white;
+  > button, input {
+    color: var(--tekst-zwart);
+    background-color: white;
+    padding: 3px;
     border-radius: 5px;
+    margin: 0.2rem;
     width: 16em;
   }
 }

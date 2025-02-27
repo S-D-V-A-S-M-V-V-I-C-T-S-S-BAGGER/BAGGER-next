@@ -1,0 +1,22 @@
+.result {
+    margin-top: 5vh;
+    margin-bottom: 3vh;
+}
+
+.review-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.tallySubmitButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh;
+
+    :last-child {
+        margin-top: 1vh;
+    }
+
+    margin-bottom: 3vh;
+}

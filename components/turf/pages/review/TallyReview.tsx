@@ -23,7 +23,7 @@ type TallySubmitProps = {
     submitTally: () => void;
 }
 
-const TallySubmit: FC<TallySubmitProps> = ({tallyEvent, tallyEntries, tallyTotal, setTallyState, submitTally}) => {
+const TallyReview: FC<TallySubmitProps> = ({tallyEvent, tallyEntries, tallyTotal, setTallyState, submitTally}) => {
     const [submittingState, setSubmittingState] = useState<SubmittingState>(SubmittingState.not_started);
 
     const tallyUp = () => {};

@@ -1,6 +1,6 @@
 'use client';
 import {FC, useContext, useEffect, useState} from 'react';
-import './turf.css';
+import '../turf.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCoins} from "@fortawesome/free-solid-svg-icons/faCoins";
 import {faListOl} from "@fortawesome/free-solid-svg-icons/faListOl";

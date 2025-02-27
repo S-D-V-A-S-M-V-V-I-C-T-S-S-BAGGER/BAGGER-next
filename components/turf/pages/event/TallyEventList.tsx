@@ -6,10 +6,10 @@ import {
     submitTallyEvent,
     TallyEvent,
     TallyEventData,
-} from "@/components/tally_event/tallyEventSheet";
+} from "@/components/turf/pages/event/tallyEventSheet";
 import dayjs from "dayjs";
-import TallyEventRow from "@/components/tally_event/TallyEventRow";
-import NewTallyEvent from "@/components/tally_event/NewTallyEvent";
+import TallyEventRow from "@/components/turf/pages/event/TallyEventRow";
+import NewTallyEvent from "@/components/turf/pages/event/NewTallyEvent";
 import {AuthContext} from "@/components/auth/AuthContext";
 import LogoutButton from "@/components/auth/LogoutButton";
 import LoginButton from "@/components/auth/LoginButton";

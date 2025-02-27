@@ -5,7 +5,7 @@ import {formatEuros} from "@/components/turf/euroUtil";
 import {AuthContext} from "@/components/auth/AuthContext";
 import LoginButton from "@/components/auth/LoginButton";
 import Modal from "@/components/modal/Modal";
-import LogoutButton from '../auth/LogoutButton';
+import LogoutButton from '../../auth/LogoutButton';
 
 type TallyListProps = {
     finishTally: (value: number, additionalEntries?: TallyEntry[]) => void;

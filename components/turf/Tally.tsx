@@ -7,7 +7,7 @@ import {addTallyRow} from '@/components/turf/tallySheet';
 import {useLocalStorage} from '@/lib/useLocalStorage';
 import TallyEventList from "@/components/turf/pages/event/TallyEventList";
 import {getSessionName} from "@/lib/session";
-import TallySubmit from "@/components/turf/pages/TallySubmit";
+import TallyReview from "@/components/turf/pages/review/TallyReview";
 import {SerializedTallyEvent} from "@/components/turf/pages/event/tallyEventSheet";
 
 export const enum TallyState {
@@ -15,7 +15,7 @@ export const enum TallyState {
     direct_amount,
     tally_started,
     finishing,
-    submitting,
+    review,
 }
 
 const Tally: FC = () => {
@@ -98,13 +98,13 @@ const Tally: FC = () => {
             break;
         case TallyState.finishing:
             tallyPage = <TallyEventList
-                finishSelection={() => setTallyState(TallyState.submitting)}
+                finishSelection={() => setTallyState(TallyState.review)}
                 tallyEvent={tallyEvent}
                 setTallyEvent={setTallyEvent}
             />;
             break;
-        case TallyState.submitting:
-            tallyPage = <TallySubmit tallyEvent={tallyEvent!} tallyEntries={tallyEntries} tallyTotal={tallyTotal} setTallyState={setTallyState} submitTally={submitTally}/>;
+        case TallyState.review:
+            tallyPage = <TallyReview tallyEvent={tallyEvent!} tallyEntries={tallyEntries} tallyTotal={tallyTotal} setTallyState={setTallyState} submitTally={submitTally}/>;
             break;
         default:
             tallyPage = <div>error</div>;

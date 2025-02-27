@@ -67,7 +67,14 @@ const Tally: FC = () => {
             tallyPage = (
                 <TallyCreation
                     enterAmount={() => setTallyState(TallyState.direct_amount)}
-                    startTally={() => setTallyState(TallyState.tally_started)}
+                    startTally={() => {
+                        setTallyEntries([{
+                            amount: 0,
+                            price: 0,
+                            name: '',
+                        }]);
+                        setTallyState(TallyState.tally_started);
+                    }}
                 />
             );
             break;

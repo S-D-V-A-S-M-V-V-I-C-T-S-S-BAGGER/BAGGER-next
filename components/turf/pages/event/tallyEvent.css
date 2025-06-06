@@ -57,16 +57,16 @@ span.avoidwrap { display:inline-block; }
 
   input {
     color: var(--tekst-zwart);
-    background-color: white;
+    background-color: var(--aarde-mega-licht-bruin-4);
     padding: 3px;
     border-radius: 5px;
-    margin: 0.2rem;
+    margin: 0.25rem;
     width: 16em;
   }
 
   > button, input {
     color: var(--tekst-zwart);
-    background-color: white;
+    background-color: var(--aarde-mega-licht-bruin-4);
     padding: 3px;
     border-radius: 5px;
     margin: 0.2rem;

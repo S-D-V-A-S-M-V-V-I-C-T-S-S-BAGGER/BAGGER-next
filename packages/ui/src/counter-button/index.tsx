@@ -42,7 +42,7 @@ export function CounterButton() {
           }}
           type="button"
         >
-          Count: {count}
+          Counting: {count}
         </button>
       </div>
     </div>

@@ -2,11 +2,26 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "env": ["PORT", "SHEETS_API_KEY", "SERVICE_CLIENT_EMAIL", "SERVICE_CLIENT_KEY"],
+      "env": [
+        "PORT",
+        "SHEETS_API_KEY",
+        "SERVICE_CLIENT_EMAIL",
+        "SERVICE_CLIENT_KEY",
+        "BAFKO_SHEET_ID",
+        "BAFKO_SHEET_RANGE"
+      ],
       "outputs": ["dist/**"]
     },
     "dev": {
-      "env": ["PORT", "DEBUG", "SHEETS_API_KEY", "SERVICE_CLIENT_EMAIL", "SERVICE_CLIENT_KEY"]
+      "env": [
+        "PORT",
+        "DEBUG",
+        "SHEETS_API_KEY",
+        "SERVICE_CLIENT_EMAIL",
+        "SERVICE_CLIENT_KEY",
+        "BAFKO_SHEET_ID",
+        "BAFKO_SHEET_RANGE"
+      ]
     }
   }
 }

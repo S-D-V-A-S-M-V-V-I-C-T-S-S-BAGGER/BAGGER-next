@@ -406,6 +406,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dotenvx/dotenvx@npm:^1.44.1":
+  version: 1.44.1
+  resolution: "@dotenvx/dotenvx@npm:1.44.1"
+  dependencies:
+    commander: "npm:^11.1.0"
+    dotenv: "npm:^16.4.5"
+    eciesjs: "npm:^0.4.10"
+    execa: "npm:^5.1.1"
+    fdir: "npm:^6.2.0"
+    ignore: "npm:^5.3.0"
+    object-treeify: "npm:1.1.33"
+    picomatch: "npm:^4.0.2"
+    which: "npm:^4.0.0"
+  bin:
+    dotenvx: src/cli/dotenvx.js
+    git-dotenvx: src/cli/dotenvx.js
+  checksum: 10c0/2a7979b4c8f1102272461f666679391bf54ec137befda4c8a11150dd00adf0db3c4457969d7a5d4a166ed58c0b4dd73062f5c52d21e67ecbf9a46fa6ae047e89
+  languageName: node
+  linkType: hard
+
+"@ecies/ciphers@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "@ecies/ciphers@npm:0.2.3"
+  peerDependencies:
+    "@noble/ciphers": ^1.0.0
+  checksum: 10c0/a01bf75b1db89d34688d2784531bf4f8734e50f953ed8921383c04416a7e7eb8b5fb3ba6defddf55b46b0fb6722cec5c6462bdccbb64d31ef00468e9733a208e
+  languageName: node
+  linkType: hard
+
 "@esbuild/aix-ppc64@npm:0.21.5":
   version: 0.21.5
   resolution: "@esbuild/aix-ppc64@npm:0.21.5"
@@ -1197,7 +1226,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/hashes@npm:^1.1.5":
+"@noble/ciphers@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@noble/ciphers@npm:1.3.0"
+  checksum: 10c0/3ba6da645ce45e2f35e3b2e5c87ceba86b21dfa62b9466ede9edfb397f8116dae284f06652c0cd81d99445a2262b606632e868103d54ecc99fd946ae1af8cd37
+  languageName: node
+  linkType: hard
+
+"@noble/curves@npm:^1.9.1":
+  version: 1.9.2
+  resolution: "@noble/curves@npm:1.9.2"
+  dependencies:
+    "@noble/hashes": "npm:1.8.0"
+  checksum: 10c0/21d049ae4558beedbf5da0004407b72db84360fa29d64822d82dc9e80251e1ecb46023590cc4b20e70eed697d1b87279b4911dc39f8694c51c874289cfc8e9a7
+  languageName: node
+  linkType: hard
+
+"@noble/hashes@npm:1.8.0, @noble/hashes@npm:^1.1.5, @noble/hashes@npm:^1.8.0":
   version: 1.8.0
   resolution: "@noble/hashes@npm:1.8.0"
   checksum: 10c0/06a0b52c81a6fa7f04d67762e08b2c476a00285858150caeaaff4037356dd5e119f45b2a530f638b77a5eeca013168ec1b655db41bae3236cb2e9d511484fc77
@@ -2579,6 +2624,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "api@workspace:apps/api"
   dependencies:
+    "@dotenvx/dotenvx": "npm:^1.44.1"
     "@jest/globals": "npm:^29.7.0"
     "@repo/eslint-config": "npm:*"
     "@repo/jest-presets": "npm:*"
@@ -2598,7 +2644,7 @@ __metadata:
     debug: "npm:^4.4.1"
     eslint: "npm:^9.28.0"
     express: "npm:^5.1.0"
-    googleapis: "npm:^136"
+    googleapis: "npm:^136.0.0"
     jest: "npm:^29.7.0"
     morgan: "npm:^1.10.0"
     supertest: "npm:^7.1.0"
@@ -3277,6 +3323,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "commander@npm:11.1.0"
+  checksum: 10c0/13cc6ac875e48780250f723fb81c1c1178d35c5decb1abb1b628b3177af08a8554e76b2c0f29de72d69eef7c864d12613272a71fabef8047922bc622ab75a179
+  languageName: node
+  linkType: hard
+
 "commander@npm:^4.0.0":
   version: 4.1.1
   resolution: "commander@npm:4.1.1"
@@ -3645,6 +3698,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^16.4.5":
+  version: 16.5.0
+  resolution: "dotenv@npm:16.5.0"
+  checksum: 10c0/5bc94c919fbd955bf0ba44d33922a1e93d1078e64a1db5c30faeded1d996e7a83c55332cb8ea4fae5a9ca4d0be44cbceb95c5811e70f9f095298df09d1997dd9
+  languageName: node
+  linkType: hard
+
 "dunder-proto@npm:^1.0.0, dunder-proto@npm:^1.0.1":
   version: 1.0.1
   resolution: "dunder-proto@npm:1.0.1"
@@ -3669,6 +3729,18 @@ __metadata:
   dependencies:
     safe-buffer: "npm:^5.0.1"
   checksum: 10c0/ebfbf19d4b8be938f4dd4a83b8788385da353d63307ede301a9252f9f7f88672e76f2191618fd8edfc2f24679236064176fab0b78131b161ee73daa37125408c
+  languageName: node
+  linkType: hard
+
+"eciesjs@npm:^0.4.10":
+  version: 0.4.15
+  resolution: "eciesjs@npm:0.4.15"
+  dependencies:
+    "@ecies/ciphers": "npm:^0.2.3"
+    "@noble/ciphers": "npm:^1.3.0"
+    "@noble/curves": "npm:^1.9.1"
+    "@noble/hashes": "npm:^1.8.0"
+  checksum: 10c0/b5fc236810ff50e02f4d3155ab07f3a5d817ed7611fc63acef348e796a198a10bedf4adb152f512bcdc6ec90eb04a6f66606776bd56078d6d20bf3815bdc3f1c
   languageName: node
   linkType: hard
 
@@ -4332,7 +4404,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:^5.0.0":
+"execa@npm:^5.0.0, execa@npm:^5.1.1":
   version: 5.1.1
   resolution: "execa@npm:5.1.1"
   dependencies:
@@ -4962,7 +5034,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"googleapis@npm:^136":
+"googleapis@npm:^136.0.0":
   version: 136.0.0
   resolution: "googleapis@npm:136.0.0"
   dependencies:
@@ -5153,7 +5225,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:^5.2.0":
+"ignore@npm:^5.2.0, ignore@npm:^5.3.0":
   version: 5.3.2
   resolution: "ignore@npm:5.3.2"
   checksum: 10c0/f9f652c957983634ded1e7f02da3b559a0d4cc210fca3792cb67f1b153623c9c42efdc1c4121af171e295444459fc4a9201101fb041b1104a3c000bccb188337
@@ -6894,6 +6966,13 @@ __metadata:
   version: 1.1.1
   resolution: "object-keys@npm:1.1.1"
   checksum: 10c0/b11f7ccdbc6d406d1f186cdadb9d54738e347b2692a14439ca5ac70c225fa6db46db809711b78589866d47b25fc3e8dee0b4c722ac751e11180f9380e3d8601d
+  languageName: node
+  linkType: hard
+
+"object-treeify@npm:1.1.33":
+  version: 1.1.33
+  resolution: "object-treeify@npm:1.1.33"
+  checksum: 10c0/5b735ac552200bf14f9892ce58295303e8d15a8cc7a0fd4fe6ff99923ab0c196fb70a870ab2a0eefc6820c4acb49e614b88c72d344b9c6bd22584a3efbd386fe
   languageName: node
   linkType: hard
 
@@ -9245,6 +9324,17 @@ __metadata:
   bin:
     node-which: ./bin/node-which
   checksum: 10c0/66522872a768b60c2a65a57e8ad184e5372f5b6a9ca6d5f033d4b0dc98aff63995655a7503b9c0a2598936f532120e81dd8cc155e2e92ed662a2b9377cc4374f
+  languageName: node
+  linkType: hard
+
+"which@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "which@npm:4.0.0"
+  dependencies:
+    isexe: "npm:^3.1.1"
+  bin:
+    node-which: bin/which.js
+  checksum: 10c0/449fa5c44ed120ccecfe18c433296a4978a7583bf2391c50abce13f76878d2476defde04d0f79db8165bdf432853c1f8389d0485ca6e8ebce3bbcded513d5e6a
   languageName: node
   linkType: hard
 

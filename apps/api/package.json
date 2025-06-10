@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "tsup --watch --onSuccess \"node dist/index.cjs\"",
+    "dev": "tsup --watch --onSuccess \"dotenvx run -f .env.local -- node dist/index.cjs\"",
     "build": "tsup",
     "check-types": "tsc --noEmit",
     "lint": "eslint src/ --max-warnings 0",
@@ -15,6 +15,7 @@
     "preset": "@repo/jest-presets/node"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.44.1",
     "cookie-parser": "^1.4.7",
     "cookie-signature": "^1.2.2",
     "cors": "^2.8.5",

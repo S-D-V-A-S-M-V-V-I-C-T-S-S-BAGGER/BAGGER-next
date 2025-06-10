@@ -4,16 +4,16 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import cors from "cors";
 
-const app = express();
+const expressApp = express();
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+expressApp.use(logger("dev"));
+expressApp.use(express.json());
+expressApp.use(express.urlencoded({ extended: false }));
 // TODO configure signed cookies
-app.use(cookieParser());
+expressApp.use(cookieParser());
 // TODO configure static files
 // app.use(express.static(path.join(__dirname, "public")));
 // TODO configure CORS
-app.use(cors());
+expressApp.use(cors());
 
-export default app;
+export default expressApp;

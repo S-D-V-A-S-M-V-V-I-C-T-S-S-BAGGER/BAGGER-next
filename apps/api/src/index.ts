@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-import app from "./app";
+import expressApp from "./expressApp.ts";
 import debug0 from "debug";
 import http from "http";
 
@@ -13,13 +13,13 @@ const debug = debug0("bagger-api:server");
  */
 
 const port = normalizePort(process.env.PORT || "3000");
-app.set("port", port);
+expressApp.set("port", port);
 
 /**
  * Create HTTP server.
  */
 
-const server = http.createServer(app);
+const server = http.createServer(expressApp);
 
 /**
  * Listen on provided port, on all network interfaces.

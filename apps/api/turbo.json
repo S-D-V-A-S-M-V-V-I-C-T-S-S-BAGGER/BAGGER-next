@@ -2,8 +2,11 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "env": ["PORT"],
+      "env": ["PORT", "SHEETS_API_KEY", "SERVICE_CLIENT_EMAIL", "SERVICE_CLIENT_KEY"],
       "outputs": ["dist/**"]
+    },
+    "dev": {
+      "env": ["PORT", "DEBUG", "SHEETS_API_KEY", "SERVICE_CLIENT_EMAIL", "SERVICE_CLIENT_KEY"]
     }
   }
 }

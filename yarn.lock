@@ -2444,27 +2444,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"admin@workspace:apps/admin":
-  version: 0.0.0-use.local
-  resolution: "admin@workspace:apps/admin"
-  dependencies:
-    "@repo/eslint-config": "npm:*"
-    "@repo/typescript-config": "npm:*"
-    "@repo/ui": "npm:*"
-    "@tanstack/react-router": "npm:^1.120.20"
-    "@tanstack/react-router-devtools": "npm:^1.120.20"
-    "@tanstack/router-plugin": "npm:^1.120.20"
-    "@types/react": "npm:^18.3.18"
-    "@types/react-dom": "npm:^18.3.5"
-    "@vitejs/plugin-react": "npm:^4.5.0"
-    eslint: "npm:^9.28.0"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    typescript: "npm:5.8.2"
-    vite: "npm:^5.4.14"
-  languageName: unknown
-  linkType: soft
-
 "agent-base@npm:6":
   version: 6.0.2
   resolution: "agent-base@npm:6.0.2"
@@ -2831,6 +2810,15 @@ __metadata:
   checksum: 10c0/ec5fd0276b5630b05f0c14bb97cc3815c6b31600c683ebb51372e54dcb776cff790bdeeabd5b8d01ede375a040337ccbf6a3ccd68d3a34219125945e167ad943
   languageName: node
   linkType: hard
+
+"bagger-turbo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "bagger-turbo@workspace:."
+  dependencies:
+    prettier: "npm:^3.5.3"
+    turbo: "npm:^2.5.4"
+  languageName: unknown
+  linkType: soft
 
 "balanced-match@npm:^1.0.0":
   version: 1.0.2
@@ -4589,6 +4577,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"frontend@workspace:apps/frontend":
+  version: 0.0.0-use.local
+  resolution: "frontend@workspace:apps/frontend"
+  dependencies:
+    "@repo/eslint-config": "npm:*"
+    "@repo/typescript-config": "npm:*"
+    "@repo/ui": "npm:*"
+    "@tanstack/react-router": "npm:^1.120.20"
+    "@tanstack/react-router-devtools": "npm:^1.120.20"
+    "@tanstack/router-plugin": "npm:^1.120.20"
+    "@types/react": "npm:^18.3.18"
+    "@types/react-dom": "npm:^18.3.5"
+    "@vitejs/plugin-react": "npm:^4.5.0"
+    eslint: "npm:^9.28.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    typescript: "npm:5.8.2"
+    vite: "npm:^5.4.14"
+  languageName: unknown
+  linkType: soft
+
 "fs-minipass@npm:^3.0.0":
   version: 3.0.3
   resolution: "fs-minipass@npm:3.0.3"
@@ -6140,15 +6149,6 @@ __metadata:
   checksum: 10c0/aa52f3c5e18e16bb6324876bb8b59dd02acf782a4b789c7b2ae21107fab95fab3890ed448d4f8dba80ce05391eeac4bfabb4f02a20221342982f806fa2cf271e
   languageName: node
   linkType: hard
-
-"kitchen-sink@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "kitchen-sink@workspace:."
-  dependencies:
-    prettier: "npm:^3.5.3"
-    turbo: "npm:^2.5.4"
-  languageName: unknown
-  linkType: soft
 
 "kleur@npm:^3.0.3":
   version: 3.0.3

@@ -3,6 +3,7 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import cors from "cors";
+import apiRouter from "./api.ts";
 
 const expressApp = express();
 
@@ -15,5 +16,8 @@ expressApp.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
 // TODO configure CORS
 expressApp.use(cors());
+
+const api_version_prefix = "v0";
+expressApp.use(`/api/${api_version_prefix}/`, apiRouter);
 
 export default expressApp;

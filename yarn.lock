@@ -2020,15 +2020,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cookie-signature@npm:^1":
-  version: 1.1.2
-  resolution: "@types/cookie-signature@npm:1.1.2"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10c0/0a40248f23da1258f29c3f6fc846cb2487962ab8e5ff6be76bd4967edb5963220c8de069aa49f08e6920376ab46f70b822bd5133e0b1998a059fc7677c415a8d
-  languageName: node
-  linkType: hard
-
 "@types/cookiejar@npm:^2.1.5":
   version: 2.1.5
   resolution: "@types/cookiejar@npm:2.1.5"
@@ -2630,7 +2621,6 @@ __metadata:
     "@repo/jest-presets": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@types/cookie-parser": "npm:^1"
-    "@types/cookie-signature": "npm:^1"
     "@types/cors": "npm:^2.8.17"
     "@types/debug": "npm:^4"
     "@types/express": "npm:^5.0.3"
@@ -2638,7 +2628,6 @@ __metadata:
     "@types/node": "npm:^22.15.3"
     "@types/supertest": "npm:^6.0.2"
     cookie-parser: "npm:^1.4.7"
-    cookie-signature: "npm:^1.2.2"
     cors: "npm:^2.8.5"
     dayjs: "npm:^1.11.13"
     debug: "npm:^4.4.1"
@@ -2646,6 +2635,7 @@ __metadata:
     express: "npm:^5.1.0"
     googleapis: "npm:^136.0.0"
     jest: "npm:^29.7.0"
+    jose: "npm:^6.0.11"
     morgan: "npm:^1.10.0"
     supertest: "npm:^7.1.0"
     tsup: "npm:^8.5.0"
@@ -3412,7 +3402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie-signature@npm:^1.2.1, cookie-signature@npm:^1.2.2":
+"cookie-signature@npm:^1.2.1":
   version: 1.2.2
   resolution: "cookie-signature@npm:1.2.2"
   checksum: 10c0/54e05df1a293b3ce81589b27dddc445f462f6fa6812147c033350cd3561a42bc14481674e05ed14c7bd0ce1e8bb3dc0e40851bad75415733711294ddce0b7bc6
@@ -6217,6 +6207,13 @@ __metadata:
   bin:
     jest: bin/jest.js
   checksum: 10c0/f40eb8171cf147c617cc6ada49d062fbb03b4da666cb8d39cdbfb739a7d75eea4c3ca150fb072d0d273dce0c753db4d0467d54906ad0293f59c54f9db4a09d8b
+  languageName: node
+  linkType: hard
+
+"jose@npm:^6.0.11":
+  version: 6.0.11
+  resolution: "jose@npm:6.0.11"
+  checksum: 10c0/d290be4532174e7a53730b7fb84c74327531172bd403b196c592b312b73eedb7489949837bfe831fdbd280799bfc5ba778bc807495a73eda08ae6c49414f405a
   languageName: node
   linkType: hard
 

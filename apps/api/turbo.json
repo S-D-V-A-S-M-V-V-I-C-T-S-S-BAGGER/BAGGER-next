@@ -8,7 +8,12 @@
         "SERVICE_CLIENT_EMAIL",
         "SERVICE_CLIENT_KEY",
         "BAFKO_SHEET_ID",
-        "BAFKO_SHEET_RANGE"
+        "BAFKO_SHEET_RANGE",
+        "AUTH_GOOGLE_ID",
+        "AUTH_GOOGLE_SECRET",
+        "AUTH_GOOGLE_REDIRECT",
+        "AUTH_SIGN_SECRET",
+        "GOOGLE_CLIENT_SECRETS_PATH"
       ],
       "outputs": ["dist/**"]
     },
@@ -20,7 +25,12 @@
         "SERVICE_CLIENT_EMAIL",
         "SERVICE_CLIENT_KEY",
         "BAFKO_SHEET_ID",
-        "BAFKO_SHEET_RANGE"
+        "BAFKO_SHEET_RANGE",
+        "AUTH_GOOGLE_ID",
+        "AUTH_GOOGLE_SECRET",
+        "AUTH_GOOGLE_REDIRECT",
+        "AUTH_SIGN_SECRET",
+        "GOOGLE_CLIENT_SECRETS_PATH"
       ]
     }
   }

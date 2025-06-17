@@ -17,12 +17,12 @@
   "dependencies": {
     "@dotenvx/dotenvx": "^1.44.1",
     "cookie-parser": "^1.4.7",
-    "cookie-signature": "^1.2.2",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "debug": "^4.4.1",
     "express": "^5.1.0",
     "googleapis": "^136.0.0",
+    "jose": "^6.0.11",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
@@ -31,7 +31,6 @@
     "@repo/jest-presets": "*",
     "@repo/typescript-config": "*",
     "@types/cookie-parser": "^1",
-    "@types/cookie-signature": "^1",
     "@types/cors": "^2.8.17",
     "@types/debug": "^4",
     "@types/express": "^5.0.3",

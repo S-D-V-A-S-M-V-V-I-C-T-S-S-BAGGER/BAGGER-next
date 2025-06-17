@@ -1,9 +1,9 @@
 import express from "express";
-import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import cors from "cors";
 import apiRouter from "./api.ts";
+import authRouter from "./auth.ts";
 
 const expressApp = express();
 
@@ -19,5 +19,6 @@ expressApp.use(cors());
 
 const api_version_prefix = "v0";
 expressApp.use(`/api/${api_version_prefix}/`, apiRouter);
+expressApp.use("/api/auth", authRouter);
 
 export default expressApp;

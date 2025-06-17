@@ -13,7 +13,8 @@
         "AUTH_GOOGLE_SECRET",
         "AUTH_GOOGLE_REDIRECT",
         "AUTH_SIGN_SECRET",
-        "GOOGLE_CLIENT_SECRETS_PATH"
+        "GOOGLE_CLIENT_SECRETS_PATH",
+        "COOKIE_SIGN_SECRET"
       ],
       "outputs": ["dist/**"]
     },
@@ -30,7 +31,8 @@
         "AUTH_GOOGLE_SECRET",
         "AUTH_GOOGLE_REDIRECT",
         "AUTH_SIGN_SECRET",
-        "GOOGLE_CLIENT_SECRETS_PATH"
+        "GOOGLE_CLIENT_SECRETS_PATH",
+        "COOKIE_SIGN_SECRET"
       ]
     }
   }

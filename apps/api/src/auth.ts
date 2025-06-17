@@ -39,7 +39,7 @@ const authFlowCookieOptions: CookieOptions = {
   secure: true,
   sameSite: "lax",
   path: "/",
-  // signed: true,// TODO set up cookie signing
+  signed: true,
 };
 
 // Example: /authorization?url=%2Fturf
@@ -70,7 +70,7 @@ router.get("/authorization_url", function (req, res, next) {
 router.get(CALLBACK_PATH, async function (req, res, next) {
   await exchangeForTokens(req, res);
 
-  const redirectUrl = req.cookies[redirect_cookie_name];
+  const redirectUrl = req.signedCookies[redirect_cookie_name];
   const unsanitizedUrl = new URL(redirectUrl, WEBSITE_BASE_URL);
   const sanitizedUrl = WEBSITE_BASE_URL + unsanitizedUrl.pathname;
 
@@ -80,7 +80,7 @@ router.get(CALLBACK_PATH, async function (req, res, next) {
 });
 
 async function exchangeForTokens(req: Request, res: Response): Promise<void> {
-  const nonce = req.cookies[nonce_cookie_name] as string;
+  const nonce = req.signedCookies[nonce_cookie_name] as string;
   const code = req.query["code"] as string;
   const state = req.query["state"] as string;
 

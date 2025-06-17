@@ -24,7 +24,7 @@ const sessionCookieOptions: CookieOptions = {
   secure: true,
   sameSite: "strict",
   path: "/",
-  // signed: true,// TODO set up cookie signing
+  signed: true,
 };
 
 async function encodeSession(payload: SessionPayload) {
@@ -50,7 +50,7 @@ async function decodeSession(session: string = "") {
 }
 
 export async function getSessionUser(req: Request) {
-  const session = req.cookies["session"];
+  const session = req.signedCookies["session"];
   if (session) {
     const sessionPayload = await decodeSession(session);
     if (sessionPayload?.userId) {
@@ -72,7 +72,7 @@ export async function getSessionUser(req: Request) {
 export async function getSessionName(
   req: Request,
 ): Promise<string | undefined> {
-  const session = req.cookies["session"];
+  const session = req.signedCookies["session"];
   if (session) {
     const sessionPayload = await decodeSession(session);
     return sessionPayload?.userName as string | undefined;
@@ -82,7 +82,7 @@ export async function getSessionName(
 
 export async function hasSessionUser(req: Request): Promise<boolean> {
   try {
-    const session = req.cookies["session"];
+    const session = req.signedCookies["session"];
     if (session) {
       const sessionPayload = await decodeSession(session);
       if (sessionPayload?.userId) {
@@ -121,7 +121,7 @@ export async function deleteSession(
   res: Response,
   revokeCredentials = true,
 ) {
-  const session = req.cookies["session"];
+  const session = req.signedCookies["session"];
   if (session) {
     const sessionPayload = await decodeSession(session).catch();
     if (sessionPayload?.userId) {
@@ -135,7 +135,7 @@ export async function deleteSession(
 }
 
 export async function updateSession(req: Request, res: Response) {
-  const session = req.cookies["session"];
+  const session = req.signedCookies["session"];
   const payload = await decodeSession(session);
 
   if (!session || !payload) {

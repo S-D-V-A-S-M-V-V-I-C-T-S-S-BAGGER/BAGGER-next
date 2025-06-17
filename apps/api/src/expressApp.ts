@@ -10,8 +10,7 @@ const expressApp = express();
 expressApp.use(logger("dev"));
 expressApp.use(express.json());
 expressApp.use(express.urlencoded({ extended: false }));
-// TODO configure signed cookies
-expressApp.use(cookieParser());
+expressApp.use(cookieParser(process.env.COOKIE_SIGN_SECRET));
 // TODO configure static files
 // app.use(express.static(path.join(__dirname, "public")));
 // TODO configure CORS

@@ -38,7 +38,7 @@ const authFlowCookieOptions: CookieOptions = {
   httpOnly: true,
   secure: true,
   sameSite: "lax",
-  path: "/",
+  path: "/api/auth",
   signed: true,
 };
 
@@ -68,6 +68,8 @@ router.get("/authorization_url", function (req, res, next) {
 });
 
 router.get(CALLBACK_PATH, async function (req, res, next) {
+  res.clearCookie(nonce_cookie_name, authFlowCookieOptions);
+  res.clearCookie(redirect_cookie_name, authFlowCookieOptions);
   await exchangeForTokens(req, res);
 
   const redirectUrl = req.signedCookies[redirect_cookie_name];

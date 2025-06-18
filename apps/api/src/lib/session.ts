@@ -18,12 +18,11 @@ type SessionPayload = {
   expiresAt: Date;
 };
 
-// TODO check cookie options
 const sessionCookieOptions: CookieOptions = {
   httpOnly: true,
   secure: true,
   sameSite: "strict",
-  path: "/",
+  path: "/api",
   signed: true,
 };
 
@@ -131,7 +130,7 @@ export async function deleteSession(
       );
     }
   }
-  res.clearCookie("session");
+  res.clearCookie("session", sessionCookieOptions);
 }
 
 export async function updateSession(req: Request, res: Response) {

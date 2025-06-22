@@ -16,8 +16,7 @@ expressApp.use(cookieParser(process.env.COOKIE_SIGN_SECRET));
 // TODO configure CORS
 expressApp.use(cors());
 
-const api_version_prefix = "v0";
-expressApp.use(`/api/${api_version_prefix}/`, apiRouter);
+expressApp.use("/api/v0/", apiRouter);
 expressApp.use("/api/auth", authRouter);
 
 export default expressApp;

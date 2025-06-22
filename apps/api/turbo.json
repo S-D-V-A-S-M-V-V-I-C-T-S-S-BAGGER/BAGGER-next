@@ -14,7 +14,9 @@
         "AUTH_GOOGLE_REDIRECT",
         "AUTH_SIGN_SECRET",
         "GOOGLE_CLIENT_SECRETS_PATH",
-        "COOKIE_SIGN_SECRET"
+        "COOKIE_SIGN_SECRET",
+        "QUOTE_SHEET_ID",
+        "QUOTE_SHEET_RANGE"
       ],
       "outputs": ["dist/**"]
     },
@@ -32,7 +34,9 @@
         "AUTH_GOOGLE_REDIRECT",
         "AUTH_SIGN_SECRET",
         "GOOGLE_CLIENT_SECRETS_PATH",
-        "COOKIE_SIGN_SECRET"
+        "COOKIE_SIGN_SECRET",
+        "QUOTE_SHEET_ID",
+        "QUOTE_SHEET_RANGE"
       ]
     }
   }

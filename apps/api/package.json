@@ -29,6 +29,7 @@
     "@jest/globals": "^29.7.0",
     "@repo/eslint-config": "*",
     "@repo/jest-presets": "*",
+    "@repo/types": "*",
     "@repo/typescript-config": "*",
     "@types/cookie-parser": "^1",
     "@types/cors": "^2.8.17",

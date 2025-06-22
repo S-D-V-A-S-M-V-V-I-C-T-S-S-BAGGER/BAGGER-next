@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import { getSheetValues, SheetValues } from "./lib/GoogleApi.ts";
+import quotesRouter from "./api/quotes.ts";
 
 dayjs.extend(weekOfYear);
 
@@ -38,5 +39,7 @@ router.get("/bafko", async function (req, res, next) {
     res.status(404).json({ error: "Could not find the sheet" });
   }
 });
+
+router.use("/quotes", quotesRouter);
 
 export default router;

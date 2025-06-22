@@ -1342,6 +1342,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@repo/types@npm:*, @repo/types@workspace:packages/types":
+  version: 0.0.0-use.local
+  resolution: "@repo/types@workspace:packages/types"
+  languageName: unknown
+  linkType: soft
+
 "@repo/typescript-config@npm:*, @repo/typescript-config@workspace:packages/config-typescript":
   version: 0.0.0-use.local
   resolution: "@repo/typescript-config@workspace:packages/config-typescript"
@@ -2619,6 +2625,7 @@ __metadata:
     "@jest/globals": "npm:^29.7.0"
     "@repo/eslint-config": "npm:*"
     "@repo/jest-presets": "npm:*"
+    "@repo/types": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@types/cookie-parser": "npm:^1"
     "@types/cors": "npm:^2.8.17"

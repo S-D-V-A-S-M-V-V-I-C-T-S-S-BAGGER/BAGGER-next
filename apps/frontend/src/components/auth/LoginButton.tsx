@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 
 // TODO get from env
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "http://localhost";
 // TODO get from backend code
 const AUTHORIZATION_URL_ENDPOINT_PATH = "/api/auth/authorization_url";
 

@@ -18,7 +18,7 @@ const scopes = [
 ];
 
 // TODO get from environment
-const WEBSITE_BASE_URL = "http://localhost:3001";
+const WEBSITE_BASE_URL = "http://localhost";
 const CALLBACK_PATH = "/callback/google";
 
 const nonce_cookie_name = "google_nonce";

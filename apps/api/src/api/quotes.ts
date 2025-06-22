@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
 import { appendSheetValues, getSheetValues } from "../lib/PersonalGoogleApi.ts";
-import { QuoteSubmit, QuoteRow } from "@repo/types";
+import { Quote, QuoteSubmit, QuoteRow } from "@repo/types";
 
 const router = express.Router();
 
-// TODO forward in nicer format?
+// TODO add pagination?
 const getQuotes = async function (req: Request, res: Response) {
   const values = await getSheetValues(
     req,
@@ -18,7 +18,17 @@ const getQuotes = async function (req: Request, res: Response) {
     return;
   }
 
-  res.json(values);
+  const response: Quote[] = (values as QuoteRow[]).map((value, index) => {
+    const [date, name, text] = value;
+    return {
+      id: index,
+      name: name,
+      text: text,
+      date: date,
+    };
+  });
+
+  res.json(response);
 };
 router.get("/", getQuotes);
 
@@ -34,6 +44,8 @@ router.post("/", async function (req: QuoteSubmitRequest, res, next) {
     process.env.QUOTE_SHEET_RANGE!,
     [row],
   );
+
+  await getQuotes(req, res);
 });
 
 type QuoteSubmitRequest = Request<never, QuoteRow[], QuoteSubmit, never, never>;

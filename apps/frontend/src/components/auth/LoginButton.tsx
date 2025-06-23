@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useLocation, useNavigate } from "@tanstack/react-router";
+import "../../styling/baggerButton.css";
 
 // TODO get from env
 const API_BASE_URL = "http://localhost";
@@ -14,7 +15,10 @@ const LoginButton: FC = () => {
   url.searchParams.set("return", pathName);
 
   return (
-    <button onClick={() => navigate({ href: url.href, reloadDocument: true })}>
+    <button
+      className="baggerButton"
+      onClick={() => navigate({ href: url.href, reloadDocument: true })}
+    >
       Login
     </button>
   );

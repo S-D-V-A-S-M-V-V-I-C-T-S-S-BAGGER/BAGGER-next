@@ -1,10 +1,14 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import AuthContextProvider from "../components/auth/AuthContextProvider.tsx";
+import "../styling/globals.css";
 
 export const Route = createRootRoute({
   component: () => (
     <>
-      <Outlet />
+      <AuthContextProvider>
+        <Outlet />
+      </AuthContextProvider>
       <TanStackRouterDevtools />
     </>
   ),

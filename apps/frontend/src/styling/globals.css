@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --lucht-blauw: #62c6c0ff;
+  --tekst-schaduw-blauw: #018678ff;
+  --aarde-mega-bruin: #3d2002ff;
+  --aarde-bruin: #6d461bff;
+
+  --aarde-bovenkant-bruin: #825a30ff;
+  --aarde-bovenkant-bruin-1: #8c6338ff;
+  --aarde-bovenkant-bruin-2: #6e4922ff;
+  --aarde-bovenkant-bruin-3: #5e3c19ff;
+  --aarde-bovenkant-bruin-4: #4f3112ff;
+  --aarde-bovenkant-bruin-5: #42270bff;
+
+  --aarde-mega-licht-bruin: #f9ede0ff;
+  --aarde-mega-licht-bruin-1: #faf3ebff;
+  --aarde-mega-licht-bruin-2: #faf5f0ff;
+  --aarde-mega-licht-bruin-3: #faf9f7ff;
+  --aarde-mega-licht-bruin-4: #f0decc;
+
+  --aarde-bovenkant-beige: #e39f61ff;
+  --blad-lichtgroen: #65b045ff;
+
+  --blad-donkergroen: #538f40ff;
+  --blad-donkergroen-1: #4a8737ff;
+  --blad-donkergroen-2: #589944ff;
+
+  --steeltje-donkergroen: #396732ff;
+  --aarde-bier: #ce8d4aff;
+  --aarde-bier-donker: #996837ff;
+  --tekst-zwart: #000000ff;
+  --foreground-text: var(--tekst-zwart);
+  --base-unit: 1vmin;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+@font-face {
+  font-family: "Milasian Circa";
+  src: url("/MilasianCircaBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito", sans-serif;
+  src: url("/Nunito-VariableFont_wght.ttf") format("truetype");
+}
+
+/*
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-text: #ffffffff;
+  }
+}
+*/
+
+body {
+  color: var(--foreground-text);
+  background: var(--aarde-bruin);
+}
+
+main {
+  min-height: 100vh;
+}
+
+.content {
+  display: grid;
+  grid-template: "content-overlap";
+}
+
+.content-voor {
+  grid-area: content-overlap;
+}
+
+.content-achter {
+  grid-area: content-overlap;
+  display: flex;
+  flex-direction: row;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: 600;
+}

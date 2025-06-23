@@ -113,8 +113,14 @@ export async function createSession(
   };
 
   res.cookie("session", session, cookieOptions);
+
+  res.cookie("isAuthenticated", true, {
+    expires: expiresAt,
+    path: "/",
+  });
 }
 
+// TODO add endpoint for logout
 export async function deleteSession(
   req: Request,
   res: Response,
@@ -131,6 +137,7 @@ export async function deleteSession(
     }
   }
   res.clearCookie("session", sessionCookieOptions);
+  res.clearCookie("isAuthenticated", { path: "/" });
 }
 
 export async function updateSession(req: Request, res: Response) {

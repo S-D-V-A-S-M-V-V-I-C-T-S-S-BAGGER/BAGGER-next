@@ -16,7 +16,8 @@
         "GOOGLE_CLIENT_SECRETS_PATH",
         "COOKIE_SIGN_SECRET",
         "QUOTE_SHEET_ID",
-        "QUOTE_SHEET_RANGE"
+        "QUOTE_SHEET_RANGE",
+        "PUBLIC_FOLDER_PATH"
       ],
       "outputs": ["dist/**"]
     },
@@ -36,7 +37,8 @@
         "GOOGLE_CLIENT_SECRETS_PATH",
         "COOKIE_SIGN_SECRET",
         "QUOTE_SHEET_ID",
-        "QUOTE_SHEET_RANGE"
+        "QUOTE_SHEET_RANGE",
+        "PUBLIC_FOLDER_PATH"
       ]
     }
   }

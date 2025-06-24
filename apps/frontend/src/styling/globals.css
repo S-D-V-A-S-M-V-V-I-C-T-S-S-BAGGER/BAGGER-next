@@ -42,12 +42,14 @@ body {
 
 @font-face {
   font-family: "Milasian Circa";
-  src: url("../../public/MilasianCircaBold.ttf") format("truetype");
+  /*TODO fix*/
+  src: url("http://localhost/public/MilasianCircaBold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Nunito", sans-serif;
-  src: url("../../public/Nunito-VariableFont_wght.ttf") format("truetype");
+  /*TODO fix*/
+  src: url("http://localhost/public/Nunito-VariableFont_wght.ttf") format("truetype");
 }
 
 /*

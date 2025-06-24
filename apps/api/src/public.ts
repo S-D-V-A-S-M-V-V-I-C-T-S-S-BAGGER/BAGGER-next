@@ -6,9 +6,9 @@ export default router;
 
 const PUBLIC_FOLDER_PATH = process.env.PUBLIC_FOLDER_PATH!;
 
-// Serve paths of the form /public/lichtingfotos/file.extension
-router.get(/\/lichtingfotos\/\w+\.\w+$/, function (req, res) {
-  const fileNameRe = /(?<=\/lichtingfotos\/)\w+\.\w+$/;
+// Serve paths of the form /public/lichtingfotos/file-name.extension
+router.get(/\/lichtingfotos\/[-\w]+\.\w+$/, function (req, res) {
+  const fileNameRe = /(?<=\/lichtingfotos\/)[-\w]+\.\w+$/;
   const fileNameResult = fileNameRe.exec(req.url);
   if (fileNameResult === null) {
     console.log("Attempt to access", req.url);
@@ -22,9 +22,9 @@ router.get(/\/lichtingfotos\/\w+\.\w+$/, function (req, res) {
   res.sendFile(filePath);
 });
 
-// Serve paths of the form /public/file.extension
-router.get(/\/\w+\.\w+$/, function (req, res) {
-  const fileNameRe = /\w+\.\w+$/;
+// Serve paths of the form /public/file-name.extension
+router.get(/\/[-\w]+\.\w+$/, function (req, res) {
+  const fileNameRe = /[-\w]+\.\w+$/;
   const fileNameResult = fileNameRe.exec(req.url);
   if (fileNameResult === null) {
     console.log("Attempt to access", req.url);

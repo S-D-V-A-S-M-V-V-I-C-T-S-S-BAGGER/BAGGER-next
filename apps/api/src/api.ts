@@ -27,7 +27,10 @@ const getBafkos = async (): Promise<SheetValues | null> => {
 };
 
 router.get("/bafko", async function (req, res, next) {
-  const data = await getBafkos();
+  const data = await getBafkos().catch((err) => {
+    console.error(req, err);
+    return null;
+  });
   if (data) {
     const random_index = Math.floor(Math.random() * data.length);
     const random_bafko = data[random_index];
@@ -36,7 +39,7 @@ router.get("/bafko", async function (req, res, next) {
       betekenis: random_bafko[2],
     });
   } else {
-    res.status(404).json({ error: "Could not find the sheet" });
+    res.status(500).send("Could not connect to database");
   }
 });
 

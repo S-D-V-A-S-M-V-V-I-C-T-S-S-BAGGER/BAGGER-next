@@ -11,7 +11,10 @@ const getQuotes = async function (req: Request, res: Response) {
     res,
     process.env.QUOTE_SHEET_ID!,
     process.env.QUOTE_SHEET_RANGE!,
-  );
+  ).catch((err) => {
+    console.error(req, err);
+    return null;
+  });
 
   if (values === undefined || values === null) {
     res.status(500).send("Could not connect to database");

@@ -1,11 +1,12 @@
 import { FC } from "react";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import "../../styling/baggerButton.css";
+import { getEnv } from "../../lib/environment.ts";
 
-// TODO get from env
-const API_BASE_URL = "http://localhost";
+const API_BASE_URL = getEnv().VITE_API_BASE_URL;
 // TODO get from backend code
-const AUTHORIZATION_URL_ENDPOINT_PATH = "/api/auth/authorization_url";
+const AUTHORIZATION_URL_ENDPOINT_PATH =
+  getEnv().VITE_AUTHORIZATION_URL_ENDPOINT_PATH;
 
 const LoginButton: FC = () => {
   const pathName = useLocation().pathname;

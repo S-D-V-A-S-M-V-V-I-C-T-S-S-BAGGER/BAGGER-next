@@ -2,13 +2,13 @@ import { FC, useContext } from "react";
 import "./lichtingfotos.css";
 import LichtingBubbel from "./LichtingBubbel";
 import { HoleContext } from "./Logo";
+import { getEnv } from "../../lib/environment.ts";
 
 const LichtingFotos: FC = () => {
   const { setHoleRef } = useContext(HoleContext);
 
-  // TODO fix
-  const lichtingFotoDir = "public/lichtingfotos";
-  const lichtingFotos = ["0.jpg"];
+  const lichtingFotoDir = getEnv().VITE_LICHTING_IMAGES_PATH;
+  const lichtingFotos = getEnv().VITE_LICHTING_IMAGES.split(",");
 
   const components = [];
 

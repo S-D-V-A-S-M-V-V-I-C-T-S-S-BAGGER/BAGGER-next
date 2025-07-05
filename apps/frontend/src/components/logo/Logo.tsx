@@ -8,6 +8,7 @@ import {
 import LogoBovenkant from "./LogoBovenkant";
 import LogoMidden from "./LogoMidden";
 import LogoOnderkant from "./LogoOnderkant";
+import { getEnv } from "../../lib/environment.ts";
 
 export type HoleRef = RefObject<HTMLDivElement>;
 
@@ -20,8 +21,7 @@ export const HoleContext = createContext<{
 });
 
 const Logo: FC<PropsWithChildren> = ({ children }) => {
-  // TODO fix
-  const lichtingFotos = ["0.jpg"];
+  const lichtingFotos = getEnv().VITE_LICHTING_IMAGES.split(",");
 
   const emptyHoles = [];
   for (let i = 0; i < 1 + lichtingFotos.length; i++) {

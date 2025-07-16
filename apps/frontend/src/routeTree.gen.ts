@@ -11,10 +11,17 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SitemapImport } from './routes/sitemap'
 import { Route as QuotesImport } from './routes/quotes'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const SitemapRoute = SitemapImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const QuotesRoute = QuotesImport.update({
   id: '/quotes',
@@ -46,6 +53,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuotesImport
       parentRoute: typeof rootRoute
     }
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -54,36 +68,41 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/quotes': typeof QuotesRoute
+  '/sitemap': typeof SitemapRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/quotes': typeof QuotesRoute
+  '/sitemap': typeof SitemapRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/quotes': typeof QuotesRoute
+  '/sitemap': typeof SitemapRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/quotes'
+  fullPaths: '/' | '/quotes' | '/sitemap'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/quotes'
-  id: '__root__' | '/' | '/quotes'
+  to: '/' | '/quotes' | '/sitemap'
+  id: '__root__' | '/' | '/quotes' | '/sitemap'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   QuotesRoute: typeof QuotesRoute
+  SitemapRoute: typeof SitemapRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   QuotesRoute: QuotesRoute,
+  SitemapRoute: SitemapRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +116,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/quotes"
+        "/quotes",
+        "/sitemap"
       ]
     },
     "/": {
@@ -105,6 +125,9 @@ export const routeTree = rootRoute
     },
     "/quotes": {
       "filePath": "quotes.tsx"
+    },
+    "/sitemap": {
+      "filePath": "sitemap.tsx"
     }
   }
 }

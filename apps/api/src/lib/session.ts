@@ -114,7 +114,7 @@ export async function createSession(
 
   res.cookie("session", session, cookieOptions);
 
-  res.cookie("isAuthenticated", true, {
+  res.cookie("isAuthenticated", userName, {
     expires: expiresAt,
     path: "/",
   });

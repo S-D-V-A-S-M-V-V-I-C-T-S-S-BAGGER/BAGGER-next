@@ -23,3 +23,12 @@ export type QuoteSubmit = {
   // M/D/YYYY
   date: string;
 };
+
+export type TallyEvent = {
+  id: number;
+  description: string;
+  // ISO8601, without fraction seconds e.g. '2020-04-02T08:02:17-05:00'
+  date: string;
+};
+
+export type TallyEventSubmit = Omit<TallyEvent, "id">;

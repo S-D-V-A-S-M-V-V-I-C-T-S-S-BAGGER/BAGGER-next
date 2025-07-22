@@ -11,11 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TurfImport } from './routes/turf'
 import { Route as SitemapImport } from './routes/sitemap'
 import { Route as QuotesImport } from './routes/quotes'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const TurfRoute = TurfImport.update({
+  id: '/turf',
+  path: '/turf',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const SitemapRoute = SitemapImport.update({
   id: '/sitemap',
@@ -60,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapImport
       parentRoute: typeof rootRoute
     }
+    '/turf': {
+      id: '/turf'
+      path: '/turf'
+      fullPath: '/turf'
+      preLoaderRoute: typeof TurfImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -69,12 +83,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/quotes': typeof QuotesRoute
   '/sitemap': typeof SitemapRoute
+  '/turf': typeof TurfRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/quotes': typeof QuotesRoute
   '/sitemap': typeof SitemapRoute
+  '/turf': typeof TurfRoute
 }
 
 export interface FileRoutesById {
@@ -82,14 +98,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/quotes': typeof QuotesRoute
   '/sitemap': typeof SitemapRoute
+  '/turf': typeof TurfRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/quotes' | '/sitemap'
+  fullPaths: '/' | '/quotes' | '/sitemap' | '/turf'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/quotes' | '/sitemap'
-  id: '__root__' | '/' | '/quotes' | '/sitemap'
+  to: '/' | '/quotes' | '/sitemap' | '/turf'
+  id: '__root__' | '/' | '/quotes' | '/sitemap' | '/turf'
   fileRoutesById: FileRoutesById
 }
 
@@ -97,12 +114,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   QuotesRoute: typeof QuotesRoute
   SitemapRoute: typeof SitemapRoute
+  TurfRoute: typeof TurfRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   QuotesRoute: QuotesRoute,
   SitemapRoute: SitemapRoute,
+  TurfRoute: TurfRoute,
 }
 
 export const routeTree = rootRoute
@@ -117,7 +136,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/quotes",
-        "/sitemap"
+        "/sitemap",
+        "/turf"
       ]
     },
     "/": {
@@ -128,6 +148,9 @@ export const routeTree = rootRoute
     },
     "/sitemap": {
       "filePath": "sitemap.tsx"
+    },
+    "/turf": {
+      "filePath": "turf.tsx"
     }
   }
 }

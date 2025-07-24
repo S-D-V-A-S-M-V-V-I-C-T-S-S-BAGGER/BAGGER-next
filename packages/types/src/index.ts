@@ -2,14 +2,7 @@ type QuoteDate = string;
 type QuoteName = string;
 type QuoteText = string;
 
-export type QuoteRow = [
-  // date
-  QuoteDate,
-  // name
-  QuoteName,
-  // text
-  QuoteText,
-];
+export type QuoteRow = [QuoteDate, QuoteName, QuoteText];
 
 export type Quote = {
   id: number;

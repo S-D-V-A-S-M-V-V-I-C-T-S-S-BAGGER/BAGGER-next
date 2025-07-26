@@ -10,7 +10,6 @@
     "lint": "eslint src/ --max-warnings 0"
   },
   "dependencies": {
-    "@repo/ui": "*",
     "@tanstack/react-router": "^1.120.20",
     "@tanstack/react-router-devtools": "^1.120.20",
     "react": "^18.3.1",

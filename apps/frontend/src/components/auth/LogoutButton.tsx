@@ -5,7 +5,7 @@ import { AuthContext } from "./AuthContext.ts";
 const LogoutButton: FC = () => {
   const { setAuthenticated } = useContext(AuthContext);
   const deleteSession = () => {
-    document.cookie = "isAuthenticated=false";
+    document.cookie = "isAuthenticated=;Max-Age=0";
     setAuthenticated(false);
   };
   return (

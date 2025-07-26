@@ -2,6 +2,7 @@ import { google, sheets_v4 } from "googleapis";
 import { GaxiosError, GaxiosResponse } from "gaxios";
 import { deleteSession, getSessionUser } from "./session.ts";
 import { Request, Response } from "express";
+import * as core from "express-serve-static-core";
 import { SheetContent } from "./GoogleApi.ts";
 
 async function handleAuthError<T>(
@@ -59,9 +60,13 @@ export async function getSheetValues(
   return sheetData?.data.values;
 }
 
-export async function appendSheetValues(
-  req: Request,
-  res: Response,
+export async function appendSheetValues<
+  Params extends core.ParamsDictionary,
+  ReqBody,
+  ResBody,
+>(
+  req: Request<Params, ResBody, ReqBody>,
+  res: Response<ResBody>,
   spreadsheetId: string,
   range: string,
   values: string[][],

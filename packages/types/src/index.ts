@@ -17,6 +17,11 @@ export type QuoteSubmit = {
   date: string;
 };
 
+type TallyEventDescription = string;
+type TallyEventDate = string;
+
+export type TallyEventRow = [TallyEventDate, TallyEventDescription];
+
 export type TallyEvent = {
   id: number;
   description: string;
@@ -25,3 +30,16 @@ export type TallyEvent = {
 };
 
 export type TallyEventSubmit = Omit<TallyEvent, "id">;
+
+export type TallyEntry = {
+  name: string;
+  price: number;
+  amount: number;
+};
+
+export type TallyRowSubmit = {
+  person: string;
+  eventId: number;
+  total: number;
+  entries: TallyEntry[];
+};

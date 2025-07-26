@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect } from "react";
 import { useLocalStorage } from "../../lib/useLocalStorage.ts";
 import { AuthContext } from "../auth/AuthContext.ts";
-import { TallyEvent } from "@repo/types";
+import { TallyEvent, TallyRowSubmit } from "@repo/types";
 import TallyReview from "./pages/review/TallyReview.tsx";
 import TallyEventList from "./pages/event/TallyEventList.tsx";
 import { addTallyEntry } from "../../api/tally.ts";
@@ -62,20 +62,14 @@ const Tally: FC = () => {
 
   const submitTally = async () => {
     if (tallyTotal > 0) {
-      const tallyPerson = userName;
-      const additionalEntries: string[] = tallyEntries.flatMap((entry) => [
-        entry.name,
-        entry.price.toString(),
-        entry.amount.toString(),
-      ]);
-      await addTallyEntry([
-        [
-          tallyPerson ?? "error",
-          tallyEvent?.id?.toString() ?? "error",
-          tallyTotal?.toString() ?? "error",
-          ...additionalEntries,
-        ],
-      ])
+      const rowSubmit: TallyRowSubmit = {
+        person: userName ?? "error",
+        eventId: tallyEvent?.id ?? -1,
+        total: tallyTotal,
+        entries: tallyEntries,
+      };
+
+      await addTallyEntry(rowSubmit)
         .catch((err: unknown) => {
           console.log("Add pages row error:", err);
         })

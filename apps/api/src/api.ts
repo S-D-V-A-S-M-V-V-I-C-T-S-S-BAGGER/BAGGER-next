@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import { getSheetValues, SheetValues } from "./lib/GoogleApi.ts";
 import quotesRouter from "./api/quotes.ts";
+import tallyRouter from "./api/tally.ts";
 
 dayjs.extend(weekOfYear);
 
@@ -44,5 +45,6 @@ router.get("/bafko", async function (req, res, next) {
 });
 
 router.use("/quotes", quotesRouter);
+router.use("/tally", tallyRouter);
 
 export default router;

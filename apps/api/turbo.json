@@ -17,7 +17,10 @@
         "COOKIE_SIGN_SECRET",
         "QUOTE_SHEET_ID",
         "QUOTE_SHEET_RANGE",
-        "PUBLIC_FOLDER_PATH"
+        "PUBLIC_FOLDER_PATH",
+        "TURF_SHEET_ID",
+        "TURF_SHEET_RANGE",
+        "TURF_EVENT_SHEET_RANGE"
       ],
       "outputs": ["dist/**"]
     },
@@ -38,7 +41,10 @@
         "COOKIE_SIGN_SECRET",
         "QUOTE_SHEET_ID",
         "QUOTE_SHEET_RANGE",
-        "PUBLIC_FOLDER_PATH"
+        "PUBLIC_FOLDER_PATH",
+        "TURF_SHEET_ID",
+        "TURF_SHEET_RANGE",
+        "TURF_EVENT_SHEET_RANGE"
       ]
     }
   }

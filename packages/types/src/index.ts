@@ -2,7 +2,7 @@ type QuoteDate = string;
 type QuoteName = string;
 type QuoteText = string;
 
-export type QuoteRow = [QuoteDate, QuoteName, QuoteText];
+export type QuoteSheetRow = [QuoteDate, QuoteName, QuoteText];
 
 export type Quote = {
   id: number;
@@ -20,7 +20,7 @@ export type QuoteSubmit = {
 type TallyEventDescription = string;
 type TallyEventDate = string;
 
-export type TallyEventRow = [TallyEventDate, TallyEventDescription];
+export type TallyEventSheetRow = [TallyEventDate, TallyEventDescription];
 
 export type TallyEvent = {
   id: number;
@@ -30,6 +30,28 @@ export type TallyEvent = {
 };
 
 export type TallyEventSubmit = Omit<TallyEvent, "id">;
+
+type TallyRowPerson = string;
+type TallyRowEventId = number;
+type TallyRowTotal = number;
+
+type TallyEntryName = string;
+type TallyEntryPrice = number;
+type TallyEntryAmount = number;
+
+// TODO recurse https://catchts.com/even-length#recursive_pattern
+export type TallyEntrySheetRow = [
+  TallyEntryName,
+  TallyEntryPrice,
+  TallyEntryAmount,
+];
+
+export type TallyRowSheetRow = [
+  TallyRowPerson,
+  TallyRowEventId,
+  TallyRowTotal,
+  ...Array<TallyEntrySheetRow[number]>,
+];
 
 export type TallyEntry = {
   name: string;

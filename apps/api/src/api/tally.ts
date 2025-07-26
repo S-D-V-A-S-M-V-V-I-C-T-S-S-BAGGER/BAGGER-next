@@ -1,7 +1,9 @@
 import {
+  TallyEntrySheetRow,
   TallyEvent,
-  TallyEventRow,
+  TallyEventSheetRow,
   TallyEventSubmit,
+  TallyRowSheetRow,
   TallyRowSubmit,
 } from "@repo/types";
 import express, { Request, Response } from "express";
@@ -13,17 +15,14 @@ type TallySubmitRequest = Request<never, string, TallyRowSubmit, never, never>;
 
 router.post("/entries", async function (req: TallySubmitRequest, res) {
   const tallyRow = req.body;
-  const entryStrings = tallyRow.entries.flatMap((entry) => [
-    entry.name,
-    entry.price.toFixed(),
-    entry.amount.toFixed(),
-  ]);
+  const entryStrings = tallyRow.entries.flatMap(
+    (entry): TallyEntrySheetRow => [entry.name, entry.price, entry.amount],
+  );
 
-  // TODO add type
-  const row: string[] = [
+  const row: TallyRowSheetRow = [
     tallyRow.person,
-    tallyRow.eventId.toFixed(),
-    tallyRow.total.toFixed(),
+    tallyRow.eventId,
+    tallyRow.total,
     ...entryStrings,
   ];
 
@@ -57,7 +56,7 @@ const getTallyEvents = async function (
     return;
   }
 
-  const response: TallyEvent[] = (values as TallyEventRow[]).map(
+  const response: TallyEvent[] = (values as TallyEventSheetRow[]).map(
     (value, index) => {
       const [date, description] = value;
       return {
@@ -84,7 +83,7 @@ type TallyEventSubmitRequest = Request<
 router.post("/events", async function (req: TallyEventSubmitRequest, res) {
   const tallyevent = req.body;
 
-  const row: TallyEventRow = [tallyevent.date, tallyevent.description];
+  const row: TallyEventSheetRow = [tallyevent.date, tallyevent.description];
 
   await appendSheetValues(
     req,

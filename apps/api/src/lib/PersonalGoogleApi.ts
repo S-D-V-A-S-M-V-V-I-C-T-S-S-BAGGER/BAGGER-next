@@ -69,7 +69,7 @@ export async function appendSheetValues<
   res: Response<ResBody>,
   spreadsheetId: string,
   range: string,
-  values: string[][],
+  values: unknown[][],
   valueInputOption: "RAW" | "USER_ENTERED" = "RAW",
 ) {
   const sessionUser = await getSessionUser(req);

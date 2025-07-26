@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { appendSheetValues, getSheetValues } from "../lib/PersonalGoogleApi.ts";
-import { Quote, QuoteSubmit, QuoteRow } from "@repo/types";
+import { Quote, QuoteSubmit, QuoteSheetRow } from "@repo/types";
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ const getQuotes = async function (req: Request, res: Response) {
     return;
   }
 
-  const response: Quote[] = (values as QuoteRow[]).map((value, index) => {
+  const response: Quote[] = (values as QuoteSheetRow[]).map((value, index) => {
     const [date, name, text] = value;
     return {
       id: index,
@@ -38,7 +38,7 @@ router.get("/", getQuotes);
 router.post("/", async function (req: QuoteSubmitRequest, res, next) {
   const quote = req.body;
 
-  const row = [quote.date, quote.name, quote.text];
+  const row: QuoteSheetRow = [quote.date, quote.name, quote.text];
 
   await appendSheetValues(
     req,
@@ -51,6 +51,12 @@ router.post("/", async function (req: QuoteSubmitRequest, res, next) {
   await getQuotes(req, res);
 });
 
-type QuoteSubmitRequest = Request<never, QuoteRow[], QuoteSubmit, never, never>;
+type QuoteSubmitRequest = Request<
+  never,
+  QuoteSheetRow[],
+  QuoteSubmit,
+  never,
+  never
+>;
 
 export default router;

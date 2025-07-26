@@ -45,9 +45,13 @@ const TallyEventList: FC<TallyEventListProps> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getTallyEvents()
-      .then((res) => setTallyEvents(deserializeAndSortTallyEvents(res)))
-      .finally(() => setLoading(false));
+    if (isAuthenticated) {
+      getTallyEvents()
+        .then((res) => setTallyEvents(deserializeAndSortTallyEvents(res)))
+        .finally(() => setLoading(false));
+    } else {
+      setTallyEvents([]);
+    }
   }, [isAuthenticated]);
 
   const parsedTallyEvents = tallyEvents;

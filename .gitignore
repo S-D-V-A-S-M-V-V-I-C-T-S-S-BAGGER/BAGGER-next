@@ -20,3 +20,5 @@ public/dist
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+/apps/frontend/.env.build
+/apps/api/.env.prod

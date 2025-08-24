@@ -8,6 +8,7 @@ FROM base AS builder
 WORKDIR /app
 RUN corepack yarn global add turbo
 COPY . .
+RUN turbo telemetry disable
 RUN turbo prune frontend --docker
 
 # Add lockfile and package.json's of isolated subworkspace

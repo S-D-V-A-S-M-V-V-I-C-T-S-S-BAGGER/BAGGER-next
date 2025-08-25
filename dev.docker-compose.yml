@@ -1,0 +1,36 @@
+services:
+  frontend:
+    container_name: bagger-website
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    restart: unless-stopped
+    networks:
+      - bagger-network
+      - clearnet
+    ports:
+      - "80:8000"
+    depends_on:
+      backend:
+        condition: service_started
+
+  backend:
+    container_name: bagger-backend
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./apps/api/public/lichtingfotos:/app/apps/api/public/lichtingfotos:ro
+    env_file: apps/api/.env.dev
+    networks:
+      - bagger-network
+      - clearnet
+
+networks:
+  bagger-network:
+    internal: true
+    external: true
+  clearnet:
+    external: true
+    driver: bridge
